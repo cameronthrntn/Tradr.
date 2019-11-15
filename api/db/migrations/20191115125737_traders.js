@@ -12,6 +12,9 @@ exports.up = function(knex) {
     tradersTable.integer('score').defaultsTo(0);
     tradersTable.string('website').defaultsTo('n/a');
     tradersTable.string('trade').notNullable();
+    tradersTable
+      .string('avatar_ref')
+      .defaultsTo('./api/data/dev/img/default-avatar.png');
   });
 };
 
