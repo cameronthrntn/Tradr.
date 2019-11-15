@@ -6,10 +6,8 @@ exports.up = function(knex) {
     usersTable.string('last_name').notNullable();
     usersTable
       .string('avatar_ref')
-      .defaultTo(
-        'https://everydaynutrition.co.uk/wp-content/uploads/2015/01/default-user-avatar.png'
-      );
-    usersTable.timestamp().notNullable();
+      .defaultTo('../data/dev/img/default-avatar.png');
+    usersTable.timestamp('dob').notNullable();
   });
 };
 
