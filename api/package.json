@@ -4,6 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "migrate-make": "knex migrate:make",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
