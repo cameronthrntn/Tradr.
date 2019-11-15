@@ -13,7 +13,7 @@ describe('/api', () => {
   describe('traders', () => {
     describe('GET', () => {
       describe(':)', () => {
-        it('responds with status 200 and array of trader objects', () => {
+        it('Status 200: responds with array of trader objects', () => {
           return request(app)
             .get('/api/traders')
             .expect(200)
@@ -27,7 +27,7 @@ describe('/api', () => {
     });
     describe('POST', () => {
       describe(':)', () => {
-        it('responds with status 201 and created trader object', () => {
+        it('Status 201: responds with created trader object', () => {
           return request(app)
             .post('/api/traders')
             .send({
@@ -41,6 +41,7 @@ describe('/api', () => {
             .then(({ body }) => {
               expect(body.trader).to.contain.keys(
                 'username',
+                'password',
                 'first_name',
                 'last_name',
                 'longitude',
@@ -61,7 +62,7 @@ describe('/api', () => {
     describe('/:username', () => {
       describe('GET', () => {
         describe(':)', () => {
-          it('responds with status 200 and requested trader object', () => {
+          it('Status 200: responds with requested trader object', () => {
             return request(app)
               .get('/api/traders/kitlets')
               .expect(200)
@@ -70,11 +71,11 @@ describe('/api', () => {
               });
           });
         });
-        describe(':(', () => {});
+        describe('Error Handling', () => {});
       });
       describe('PATCH', () => {
         describe(':)', () => {
-          it('responds with status 200 and updated trader object', () => {
+          it('Status 200: responds with updated trader object', () => {
             return request(app)
               .patch('/api/traders/kitlet')
               .send({
