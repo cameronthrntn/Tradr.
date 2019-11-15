@@ -9,6 +9,7 @@ exports.up = function(knex) {
     tradersTable.float('longitude').notNullable();
     tradersTable.float('latitude').notNullable();
     tradersTable.integer('rate').defaultsTo('negotiable');
+    tradersTable.timestamp('dob').notNullable();
     tradersTable.integer('score').defaultsTo(0);
     tradersTable.string('website').defaultsTo('n/a');
     tradersTable.string('trade').notNullable();
