@@ -1,5 +1,5 @@
 const { DB_URL } = process.env;
-const ENV = process.env.NODE_ENV || 'development';
+const ENV = process.env.NODE_ENV || 'test';
 const creds = ENV === 'production' ? null : require('./db/config');
 
 const baseConfig = {

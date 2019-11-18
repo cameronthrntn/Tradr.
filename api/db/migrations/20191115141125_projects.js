@@ -1,8 +1,8 @@
 exports.up = function(knex) {
   return knex.schema.createTable('projects', projectsTable => {
     projectsTable.increments('project_id').primary();
-    projectsTable.float('longitude').notNullable();
-    projectsTable.float('latitude').notNullable();
+    projectsTable.float('lng').notNullable();
+    projectsTable.float('lat').notNullable();
     projectsTable
       .string('username')
       .references('users.username')
