@@ -5,8 +5,9 @@ exports.selectAllTraders = (
   order = 'desc',
   trade,
   rate,
-  location,
-  score
+  distance,
+  score,
+  project_id
 ) => {
   return connection
     .select('*')
@@ -17,13 +18,22 @@ exports.selectAllTraders = (
       if (rate) query.where('traders.rate', '=', rate);
       if (score) query.where('traders.score', '=', score);
     })
-    .returning('*');
+    .then(traders => {
+      if (distance) {
+        return connection
+          .select('lat', 'lng')
+          .from('projects')
+          .where('projects.project_id', '=', project_id);
+      }
+    })
+    .then(stuff => {
+      console.log(stuff.project, stuff.traders.length);
+    });
 };
 
 exports.selectTraderByUsername = username => {
   return connection
     .select('*')
     .from('traders')
-    .where('traders.username', '=', username)
-    .returning('*');
+    .where('traders.username', '=', username);
 };
