@@ -2,11 +2,10 @@ const { connection } = require('../db/connection');
 
 exports.selectAllProjects = ({
   sort_by = 'start_date',
-  order = 'asc',
+  order = 'desc',
   username,
   status,
-  trader,
-  project_id
+  trader
 }) => {
   return connection
     .select('*')
@@ -15,7 +14,6 @@ exports.selectAllProjects = ({
     .modify(modifier => {
       if (username) modifier.where('username', '=', username);
       if (status) modifier.where('status', '=', status);
-      if (project_id) modifier.where('project_id', '=', project_id);
       if (trader)
         modifier
           .select('*')
@@ -28,4 +26,10 @@ exports.selectAllProjects = ({
           )
           .where('traders-projects-junction.trader_username', '=', trader);
     });
+};
+
+exports.insertNewProject = ({ body }) => {
+  return connection('projects')
+    .insert(body)
+    .returning('*');
 };
