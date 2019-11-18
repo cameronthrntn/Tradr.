@@ -1,7 +1,7 @@
 exports.up = function(knex) {
   return knex.schema.createTable('projects', projectsTable => {
     projectsTable.increments('project_id').primary();
-    projectsTable.float('long').notNullable();
+    projectsTable.float('lng').notNullable();
     projectsTable.float('lat').notNullable();
     projectsTable
       .string('username')

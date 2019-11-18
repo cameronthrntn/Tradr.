@@ -6,7 +6,7 @@ exports.up = function(knex) {
       .notNullable();
     tradersTable.string('first_name').notNullable();
     tradersTable.string('last_name').notNullable();
-    tradersTable.float('long').notNullable();
+    tradersTable.float('lng').notNullable();
     tradersTable.float('lat').notNullable();
     tradersTable.integer('rate').defaultsTo(0);
     tradersTable.timestamp('dob').notNullable();
