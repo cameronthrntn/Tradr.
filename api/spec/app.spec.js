@@ -162,7 +162,7 @@ describe('/api', () => {
   });
   describe('/projects', () => {
     describe('GET', () => {
-      it.only('Status 200: returns an array of project Objects containing specific keys', () => {
+      it('Status 200: returns an array of project Objects containing specific keys', () => {
         return request(app)
           .get('/api/projects')
           .expect(200)
@@ -179,6 +179,54 @@ describe('/api', () => {
               'title',
               'username'
             );
+          });
+      });
+      it('Status 200: returns an array of projects that are sorted in descending order by start date as default', () => {
+        return request(app)
+          .get('/api/projects')
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.projects).to.be.descendingBy('start_date');
+          });
+      });
+      it('Status 200: returns an array of projects that are filtered by username', () => {
+        return request(app)
+          .get('/api/projects?username=By-Tor2114')
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.projects[0].username).to.equal('By-Tor2114');
+          });
+      });
+      it('Status 200: returns an array of projects that are filtered by status', () => {
+        return request(app)
+          .get('/api/projects?status=in progress')
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.projects[0].status).to.equal('in progress');
+          });
+      });
+    });
+    describe('POST', () => {
+      it('Status 201: responds with a created project object', () => {
+        return request(app)
+          .post('/api/projects')
+          .send({
+            lng: 53.795227,
+            lat: -1.545038,
+            username: 'By-Tor2114',
+            title: 'swimming pool',
+            start_date: '03/12/2020',
+            end_date: '01/12/2021'
+          })
+          .expect(201)
+          .then(({ body }) => {
+            expect(body.project[0].start_date).to.equal(
+              '2020-12-03T00:00:00.000Z'
+            );
+            expect(body.project[0].end_date).to.equal(
+              '2021-12-01T00:00:00.000Z'
+            );
+            expect(body.project[0].status).to.equal('in progress');
           });
       });
     });
