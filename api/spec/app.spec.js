@@ -51,6 +51,30 @@ describe('/api', () => {
               });
             });
         });
+        it('traders array contains only those with given trade in query', () => {
+          return request(app)
+            .get('/api/traders?trade=plumber')
+            .expect(200)
+            .then(({ body }) => {
+              expect(body.traders.length).to.equal(1);
+            });
+        });
+        it('traders array can be quiered by score', () => {
+          return request(app)
+            .get('/api/traders?score=3.8')
+            .expect(200)
+            .then(({ body }) => {
+              expect(body.traders.length).to.equal(1);
+            });
+        });
+        it('traders array can be quiered by rate', () => {
+          return request(app)
+            .get('/api/traders?rate=120')
+            .expect(200)
+            .then(({ body }) => {
+              expect(body.traders.length).to.equal(1);
+            });
+        });
       });
       describe('Error Handling', () => {});
     });
