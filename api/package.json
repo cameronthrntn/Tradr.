@@ -6,8 +6,9 @@
   "scripts": {
     "migrate-make": "knex migrate:make",
     "seed-test": "NODE_ENV=test knex seed:run",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "setup-dbs": "psql -f ./db/setup.sql"
+    "test": "mocha spec/app.spec.js",
+    "setup-dbs": "psql -f ./db/setup.sql",
+    "mon": "nodemon listen.js"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +22,7 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "^6.2.2",
+    "nodemon": "^1.19.4",
     "supertest": "^4.0.2"
   }
 }
