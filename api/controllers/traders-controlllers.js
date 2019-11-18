@@ -3,10 +3,14 @@ const {
   selectTraderByUsername,
   updateTrader,
   addTrader
-} = require('../models/traders');
+} = require('../models/traders-models');
 
 exports.getAllTraders = (req, res, next) => {
-  selectAllTraders().then(traders => {
+  const { sort_by } = req.query;
+  let order;
+  if (sort_by) order = 'asc';
+
+  selectAllTraders(sort_by, order).then(traders => {
     res.status(200).send({ traders });
   });
 };

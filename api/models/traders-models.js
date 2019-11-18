@@ -1,9 +1,10 @@
 const { connection } = require('../db/connection');
 
-exports.selectAllTraders = () => {
+exports.selectAllTraders = (sort_by = 'score', order = 'desc') => {
   return connection
     .select('*')
     .from('traders')
+    .orderBy(sort_by, order)
     .returning('*');
 };
 
