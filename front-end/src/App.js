@@ -4,15 +4,21 @@ import './styles/App.css';
 import Header from './components/Header';
 import LandingPage from './components/LandingPage';
 import TraderMap from './components/TraderMap';
+import { ThemeProvider } from 'styled-components';
 
 function App() {
+  const theme = {
+    orange: '#f77123'
+  };
   return (
     <div className="App">
-      <Header />
-      <Router>
-        <LandingPage path="/" />
-        <TraderMap path="/traders" />
-      </Router>
+      <ThemeProvider theme={theme}>
+        <Header />
+        <Router>
+          <LandingPage path="/" />
+          <TraderMap path="/traders" />
+        </Router>
+      </ThemeProvider>
     </div>
   );
 }
