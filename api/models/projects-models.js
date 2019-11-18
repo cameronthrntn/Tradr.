@@ -5,7 +5,8 @@ exports.selectAllProjects = ({
   order = 'asc',
   username,
   status,
-  trader
+  trader,
+  project_id
 }) => {
   return connection
     .select('*')
@@ -14,6 +15,7 @@ exports.selectAllProjects = ({
     .modify(modifier => {
       if (username) modifier.where('username', '=', username);
       if (status) modifier.where('status', '=', status);
+      if (project_id) modifier.where('project_id', '=', project_id);
       if (trader)
         modifier
           .select('*')
