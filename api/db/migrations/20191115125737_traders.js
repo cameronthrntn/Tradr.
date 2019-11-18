@@ -15,7 +15,7 @@ exports.up = function(knex) {
     tradersTable.string('trade').notNullable();
     tradersTable
       .string('avatar_ref')
-      .defaultsTo('./api/data/dev/img/default-avatar.png');
+      .defaultsTo('/api/data/dev/img/default-avatar.png');
   });
 };
 
