@@ -62,3 +62,6 @@ typings/
 
 #db config
 config.js
+
+#package-lock
+package-lock.json
