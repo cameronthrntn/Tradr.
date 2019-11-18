@@ -1,7 +1,7 @@
 module.exports = [
   {
     lat: 53.795227,
-    long: -1.545038,
+    lng: -1.545038,
     username: 'By-Tor2114',
     title: `BJ's new bathroom`,
     start_date: new Date('01/08/2019'),
@@ -9,7 +9,7 @@ module.exports = [
   },
   {
     lat: 53.795227,
-    long: -1.545038,
+    lng: -1.545038,
     username: 'BenRut',
     title: `Ben's leeds cabin`,
     start_date: new Date('03/08/2016'),
@@ -17,7 +17,7 @@ module.exports = [
   },
   {
     lat: 48.781533,
-    long: 0.302069,
+    lng: 0.302069,
     username: 'BenRut',
     title: `Ben's french cabin`,
     start_date: new Date('07/08/2020'),

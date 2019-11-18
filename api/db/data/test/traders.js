@@ -4,7 +4,7 @@ module.exports = [
     first_name: 'Aaron',
     last_name: 'Stanton',
     lat: 53.795227,
-    long: -1.545038,
+    lng: -1.545038,
     avatar_ref: 'api/db/data/test/Images/18889192-plumber.jpg',
     rate: 230,
     dob: new Date('05/21/1984'),
@@ -17,7 +17,7 @@ module.exports = [
     first_name: 'Cameron',
     last_name: 'Thornton',
     lat: 53.800755,
-    long: -1.549077,
+    lng: -1.549077,
     avatar_ref:
       'api/db/data/test/Images/happy-builder-thumbs-up-gesture-24867011.jpg',
     rate: 190,
@@ -31,7 +31,7 @@ module.exports = [
     first_name: 'Ima',
     last_name: 'Painter',
     lat: 53.801744,
-    long: -1.538482,
+    lng: -1.538482,
     avatar_ref:
       'api/db/data/test/Images/14067112-portrait-of-a-friendly-painter.jpg',
     rate: 120,
