@@ -6,19 +6,8 @@ const {
 } = require('../models/traders-models');
 
 exports.getAllTraders = (req, res, next) => {
-  const { sort_by, trade, rate, distance, score, project_id } = req.query;
-  let order;
-  if (sort_by) order = 'asc';
-
-  selectAllTraders(
-    sort_by,
-    order,
-    trade,
-    rate,
-    distance,
-    score,
-    project_id
-  ).then(traders => {
+  if (req.query.sort_by) req.query.order = 'asc';
+  selectAllTraders(req.query).then(traders => {
     res.status(200).send({ traders });
   });
 };
