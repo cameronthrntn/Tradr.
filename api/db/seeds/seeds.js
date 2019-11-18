@@ -22,5 +22,13 @@ exports.seed = function(knex) {
         .into('traders')
         .returning('*');
     })
-    .then(res => {});
+    .then(res => {
+      return knex
+        .insert(projectsData)
+        .into('projects')
+        .returning('*');
+    })
+    .then(res => {
+      console.log(res);
+    });
 };
