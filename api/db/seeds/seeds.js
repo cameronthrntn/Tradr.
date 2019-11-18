@@ -29,6 +29,15 @@ exports.seed = function(knex) {
         .returning('*');
     })
     .then(res => {
-      console.log(res);
+      return knex
+        .insert(projectsTradersData)
+        .into('traders-projects-junction')
+        .return('*');
+    })
+    .then(res => {
+      return knex
+        .insert(imagesData)
+        .into('images')
+        .return('*');
     });
 };
