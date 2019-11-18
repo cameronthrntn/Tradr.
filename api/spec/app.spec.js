@@ -10,12 +10,12 @@ beforeEach(() => connection.seed.run());
 after(() => connection.destroy());
 
 describe('/api', () => {
-  describe('/traders', () => {
+  xdescribe('/traders', () => {
     describe('GET', () => {
       describe('OK', () => {
-        it('Status 200: responds with array of trader objects', () => {
+        it.only('Status 200: responds with array of trader objects', () => {
           return request(app)
-            .get('/api/traders')
+            .get('/api/traders?project_id=1')
             .expect(200)
             .then(({ body }) => {
               expect(body.traders.length).to.equal(3);
