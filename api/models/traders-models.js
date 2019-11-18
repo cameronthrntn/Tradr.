@@ -5,7 +5,7 @@ exports.selectAllTraders = (
   order = 'desc',
   trade,
   rate,
-  location,
+  distance,
   score
 ) => {
   return connection
@@ -17,13 +17,15 @@ exports.selectAllTraders = (
       if (rate) query.where('traders.rate', '=', rate);
       if (score) query.where('traders.score', '=', score);
     })
-    .returning('*');
+    .then(traders => {
+      if (distance) {
+      }
+    });
 };
 
 exports.selectTraderByUsername = username => {
   return connection
     .select('*')
     .from('traders')
-    .where('traders.username', '=', username)
-    .returning('*');
+    .where('traders.username', '=', username);
 };
