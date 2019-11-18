@@ -4,7 +4,7 @@ const {
   patchTrader,
   getAllTraders,
   getTraderByUsername
-} = require('../controllers/traders');
+} = require('../controllers/traders-controlllers');
 const { handle405s } = require('../errors');
 
 tradersRouter
