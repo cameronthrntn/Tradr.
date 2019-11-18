@@ -5,8 +5,13 @@ exports.up = function(knex) {
       tradersProjectsJunction
         .string('trader_username')
         .references('traders.username');
+      tradersProjectsJunction
+        .integer('project_id')
+        .references('projects.project_id');
     }
   );
 };
 
-exports.down = function(knex) {};
+exports.down = function(knex) {
+  return knex.schema.dropTable('traders-projects-junction');
+};
