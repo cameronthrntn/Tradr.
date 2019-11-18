@@ -1,3 +1,8 @@
 const { connection } = require('../db/connection');
 
-return connection.select('*').from('projects');
+exports.selectAllProjects = () => {
+  return connection
+    .select('*')
+    .from('projects')
+    .returning('*');
+};

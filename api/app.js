@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const apiRouter = require('./routes/api-router');
-// const { handleSQLError } = require('./errors');
+const { handle400s, handle405s, handle500s } = require('./errors');
 const cors = require('cors');
 
 app.use(express.json());
@@ -12,6 +12,8 @@ app.all('/*', (req, res, next) =>
   res.status(404).send({ msg: 'Route not found' })
 );
 
-// app.use(handleSQLError);
+app.use(handle400s);
+app.use(handle405s);
+app.use(handle500s);
 
 module.exports = { app };
