@@ -2,15 +2,16 @@ const { connection } = require('../db/connection');
 const { getDistances } = require('../utils');
 
 exports.selectAllTraders = async (
+
   sort_by = 'score',
   order = 'desc',
   trade,
-  rate,
   distance = 20,
   score,
   project_id
 ) => {
   let traders = await connection
+
     .select('*')
     .from('traders')
     .orderBy(sort_by, order)
