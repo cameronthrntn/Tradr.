@@ -2,7 +2,7 @@ process.env.NODE_ENV = 'test';
 const { app } = require('../app');
 const chai = require('chai');
 const expect = chai.expect;
-// chai.use(require('chai-sorted'));
+chai.use(require('chai-sorted'));
 const request = require('supertest');
 const { connection } = require('../db/connection');
 
@@ -12,21 +12,74 @@ after(() => connection.destroy());
 describe('/api', () => {
   describe('traders', () => {
     describe('GET', () => {
-      describe(':)', () => {
+      describe('OK', () => {
         it('Status 200: responds with array of trader objects', () => {
           return request(app)
             .get('/api/traders')
             .expect(200)
             .then(({ body }) => {
               expect(body.traders.length).to.equal(3);
-              expect(body.traders[0].username).to.equal('kitlets');
+            });
+        });
+        it('Traders are sorted by score as a default in descending order', () => {
+          return request(app)
+            .get('/api/traders')
+            .expect(200)
+            .then(({ body }) => {
+              expect(body.traders).to.be.sortedBy('score', {
+                descending: true
+              });
+            });
+        });
+        xit('when sorting query is distance, articles array is sorted by given distance in ascending order', () => {
+          return request(app)
+            .get('/api/traders?sort_by=distance')
+            .expect(200)
+            .then(({ body }) => {
+              expect(body.articles).to.be.sortedBy('distance', {
+                descending: false
+              });
+            });
+        });
+        it('when sorting query is rate, articles array is sorted by given rate in ascending order', () => {
+          return request(app)
+            .get('/api/traders?sort_by=rate')
+            .expect(200)
+            .then(({ body }) => {
+              expect(body.traders).to.be.sortedBy('rate', {
+                descending: false
+              });
+            });
+        });
+        it('traders array contains only those with given trade in query', () => {
+          return request(app)
+            .get('/api/traders?trade=plumber')
+            .expect(200)
+            .then(({ body }) => {
+              expect(body.traders.length).to.equal(1);
+            });
+        });
+        it('traders array can be quiered by score', () => {
+          return request(app)
+            .get('/api/traders?score=3.8')
+            .expect(200)
+            .then(({ body }) => {
+              expect(body.traders.length).to.equal(1);
+            });
+        });
+        it('traders array can be quiered by rate', () => {
+          return request(app)
+            .get('/api/traders?rate=120')
+            .expect(200)
+            .then(({ body }) => {
+              expect(body.traders.length).to.equal(1);
             });
         });
       });
-      describe(':(', () => {});
+      describe('Error Handling', () => {});
     });
     describe('POST', () => {
-      describe(':)', () => {
+      describe('OK', () => {
         it('Status 201: responds with created trader object', () => {
           return request(app)
             .post('/api/traders')
@@ -57,11 +110,11 @@ describe('/api', () => {
             });
         });
       });
-      describe(':(', () => {});
+      describe('Error Handling', () => {});
     });
     describe('/:username', () => {
       describe('GET', () => {
-        describe(':)', () => {
+        describe('OK', () => {
           it('Status 200: responds with requested trader object', () => {
             return request(app)
               .get('/api/traders/kitlets')
@@ -74,7 +127,7 @@ describe('/api', () => {
         describe('Error Handling', () => {});
       });
       describe('PATCH', () => {
-        describe(':)', () => {
+        describe('OK', () => {
           it('Status 200: responds with updated trader object', () => {
             return request(app)
               .patch('/api/traders/kitlet')
@@ -103,7 +156,7 @@ describe('/api', () => {
               });
           });
         });
-        describe(':(', () => {});
+        describe('Error Handling', () => {});
       });
     });
   });
