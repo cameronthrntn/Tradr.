@@ -10,7 +10,7 @@ beforeEach(() => connection.seed.run());
 after(() => connection.destroy());
 
 describe('/api', () => {
-  describe('traders', () => {
+  describe('/traders', () => {
     describe('GET', () => {
       describe('OK', () => {
         it('Status 200: responds with array of trader objects', () => {
@@ -157,6 +157,29 @@ describe('/api', () => {
           });
         });
         describe('Error Handling', () => {});
+      });
+    });
+  });
+  describe('/projects', () => {
+    describe('GET', () => {
+      it.only('Status 200: returns an array of project Objects containing specific keys', () => {
+        return request(app)
+          .get('/api/projects')
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.projects).to.be.an('array');
+            expect(body.projects[0]).to.be.an('object');
+            expect(body.projects[0]).to.contain.keys(
+              'end_date',
+              'lat',
+              'lng',
+              'project_id',
+              'start_date',
+              'status',
+              'title',
+              'username'
+            );
+          });
       });
     });
   });
