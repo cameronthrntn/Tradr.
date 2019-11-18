@@ -1,10 +1,10 @@
 process.env.NODE_ENV = 'test';
-const app = require('../app');
+const { app } = require('../app');
 const chai = require('chai');
 const expect = chai.expect;
 // chai.use(require('chai-sorted'));
 const request = require('supertest');
-const connection = require('../db/connection');
+const { connection } = require('../db/connection');
 
 beforeEach(() => connection.seed.run());
 after(() => connection.destroy());
@@ -18,7 +18,7 @@ describe('/api', () => {
             .get('/api/traders')
             .expect(200)
             .then(({ body }) => {
-              expect(body.traders).length.to.equal(3);
+              expect(body.traders.length).to.equal(3);
               expect(body.traders[0].username).to.equal('kitlets');
             });
         });
