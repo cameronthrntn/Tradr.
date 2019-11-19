@@ -59,7 +59,7 @@ describe('/api', () => {
               expect(body.traders.length).to.equal(1);
             });
         });
-        it('traders array can be quiered by score', () => {
+        it('traders array can be queried by score', () => {
           return request(app)
             .get('/api/traders?score=3.8&project_id=1')
             .expect(200)
@@ -67,9 +67,9 @@ describe('/api', () => {
               expect(body.traders.length).to.equal(1);
             });
         });
-        it('traders array can be quiered by rate', () => {
+        it('traders array can be queried by rate', () => {
           return request(app)
-            .get('/api/traders?rate=120&project_id=1')
+            .get('/api/traders?upper_rate=120&project_id=1')
             .expect(200)
             .then(({ body }) => {
               expect(body.traders.length).to.equal(1);
@@ -262,7 +262,7 @@ describe('/api', () => {
     });
   });
 
-  describe.only('/api/users', () => {
+  describe('/api/users', () => {
     describe('POST', () => {
       it('Status 201: Creates a new user object and returns that object', () => {
         return request(app)
@@ -279,6 +279,38 @@ describe('/api', () => {
             expect(body.user[0].avatar_ref).to.equal(
               './api/data/dev/img/default-avatar.png'
             );
+          });
+      });
+    });
+  });
+
+  describe('/api/users/:username', () => {
+    describe('PATCH', () => {
+      it('Status 200: Returns an updated user object when supplied a new first name', () => {
+        return request(app)
+          .patch('/api/users/By-Tor2114')
+          .send({ first_name: 'Benji' })
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.user[0].first_name).to.equal('Benji');
+          });
+      });
+      it('Status 200: Returns an updated user object when supplied a new last name', () => {
+        return request(app)
+          .patch('/api/users/By-Tor2114')
+          .send({ last_name: 'Weitz' })
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.user[0].last_name).to.equal('Weitz');
+          });
+      });
+      it('Status 200: Returns an updated user object when supplied a new avatar ref', () => {
+        return request(app)
+          .patch('/api/users/By-Tor2114')
+          .send({ avatar_ref: 'www.google.com' })
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.user[0].avatar_ref).to.equal('www.google.com');
           });
       });
     });
