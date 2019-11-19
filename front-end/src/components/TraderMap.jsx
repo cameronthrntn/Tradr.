@@ -56,7 +56,6 @@ export default class TraderMap extends Component {
     const MapWrapper = styled.div`
       height: 95vh;
       width: 80%;
-
     `;
     const TraderWrapper = styled.div`
       height: 95vh;
@@ -95,6 +94,8 @@ export default class TraderMap extends Component {
                     score={trader.score}
                     rate={trader.rate}
                     key={trader.username}
+                    trade={trader.trade}
+                    avatar_ref={trader.avatar_ref}
                   />
                 ))}
               </GoogleMapReact>

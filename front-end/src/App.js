@@ -3,6 +3,8 @@ import { Router } from '@reach/router';
 import './styles/App.css';
 import Header from './components/Header';
 import LandingPage from './components/LandingPage';
+import LogInForm from './components/LoginForm';
+import SignUpForm from './components/SignUpForm';
 import TraderMap from './components/TraderMap';
 import { ThemeProvider } from 'styled-components';
 import { getProject } from './utils/projects.js';
