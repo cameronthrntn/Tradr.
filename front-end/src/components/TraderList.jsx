@@ -13,7 +13,7 @@ export default class TraderList extends Component {
     return (
       <List>
         {this.props.traders.map(trader => (
-          <TraderCard trader={trader} />
+          <TraderCard trader={trader} key={trader.username} />
         ))}
       </List>
     );

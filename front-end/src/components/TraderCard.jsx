@@ -20,7 +20,7 @@ export default function TraderCard(props) {
     border: 1px solid blue;
   `;
   return (
-    <Trader key={props.trader.username}>
+    <Trader>
       <Contents>
         <p>{props.trader.username}</p>
         <p>Distance: {props.trader.distance}km</p>

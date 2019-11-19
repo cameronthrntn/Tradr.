@@ -5,7 +5,8 @@ exports.selectAllTraders = async ({
   sort_by = 'score',
   order = 'desc',
   trade,
-  rate,
+  lower_rate,
+  upper_rate,
   distance = 20,
   score,
   project_id
@@ -16,8 +17,9 @@ exports.selectAllTraders = async ({
     .orderBy(sort_by, order)
     .modify(query => {
       if (trade) query.where('traders.trade', '=', trade);
-      if (rate) query.where('traders.rate', '=', rate);
-      if (score) query.where('traders.score', '=', score);
+      if (lower_rate) query.where('traders.rate', '>', lower_rate);
+      if (upper_rate) query.where('traders.rate', '<', upper_rate);
+      if (score) query.where('traders.score', '>', score);
     });
   const project = await connection
     .select('lat', 'lng')
