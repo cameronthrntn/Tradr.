@@ -9,6 +9,7 @@ import TraderMap from './components/TraderMap';
 import { ThemeProvider } from 'styled-components';
 import { getProject } from './utils/projects.js';
 import { AppProvider } from './components/AppContext';
+import LoginForm from './components/LoginForm';
 
 export default class App extends Component {
   state = {
@@ -30,6 +31,9 @@ export default class App extends Component {
           <Header />
           <Router>
             <LandingPage path="/" />
+            <LoginForm path="/login" />
+            <SignUpForm path="/signup" />
+
             {!this.state.isLoading && (
               <TraderMap path="/traders" project={this.state.project} />
             )}
