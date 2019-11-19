@@ -18,6 +18,12 @@ exports.getTraderByUsername = (req, res, next) => {
   });
 };
 
-exports.postNewTrader = (req, res, next) => {};
+exports.postNewTrader = (req, res, next) => {
+  addTrader(req)
+    .then(trader => {
+      res.status(201).send({ trader });
+    })
+    .catch(next);
+};
 
 exports.patchTrader = (req, res, next) => {};

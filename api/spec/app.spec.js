@@ -10,10 +10,10 @@ beforeEach(() => connection.seed.run());
 after(() => connection.destroy());
 
 describe('/api', () => {
-  xdescribe('/traders', () => {
+  describe('/traders', () => {
     describe('GET', () => {
       describe('OK', () => {
-        it.only('Status 200: responds with array of trader objects', () => {
+        it('Status 200: responds with array of trader objects', () => {
           return request(app)
             .get('/api/traders?project_id=1')
             .expect(200)
@@ -31,17 +31,17 @@ describe('/api', () => {
               });
             });
         });
-        xit('when sorting query is distance, articles array is sorted by given distance in ascending order', () => {
+        xit('when sorting query is distance, traders array is sorted by given distance in ascending order', () => {
           return request(app)
             .get('/api/traders?sort_by=distance&project_id=1')
             .expect(200)
             .then(({ body }) => {
-              expect(body.articles).to.be.sortedBy('distance', {
+              expect(body.traders).to.be.sortedBy('distance', {
                 descending: false
               });
             });
         });
-        it('when sorting query is rate, articles array is sorted by given rate in ascending order', () => {
+        it('when sorting query is rate, traders array is sorted by given rate in ascending order', () => {
           return request(app)
             .get('/api/traders?sort_by=rate&project_id=1')
             .expect(200)
@@ -78,7 +78,7 @@ describe('/api', () => {
       });
       describe('Error Handling', () => {});
     });
-    xdescribe('POST', () => {
+    describe('POST', () => {
       describe('OK', () => {
         it('Status 201: responds with created trader object', () => {
           return request(app)
@@ -87,14 +87,15 @@ describe('/api', () => {
               username: 'BobTheBuilder',
               first_name: 'Bob',
               last_name: 'The Builder',
-              logitude: 3.0357,
-              latitude: 53.8175,
+              lng: 3.0357,
+              lat: 53.8175,
+              rate: 200,
+              dob: '03/12/88',
+              personal_site: 'www.google.com',
               trade: 'builder'
             })
             .then(({ body }) => {
-              expect(body.trader).to.contain.keys(
-                'username',
-                'password',
+              expect(body.trader[0]).to.contain.keys(
                 'first_name',
                 'last_name',
                 'lng',
@@ -106,7 +107,7 @@ describe('/api', () => {
                 'dob',
                 'personal_site'
               );
-              expect(body.trader.username).to.equal('BobTheBuilder');
+              expect(body.trader[0].username).to.equal('BobTheBuilder');
             });
         });
       });
@@ -227,6 +228,21 @@ describe('/api', () => {
               '2021-12-01T00:00:00.000Z'
             );
             expect(body.project[0].status).to.equal('in progress');
+          });
+      });
+    });
+  });
+  describe('/projects/:id/traders', () => {
+    describe('GET', () => {
+      it('Status 200: Returns an array of all traders linked to a project, along with relevant project information', () => {
+        return request(app)
+          .get('/api/projects/2/traders')
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.traders).to.be.an('array');
+            expect(body.traders[0].trader_username).to.equal('Shubwub');
+            expect(body.traders[1].trader_username).to.equal('kitlets');
+            expect(body.traders.length).to.equal(2);
           });
       });
     });
