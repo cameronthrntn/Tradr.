@@ -7,13 +7,14 @@ export default class TraderList extends Component {
   render() {
     const List = styled.ul`
       list-style: none;
-      padding: 0;
+      padding: 15px;
       height: 100%;
+      overflow-y: scroll;
     `;
     return (
       <List>
         {this.props.traders.map(trader => (
-          <TraderCard trader={trader} />
+          <TraderCard key={trader.username} trader={trader} />
         ))}
       </List>
     );
