@@ -232,7 +232,7 @@ describe('/api', () => {
       });
     });
   });
-  describe('/projects/:id', () => {
+  describe('/api/projects/:id', () => {
     describe('GET', () => {
       it('Status 200: Returns a project by its ID', () => {
         return request(app)
@@ -246,7 +246,7 @@ describe('/api', () => {
     });
   });
 
-  describe('/projects/:id/traders', () => {
+  describe('/api/projects/:id/traders', () => {
     describe('GET', () => {
       it('Status 200: Returns an array of all traders linked to a project, along with relevant project information', () => {
         return request(app)
@@ -257,6 +257,28 @@ describe('/api', () => {
             expect(body.traders[0].trader_username).to.equal('Shubwub');
             expect(body.traders[1].trader_username).to.equal('kitlets');
             expect(body.traders.length).to.equal(2);
+          });
+      });
+    });
+  });
+
+  describe.only('/api/users', () => {
+    describe('POST', () => {
+      it('Status 201: Creates a new user object and returns that object', () => {
+        return request(app)
+          .post('/api/users')
+          .send({
+            username: 'newUser',
+            first_name: 'bobicus',
+            last_name: 'buildicus',
+            dob: '01/01/88'
+          })
+          .expect(201)
+          .then(({ body }) => {
+            expect(body.user[0].username).to.equal('newUser');
+            expect(body.user[0].avatar_ref).to.equal(
+              './api/data/dev/img/default-avatar.png'
+            );
           });
       });
     });
