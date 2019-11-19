@@ -15,11 +15,12 @@ export default class App extends Component {
     project: {},
     isLoading: true,
     theme: {
-      orange: '#f77123'
+      orange: '#f77123',
+      purple: '#8e3ccb'
     }
   };
   componentDidMount = async () => {
-    const project = await getProject(1);
+    const project = await getProject(2);
     this.setState({ project, isLoading: false });
   };
   render() {
@@ -28,7 +29,7 @@ export default class App extends Component {
         <ThemeProvider theme={this.state.theme}>
           {/* <AppProvider value={this.state.project}> */}
           <Header />
-          <Router>
+          <Router className="router">
             <LandingPage path="/" />
             {!this.state.isLoading && (
               <TraderMap path="/traders" project={this.state.project} />
