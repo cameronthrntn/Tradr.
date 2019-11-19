@@ -232,6 +232,20 @@ describe('/api', () => {
       });
     });
   });
+  describe('/projects/:id', () => {
+    describe('GET', () => {
+      it('Status 200: Returns a project by its ID', () => {
+        return request(app)
+          .get('/api/projects/1')
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.project[0].project_id).to.equal(1);
+            expect(body.project[0].username).to.equal('By-Tor2114');
+          });
+      });
+    });
+  });
+
   describe('/projects/:id/traders', () => {
     describe('GET', () => {
       it('Status 200: Returns an array of all traders linked to a project, along with relevant project information', () => {
