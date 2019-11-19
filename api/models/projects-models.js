@@ -46,3 +46,10 @@ exports.insertNewProject = ({ body }) => {
     .insert(body)
     .returning('*');
 };
+
+exports.selectProjectById = id => {
+  return connection
+    .select('*')
+    .from('projects')
+    .where('project_id', '=', id);
+};
