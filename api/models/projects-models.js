@@ -28,6 +28,19 @@ exports.selectAllProjects = ({
     });
 };
 
+exports.selectTradersByProject = id => {
+  return connection
+    .select('*')
+    .from('traders-projects-junction')
+    .join(
+      'projects',
+      'projects.project_id',
+      '=',
+      'traders-projects-junction.project_id'
+    )
+    .where('traders-projects-junction.project_id', '=', id);
+};
+
 exports.insertNewProject = ({ body }) => {
   return connection('projects')
     .insert(body)

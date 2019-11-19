@@ -1,5 +1,6 @@
 const {
   selectAllProjects,
+  selectTradersByProject,
   insertNewProject
 } = require('../models/projects-models');
 
@@ -9,6 +10,16 @@ exports.getAllProjects = (req, res, next) => {
       res.status(200).send({ projects });
     })
     .catch(next);
+};
+
+exports.getTradersByProject = (req, res, next) => {
+  return selectTradersByProject(req.params.id)
+    .then(traders => {
+      res.status(200).send({ traders });
+    })
+    .catch(err => {
+      console.log(err);
+    });
 };
 
 exports.postNewProject = (req, res, next) => {
