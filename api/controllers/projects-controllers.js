@@ -17,9 +17,7 @@ exports.getTradersByProject = (req, res, next) => {
     .then(traders => {
       res.status(200).send({ traders });
     })
-    .catch(err => {
-      console.log(err);
-    });
+    .catch(next);
 };
 
 exports.postNewProject = (req, res, next) => {

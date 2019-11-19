@@ -36,3 +36,9 @@ exports.selectTraderByUsername = username => {
     .from('traders')
     .where('traders.username', '=', username);
 };
+
+exports.addTrader = ({ body }) => {
+  return connection('traders')
+    .insert(body)
+    .returning('*');
+};
