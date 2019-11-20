@@ -16,7 +16,7 @@ export default function TraderCard(props) {
     justify-content: center;
     align-items: flex-start;
     margin: 5px;
-    background: #white;
+    background: white;
     box-shadow: 1px 0 3px 0 rgb(0, 0, 0, 0.3);
     transition: transform 0.1s;
     &:hover {
@@ -71,8 +71,6 @@ export default function TraderCard(props) {
   const TraderProp = styled.p`
     margin: 4px;
   `;
-
-  console.log(props.trader.avatar_ref);
 
   return (
     <Trader>

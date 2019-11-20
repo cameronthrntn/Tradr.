@@ -1,17 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export default function TraderPin({
-  username,
-  trade,
-  score,
-  rate,
-  project,
-  avatar_ref
-}) {
+export default function TraderPin(
+  { username, trade, score, rate, project, avatar_ref },
+  props
+) {
   const Pin = styled.div`
     padding: 0.9em;
-    background: ${project ? '#8e3ccb' : '#fe7e0f'};
+    background: ${project
+      ? props => props.theme.purple
+      : props => props.theme.orange};
     box-shadow: inset 1px 0 3px 0 rgb(0, 0, 0, 0.3);
     border-radius: 50% 50% 50% 0;
     transform: rotate(-45deg);

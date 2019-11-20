@@ -12,12 +12,20 @@ export default class TraderMap extends Component {
   state = {
     traders: [],
     project: {},
+    showFilters: false,
     isLoading: true
   };
   updateTraders = async filters => {
-    const traders = await getTraders(this.props.project.project_id, filters)
-    this.setState({traders})
-  }
+    const traders = await getTraders(this.props.project.project_id, filters);
+    this.setState({ traders });
+  };
+  toggleForm = () => {
+    this.setState(curr => {
+      return {
+        showFilters: !curr.showFilters
+      };
+    });
+  };
   getTraders = async () => {
     let traders = await getTraders(this.props.project.project_id);
     traders = getDistances(
@@ -47,65 +55,74 @@ export default class TraderMap extends Component {
     });
   };
   render() {
-    const Container = styled.div`
+    const MapWrapper = styled.div`
+      height: 90vh;
+      width: 80%;
+    `;
+    const TraderWrapper = styled.div`
+      height: 90vh;
+      margin: 0;
+      width: 18%;
+    `;
+    const MapAndList = styled.div`
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       align-items: center;
+      margin-top: 8vh;
     `;
-    const MapWrapper = styled.div`
-      height: 95vh;
-      width: 80%;
-    `;
-    const TraderWrapper = styled.div`
-      height: 95vh;
-      margin: 0;
-      width: 18%;
+    const Button = styled.button`
+      background: white;
     `;
     return (
-      <Container>
+      <>
         {this.state.isLoading ? (
           <h1>Loading...</h1>
         ) : (
           <>
-            <FilterBar updateTraders={this.updateTraders}/>
-            <MapWrapper>
-              <GoogleMapReact
-                bootstrapURLKeys={{
-                  key: 'AIzaSyCLjaFTw1ZCyLDZrMtk7uX6PkISOr0u-Vk'
-                }}
-                defaultCenter={{
-                  lat: this.props.project.lat,
-                  lng: this.props.project.lng
-                }}
-                defaultZoom={15}
-              >
-                <TraderPin
-                  project={true}
-                  lat={this.props.project.lat}
-                  lng={this.props.project.lng}
-                />
-                {this.state.traders.map(trader => (
+            {this.state.showFilters && (
+              <FilterBar updateTraders={this.updateTraders} />
+            )}
+            <MapAndList>
+              <MapWrapper>
+                <GoogleMapReact
+                  bootstrapURLKeys={{
+                    key: 'AIzaSyCLjaFTw1ZCyLDZrMtk7uX6PkISOr0u-Vk'
+                  }}
+                  defaultCenter={{
+                    lat: this.props.project.lat,
+                    lng: this.props.project.lng
+                  }}
+                  defaultZoom={15}
+                >
                   <TraderPin
-                    project={false}
-                    lat={trader.lat}
-                    lng={trader.lng}
-                    username={trader.username}
-                    score={trader.score}
-                    rate={trader.rate}
-                    key={trader.username}
-                    trade={trader.trade}
-                    avatar_ref={trader.avatar_ref}
+                    project={true}
+                    lat={this.props.project.lat}
+                    lng={this.props.project.lng}
                   />
-                ))}
-              </GoogleMapReact>
-            </MapWrapper>
-            <TraderWrapper>
-              <TraderList traders={this.state.traders} />
-            </TraderWrapper>
+                  {this.state.traders.map(trader => (
+                    <TraderPin
+                      project={false}
+                      lat={trader.lat}
+                      lng={trader.lng}
+                      username={trader.username}
+                      score={trader.score}
+                      rate={trader.rate}
+                      key={trader.username}
+                      trade={trader.trade}
+                      avatar_ref={trader.avatar_ref}
+                    />
+                  ))}
+                </GoogleMapReact>
+              </MapWrapper>
+              <TraderWrapper>
+                <Button onClick={this.toggleForm}>Show Filters</Button>
+                <TraderList traders={this.state.traders} />
+              </TraderWrapper>
+            </MapAndList>
           </>
         )}
-      </Container>
+      </>
     );
   }
 }

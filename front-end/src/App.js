@@ -8,7 +8,9 @@ import SignUpForm from './components/SignUpForm';
 import TraderMap from './components/TraderMap';
 import { ThemeProvider } from 'styled-components';
 import { getProject } from './utils/projects.js';
+import NotFound from './components/404NotFound';
 import { AppProvider } from './components/AppContext';
+import DashBoard from './components/DashBoard';
 
 export default class App extends Component {
   state = {
@@ -34,6 +36,8 @@ export default class App extends Component {
             {!this.state.isLoading && (
               <TraderMap path="/traders" project={this.state.project} />
             )}
+            <DashBoard path="dashboard" />
+            <NotFound default />
           </Router>
           {/* </AppProvider> */}
         </ThemeProvider>
