@@ -1,11 +1,4 @@
 import React, { Component } from 'react';
-import {
-  Container,
-  Form,
-  LogInButton,
-  Inputs,
-  Input
-} from '../styles/LoginForm';
 
 import { Container, Form, LogInButton, Inputs, Input } from '../styles/Forms';
 
