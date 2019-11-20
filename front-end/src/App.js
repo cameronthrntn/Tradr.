@@ -15,6 +15,7 @@ import LoginForm from './components/LoginForm';
 
 export default class App extends Component {
   state = {
+    username: 'kitlets',
     project: {},
     isLoading: true,
     theme: {
@@ -33,14 +34,19 @@ export default class App extends Component {
           {/* <AppProvider value={this.state.project}> */}
           <Header />
           <Router className="router">
-            <LandingPage path="/" />
+            {this.state.username ? (
+              <DashBoard path="/" username={this.state.username} />
+            ) : (
+              <LandingPage path="/" />
+            )}
+
             <LoginForm path="/login" />
             <SignUpForm path="/signup" />
 
             {!this.state.isLoading && (
               <TraderMap path="/traders" project={this.state.project} />
             )}
-            <DashBoard path="dashboard" />
+
             <NotFound default />
           </Router>
           {/* </AppProvider> */}
