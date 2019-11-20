@@ -26,4 +26,10 @@ exports.postNewTrader = (req, res, next) => {
     .catch(next);
 };
 
-exports.patchTrader = (req, res, next) => {};
+exports.patchTrader = (req, res, next) => {
+  updateTrader(req.body, req.params.username)
+    .then(trader => {
+      res.status(200).send({ trader });
+    })
+    .catch(next);
+};
