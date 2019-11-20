@@ -16,3 +16,7 @@ exports.patchUser = ({ first_name, last_name, avatar_ref, dob }, username) => {
       if (dob) modifier.update({ dob }).returning('*');
     });
 };
+
+exports.fetchUserByUsername = username => {
+  return connection('users').where('username', '=', username);
+};

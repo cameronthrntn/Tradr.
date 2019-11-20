@@ -386,5 +386,22 @@ describe('/api', () => {
           });
       });
     });
+    describe('GET', () => {
+      it.only('Status 200: Returns a user by username', () => {
+        return request(app)
+          .get('/api/users/By-Tor2114')
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.user[0]).to.eql({
+              username: 'By-Tor2114',
+              first_name: 'Ben',
+              last_name: 'Jones',
+              avatar_ref:
+                '/api/db/data/test/Images/stock-person-png-stock-photo-man-11563049686zqeb9zmqjd.png',
+              dob: '1988-10-07T23:00:00.000Z'
+            });
+          });
+      });
+    });
   });
 });
