@@ -9,6 +9,7 @@ import TraderMap from './components/TraderMap';
 import { ThemeProvider } from 'styled-components';
 import { getProject } from './utils/projects.js';
 import { getUser } from './utils/users.js';
+import { getTrader } from './utils/traders.js';
 import NotFound from './components/404NotFound';
 import { AppProvider } from './components/AppContext';
 import DashBoard from './components/DashBoard';
@@ -26,7 +27,9 @@ export default class App extends Component {
   };
   componentDidMount = async () => {
     const project = await getProject(2);
-    const user = await getUser('By-Tor2114');
+
+    const user = await getTrader('kitlets');
+    // const user = await getUser('By-Tor2114');
 
     this.setState({ project, isLoading: false, user });
   };
