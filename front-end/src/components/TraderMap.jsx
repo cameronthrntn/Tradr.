@@ -63,13 +63,14 @@ export default class TraderMap extends Component {
       height: 90vh;
       margin: 0;
       width: 18%;
+      border: 1px solid green;
     `;
     const MapAndList = styled.div`
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       align-items: center;
-      margin-top: 8vh;
+      margin-top: 2vh;
     `;
     const Button = styled.button`
       background: white;
