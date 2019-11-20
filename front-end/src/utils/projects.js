@@ -6,4 +6,14 @@ const getProject = async id => {
   return data.project[0];
 };
 
-export { getProject };
+const getProjectsByUsername = async username => {
+  const { data } = await axios.get(`${BASEURL}/projects?username=${username}`);
+  return data.projects;
+};
+
+const getProjectsByTrader = async trader => {
+  const { data } = await axios.get(`${BASEURL}/projects?trader=${trader}`);
+  return data.projects;
+};
+
+export { getProject, getProjectsByUsername, getProjectsByTrader };

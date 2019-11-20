@@ -8,6 +8,7 @@ import SignUpForm from './components/SignUpForm';
 import TraderMap from './components/TraderMap';
 import { ThemeProvider } from 'styled-components';
 import { getProject } from './utils/projects.js';
+import { getUser } from './utils/users.js';
 import NotFound from './components/404NotFound';
 import { AppProvider } from './components/AppContext';
 import DashBoard from './components/DashBoard';
@@ -15,6 +16,7 @@ import LoginForm from './components/LoginForm';
 
 export default class App extends Component {
   state = {
+    user: {},
     project: {},
     isLoading: true,
     theme: {
@@ -24,26 +26,37 @@ export default class App extends Component {
   };
   componentDidMount = async () => {
     const project = await getProject(2);
-    this.setState({ project, isLoading: false });
+    const user = await getUser('By-Tor2114');
+
+    this.setState({ project, isLoading: false, user });
   };
   render() {
     return (
       <div className="App">
         <ThemeProvider theme={this.state.theme}>
-          {/* <AppProvider value={this.state.project}> */}
-          <Header />
-          <Router className="router">
-            <LandingPage path="/" />
-            <LoginForm path="/login" />
-            <SignUpForm path="/signup" />
+          <AppProvider value={this.state.user}>
+            <Header />
+            {this.state.isLoading ? (
+              <h1>IS LOADING</h1>
+            ) : (
+              <Router className="router">
+                {this.state.user ? (
+                  <DashBoard path="/" />
+                ) : (
+                  <LandingPage path="/" />
+                )}
 
-            {!this.state.isLoading && (
-              <TraderMap path="/traders" project={this.state.project} />
+                <LoginForm path="/login" />
+                <SignUpForm path="/signup" />
+
+                {!this.state.isLoading && (
+                  <TraderMap path="/traders" project={this.state.project} />
+                )}
+
+                <NotFound default />
+              </Router>
             )}
-            <DashBoard path="dashboard" />
-            <NotFound default />
-          </Router>
-          {/* </AppProvider> */}
+          </AppProvider>
         </ThemeProvider>
       </div>
     );

@@ -113,6 +113,44 @@ describe('/api', () => {
       });
       describe('Error Handling', () => {});
     });
+    describe('/api/traders', () => {
+      describe('PATCH', () => {
+        it('responds with an updated trader object', () => {
+          return request(app)
+            .patch('/api/traders/fakeTrader')
+            .send({
+              first_name: 'new',
+              last_name: 'name',
+              lat: 1.1234,
+              lng: -1.4321,
+              personal_site: 'www.google.com',
+              trade: 'Sparky',
+              rate: 100,
+              avatar_ref:
+                'https://pickaface.net/gallery/avatar/unr_test_180612_1021_b05p.png',
+              dob: '01/01/1985'
+            })
+            .expect(200)
+            .then(({ body }) => {
+              expect(body.trader[0]).to.eql({
+                username: 'fakeTrader',
+                score: 1.9,
+                first_name: 'new',
+                last_name: 'name',
+                lat: 1.1234,
+                lng: -1.4321,
+                personal_site: 'www.google.com',
+                trade: 'Sparky',
+                rate: 100,
+                avatar_ref:
+                  'https://pickaface.net/gallery/avatar/unr_test_180612_1021_b05p.png',
+                dob: '1985-01-01T00:00:00.000Z'
+              });
+            });
+        });
+      });
+    });
+
     describe('/:username', () => {
       describe('GET', () => {
         describe('OK', () => {
@@ -200,10 +238,10 @@ describe('/api', () => {
       });
       it('Status 200: returns an array of projects that are filtered by status', () => {
         return request(app)
-          .get('/api/projects?status=in progress')
+          .get('/api/projects?status=in planning')
           .expect(200)
           .then(({ body }) => {
-            expect(body.projects[0].status).to.equal('in progress');
+            expect(body.projects[0].status).to.equal('in planning');
           });
       });
     });
@@ -227,7 +265,32 @@ describe('/api', () => {
             expect(body.project[0].end_date).to.equal(
               '2021-12-01T00:00:00.000Z'
             );
-            expect(body.project[0].status).to.equal('in progress');
+            expect(body.project[0].status).to.equal('in planning');
+          });
+      });
+    });
+    describe('PATCH', () => {
+      it('Status 200: Returns an updated project object when supplied with new lng/lat details and an updated status', () => {
+        return request(app)
+          .patch('/api/projects/1')
+          .send({
+            lat: 11,
+            lng: 22,
+            status: 'in progress'
+          })
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.project[0]).to.eql({
+              lat: 11,
+              lng: 22,
+              status: 'in progress',
+              username: 'By-Tor2114',
+              title: "BJ's new bathroom",
+              status: 'in progress',
+              start_date: '2019-01-08T00:00:00.000Z',
+              end_date: '2019-12-12T00:00:00.000Z',
+              project_id: 1
+            });
           });
       });
     });
@@ -311,6 +374,32 @@ describe('/api', () => {
           .expect(200)
           .then(({ body }) => {
             expect(body.user[0].avatar_ref).to.equal('www.google.com');
+          });
+      });
+      it('Status 200: Returns an updated user object when supplied a new date of birth', () => {
+        return request(app)
+          .patch('/api/users/By-Tor2114')
+          .send({ dob: '01/01/1985' })
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.user[0].dob).to.equal('1985-01-01T00:00:00.000Z');
+          });
+      });
+    });
+    describe('GET', () => {
+      it.only('Status 200: Returns a user by username', () => {
+        return request(app)
+          .get('/api/users/By-Tor2114')
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.user[0]).to.eql({
+              username: 'By-Tor2114',
+              first_name: 'Ben',
+              last_name: 'Jones',
+              avatar_ref:
+                '/api/db/data/test/Images/stock-person-png-stock-photo-man-11563049686zqeb9zmqjd.png',
+              dob: '1988-10-07T23:00:00.000Z'
+            });
           });
       });
     });
