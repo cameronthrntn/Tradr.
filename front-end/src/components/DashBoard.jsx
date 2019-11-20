@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import UserInfo from '../components/UserInfo';
 import ProjectList from '../components/ProjectList';
 import styled from 'styled-components';
@@ -29,7 +30,8 @@ export default class DashBoard extends Component {
   render() {
     return (
       <Container>
-        <UserInfo username={this.props.username} />
+        <UserInfo />
+
         <ProjectListsContainer>
           <ProjectList projects="" />
           <ProjectList projects="" />
