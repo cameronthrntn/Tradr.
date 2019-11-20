@@ -13,10 +13,16 @@ const FilterItem = styled.div`
 `;
 const FilterInput = styled.input`
   width: 100%;
+  border-bottom: 1px solid ${props => props.theme.orange};
+  font-size: 1.5rem;
+  background: none;
+  border: none;
 `;
 
 const FilterSelect = styled.select`
   width: 100%;
+  background: none;
+  border: none;
 `;
 
 const FilterButton = styled.button`

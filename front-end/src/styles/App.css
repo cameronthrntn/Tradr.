@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .App-logo {
@@ -19,4 +21,8 @@
 
 .App-link {
   color: #09d3ac;
+}
+
+.router {
+  margin-top: 6vh;
 }
