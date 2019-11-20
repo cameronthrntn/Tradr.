@@ -6,7 +6,8 @@ import {
   LogInButton,
   Inputs,
   Input,
-  InputWrapper
+  InputWrapper,
+  HalfInput
 } from '../styles/Forms';
 
 export default class SignUpForm extends Component {
@@ -49,14 +50,14 @@ export default class SignUpForm extends Component {
             </InputWrapper>
 
             <InputWrapper>
-              <Input
+              <HalfInput
                 id="first_name"
                 type="text"
                 placeholder="First name"
                 onChange={this.handleChange}
                 required
               />
-              <Input
+              <HalfInput
                 id="last_name"
                 type="text"
                 placeholder="Last name"
@@ -89,14 +90,14 @@ export default class SignUpForm extends Component {
             <label htmlFor="dob">Date of birth</label>
             <Input id="dob" type="date" onChange={this.handleChange} required />
             <InputWrapper>
-              <Input
+              <HalfInput
                 id="address1"
                 type="text"
                 placeholder="First line of address"
                 onChange={this.handleChange}
                 required
               />
-              <Input
+              <HalfInput
                 id="postCode"
                 type="text"
                 placeholder="Postcode"
