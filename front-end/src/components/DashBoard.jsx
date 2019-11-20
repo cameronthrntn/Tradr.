@@ -25,9 +25,7 @@ export default class DashBoard extends Component {
   state = {
     projects: []
   };
-  componentDidMount() {
-    get;
-  }
+  componentDidMount() {}
   render() {
     return (
       <Container>
