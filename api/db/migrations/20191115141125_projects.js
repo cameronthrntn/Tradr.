@@ -8,7 +8,7 @@ exports.up = function(knex) {
       .references('users.username')
       .notNullable();
     projectsTable.string('title').notNullable();
-    projectsTable.string('status').defaultTo('in progress');
+    projectsTable.string('status').defaultTo('in planning');
     projectsTable.timestamp('start_date').notNullable();
     projectsTable.timestamp('end_date').notNullable();
   });

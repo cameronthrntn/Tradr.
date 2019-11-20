@@ -44,3 +44,32 @@ exports.addTrader = ({ body }) => {
     .insert(body)
     .returning('*');
 };
+
+exports.updateTrader = (
+  {
+    first_name,
+    last_name,
+    lat,
+    lng,
+    personal_site,
+    trade,
+    rate,
+    avatar_ref,
+    dob
+  },
+  username
+) => {
+  return connection('traders')
+    .where('username', '=', username)
+    .modify(modifier => {
+      if (first_name) modifier.update({ first_name }).returning('*');
+      if (last_name) modifier.update({ last_name }).returning('*');
+      if (lat) modifier.update({ lat }).returning('*');
+      if (lng) modifier.update({ lng }).returning('*');
+      if (personal_site) modifier.update({ personal_site }).returning('*');
+      if (trade) modifier.update({ trade }).returning('*');
+      if (avatar_ref) modifier.update({ avatar_ref }).returning('*');
+      if (dob) modifier.update({ dob }).returning('*');
+      if (rate) modifier.update({ rate }).returning('*');
+    });
+};
