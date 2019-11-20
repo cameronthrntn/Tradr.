@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { postTrader, postUser, getCoordinates } from '../utils/makeAccount';
 import {
   Container,
   Form,
@@ -12,23 +12,28 @@ import {
 export default class SignUpForm extends Component {
   state = {
     userType: 'user',
-    first_name: null,
-    last_name: null,
-    username: null,
-    password: null,
-    confirmedPassword: null,
-    dob: null,
-    address1: null,
-    postCode: null,
-    personal_site: null
+    first_name: '',
+    last_name: '',
+    username: '',
+    // password: '',
+    // confirmedPassword: '',
+    dob: '',
+    address1: '',
+    postCode: '',
+    personal_site: ''
   };
 
   handleChange = e => {
     this.setState({ [e.target.id]: e.target.value });
   };
-  handleSubmit = e => {
+  handleSubmit = async e => {
     e.preventDefault();
-    console.dir(e);
+    const coords = await getCoordinates(this.state.address1)
+    console.log(coords);
+    
+    // this.state.userType === 'user'
+    //   ? postUser(this.state)
+    //   : postTrader(this.state);
   };
 
   render() {
@@ -72,7 +77,7 @@ export default class SignUpForm extends Component {
               onChange={this.handleChange}
               required
             />
-            <Input
+            {/* <Input
               id="password"
               type="text"
               placeholder="Choose a password"
@@ -85,7 +90,7 @@ export default class SignUpForm extends Component {
               placeholder="Confirm password"
               onChange={this.handleChange}
               required
-            />
+            /> */}
             <label htmlFor="dob">Date of birth</label>
             <Input id="dob" type="date" onChange={this.handleChange} required />
             <InputWrapper>
