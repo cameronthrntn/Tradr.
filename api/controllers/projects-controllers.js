@@ -2,7 +2,8 @@ const {
   selectAllProjects,
   selectTradersByProject,
   insertNewProject,
-  selectProjectById
+  selectProjectById,
+  updateProject
 } = require('../models/projects-models');
 
 exports.getAllProjects = (req, res, next) => {
@@ -31,6 +32,14 @@ exports.postNewProject = (req, res, next) => {
 
 exports.getProjectsById = (req, res, next) => {
   return selectProjectById(req.params.id)
+    .then(project => {
+      res.status(200).send({ project });
+    })
+    .catch(next);
+};
+
+exports.patchProject = (req, res, next) => {
+  updateProject(req.body, req.params.id)
     .then(project => {
       res.status(200).send({ project });
     })

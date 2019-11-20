@@ -269,6 +269,31 @@ describe('/api', () => {
           });
       });
     });
+    describe('PATCH', () => {
+      it('Status 200: Returns an updated project object when supplied with new lng/lat details and an updated status', () => {
+        return request(app)
+          .patch('/api/projects/1')
+          .send({
+            lat: 11,
+            lng: 22,
+            status: 'in progress'
+          })
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.project[0]).to.eql({
+              lat: 11,
+              lng: 22,
+              status: 'in progress',
+              username: 'By-Tor2114',
+              title: "BJ's new bathroom",
+              status: 'in progress',
+              start_date: '2019-01-08T00:00:00.000Z',
+              end_date: '2019-12-12T00:00:00.000Z',
+              project_id: 1
+            });
+          });
+      });
+    });
   });
   describe('/api/projects/:id', () => {
     describe('GET', () => {
@@ -358,6 +383,23 @@ describe('/api', () => {
           .expect(200)
           .then(({ body }) => {
             expect(body.user[0].dob).to.equal('1985-01-01T00:00:00.000Z');
+          });
+      });
+    });
+    describe('GET', () => {
+      it.only('Status 200: Returns a user by username', () => {
+        return request(app)
+          .get('/api/users/By-Tor2114')
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.user[0]).to.eql({
+              username: 'By-Tor2114',
+              first_name: 'Ben',
+              last_name: 'Jones',
+              avatar_ref:
+                '/api/db/data/test/Images/stock-person-png-stock-photo-man-11563049686zqeb9zmqjd.png',
+              dob: '1988-10-07T23:00:00.000Z'
+            });
           });
       });
     });
