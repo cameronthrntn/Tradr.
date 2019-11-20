@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { AppConsumer } from './AppContext';
 
 const Container = styled.div`
   border: solid 1px purple;
@@ -31,40 +32,38 @@ const TraderInfo = styled(Info)`
 `;
 
 class UserInfo extends Component {
-  state = {
-    username: this.props.username,
-    avatar_ref: null,
-    first_name: 'Aaron',
-    last_name: 'Stanton',
-    dob: '12/12/1984',
-    trade: 'plumber',
-    personal_site: 'www.flyingkitlets.co.uk',
-    rate: 120
-  };
   componentDidMount() {
     //make request to api for userinfo
   }
   render() {
     return (
       <Container>
-        <AvatarWrapper>
-          <img src="" alt="" />
-        </AvatarWrapper>
-        <p>{this.state.username}</p>
-        <Info>
-          <p>
-            {this.state.first_name} {this.state.last_name}
-          </p>
+        <AppConsumer>
+          {user => {
+            return (
+              <>
+                <AvatarWrapper>
+                  <img src="" alt="" />
+                </AvatarWrapper>
+                <p>{user.username}</p>
+                <Info>
+                  <p>
+                    {user.first_name} {user.last_name}
+                  </p>
 
-          <p>{this.state.dob}</p>
-        </Info>
-        {this.state.trade && (
-          <TraderInfo>
-            <p>{this.state.trade}</p>
-            <p>{this.state.personal_site}</p>
-            <p>{this.state.rate}</p>
-          </TraderInfo>
-        )}
+                  <p>{user.dob}</p>
+                </Info>
+                {user.trade && (
+                  <TraderInfo>
+                    <p>{user.trade}</p>
+                    <p>{user.personal_site}</p>
+                    <p>{user.rate}</p>
+                  </TraderInfo>
+                )}
+              </>
+            );
+          }}
+        </AppConsumer>
       </Container>
     );
   }
