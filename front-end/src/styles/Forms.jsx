@@ -57,4 +57,10 @@ const Input = styled.input`
   padding: 10px;
 `;
 
-export { Container, Form, LogInButton, Inputs, Input, InputWrapper };
+const HalfInput = styled(Input)`
+  @media (min-width: 768px) {
+    width: 50%;
+  }
+`;
+
+export { Container, Form, LogInButton, Inputs, Input, InputWrapper, HalfInput };
