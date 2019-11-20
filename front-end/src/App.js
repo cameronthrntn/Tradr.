@@ -11,6 +11,7 @@ import { getProject } from './utils/projects.js';
 import NotFound from './components/404NotFound';
 import { AppProvider } from './components/AppContext';
 import DashBoard from './components/DashBoard';
+import LoginForm from './components/LoginForm';
 
 export default class App extends Component {
   state = {
@@ -33,6 +34,9 @@ export default class App extends Component {
           <Header />
           <Router className="router">
             <LandingPage path="/" />
+            <LoginForm path="/login" />
+            <SignUpForm path="/signup" />
+
             {!this.state.isLoading && (
               <TraderMap path="/traders" project={this.state.project} />
             )}
