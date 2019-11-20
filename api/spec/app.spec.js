@@ -269,6 +269,31 @@ describe('/api', () => {
           });
       });
     });
+    describe('PATCH', () => {
+      it('Status 200: Returns an updated project object when supplied with new lng/lat details and an updated status', () => {
+        return request(app)
+          .patch('/api/projects/1')
+          .send({
+            lat: 11,
+            lng: 22,
+            status: 'in progress'
+          })
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.project[0]).to.eql({
+              lat: 11,
+              lng: 22,
+              status: 'in progress',
+              username: 'By-Tor2114',
+              title: "BJ's new bathroom",
+              status: 'in progress',
+              start_date: '2019-01-08T00:00:00.000Z',
+              end_date: '2019-12-12T00:00:00.000Z',
+              project_id: 1
+            });
+          });
+      });
+    });
   });
   describe('/api/projects/:id', () => {
     describe('GET', () => {

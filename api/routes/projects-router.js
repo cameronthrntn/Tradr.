@@ -3,7 +3,8 @@ const {
   getAllProjects,
   postNewProject,
   getTradersByProject,
-  getProjectsById
+  getProjectsById,
+  patchProject
 } = require('../controllers/projects-controllers');
 const { handle405s } = require('../errors/index');
 
@@ -16,6 +17,7 @@ projectsRouter
 projectsRouter
   .route('/:id')
   .get(getProjectsById)
+  .patch(patchProject)
   .all(handle405s);
 
 projectsRouter

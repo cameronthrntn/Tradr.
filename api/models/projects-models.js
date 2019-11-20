@@ -53,3 +53,13 @@ exports.selectProjectById = id => {
     .from('projects')
     .where('project_id', '=', id);
 };
+
+exports.updateProject = ({ lat, lng, status }, id) => {
+  return connection('projects')
+    .where('project_id', '=', id)
+    .modify(modifier => {
+      if (lat) modifier.update({ lat }).returning('*');
+      if (lng) modifier.update({ lng }).returning('*');
+      if (status) modifier.update({ status }).returning('*');
+    });
+};
