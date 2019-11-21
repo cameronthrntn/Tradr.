@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { AppConsumer } from './AppContext';
 import { getAge } from '../utils';
+import AvatarUpload from './AvatarUpload';
 import ReviewList from '../components/ReviewList';
 
 const Container = styled.div`
@@ -65,9 +66,16 @@ const ScoreContainer = styled.div``;
 const TraderInfo = styled(Info)``;
 
 class UserInfo extends Component {
+  state = {
+    newAvatarRef: ''
+  };
   componentDidMount() {
     //make request to api for userinfo
   }
+
+  updateAvatar = newAvatarRef => {
+    this.setState({ newAvatarRef });
+  };
   render() {
     return (
       <AppConsumer>
@@ -76,8 +84,20 @@ class UserInfo extends Component {
             <>
               <Container user={user}>
                 <AvatarWrapper>
-                  <AvatarImg src={user.avatar_ref} alt="" />
+                  <AvatarImg
+                    src={
+                      !this.state.newAvatarRef
+                        ? user.avatar_ref
+                        : this.state.newAvatarRef
+                    }
+                    alt=""
+                  />
                 </AvatarWrapper>
+                <AvatarUpload
+                  updateAvatar={this.updateAvatar}
+                  trader={user.trade}
+                  username={user.username}
+                />
                 <p>{user.username}</p>
 
                 {!user.trade && (
