@@ -15,6 +15,11 @@ const AvatarWrapper = styled.aside`
   position: relative;
 `;
 
+const AvatarImg = styled.img`
+  width: 100%;
+  border-radius: 50%;
+`;
+
 const Rating = styled.div`
   position: absolute;
   bottom: -10px;
@@ -95,6 +100,7 @@ class TraderProfile extends Component {
           <TraderInfo>
             {' '}
             <AvatarWrapper>
+              <AvatarImg src={this.state.trader.avatar_ref} />
               <Rating score={this.state.trader.score}>
                 {this.state.trader.score}
               </Rating>

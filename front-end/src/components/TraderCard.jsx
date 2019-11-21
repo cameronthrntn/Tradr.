@@ -77,7 +77,6 @@ export default function TraderCard(props) {
   const TraderProp = styled.p`
     margin: 4px;
   `;
-  console.log(props.trader.avatar_ref);
 
   return (
     <Trader>
