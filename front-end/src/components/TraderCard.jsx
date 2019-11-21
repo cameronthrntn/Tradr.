@@ -35,6 +35,12 @@ export default function TraderCard(props) {
     border-radius: 50px;
     height: 6em;
   `;
+
+  const AvatarImg = styled.img`
+    width: 100%;
+    border-radius: 50%;
+  `;
+
   const Contents = styled.section`
     width: 65%;
     margin: 5px;
@@ -71,6 +77,7 @@ export default function TraderCard(props) {
   const TraderProp = styled.p`
     margin: 4px;
   `;
+  console.log(props.trader.avatar_ref);
 
   return (
     <Trader>
@@ -82,7 +89,7 @@ export default function TraderCard(props) {
       </Contents>
       <RightContainer>
         <AvatarWrapper>
-          <img src="" alt="" />
+          <AvatarImg src={props.trader.avatar_ref} alt="" />
         </AvatarWrapper>
         <Rating>{props.trader.score}</Rating>
       </RightContainer>
