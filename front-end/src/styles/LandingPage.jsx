@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
 const Page = styled.div`
-  color: ${props => props.theme.orange};
+  color: ${props => props.theme.trader};
   display: flex;
 `;
 const ExampleWrapper = styled.div`
-  background: ${props => props.theme.orange};
+  background: ${props => props.theme.trader};
   height: 100vh;
   width: 60%;
 `;
@@ -23,14 +23,15 @@ const LogInWrapper = styled.div`
 
 const LogInButton = styled.button`
   margin: 3em;
-  background: ${props => props.theme.orange};
+  background: ${props => props.theme.trader};
   color: white;
-  border: none;
+  border: solid 3px ${props => props.theme.trader};
   padding: 1em;
   width: 15em;
   border-radius: 34px;
-  &:hover:after {
-    background-color: rgba(0, 0, 0, 0.2);
+  &:hover {
+    background: white;
+    color: ${props => props.theme.trader};
   }
 `;
 

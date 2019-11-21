@@ -21,7 +21,7 @@ const Container = styled.div`
 
 const Form = styled.form`
   background-color: ${props =>
-    props.userType === 'trader' ? props.theme.orange : props.theme.purple};
+    props.userType === 'trader' ? props.theme.trader : props.theme.user};
   align-self: center;
   margin: 3em 20px 20px 20px;
   border-radius: 10px;

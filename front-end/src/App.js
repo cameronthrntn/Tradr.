@@ -22,15 +22,15 @@ export default class App extends Component {
     project: {},
     isLoading: true,
     theme: {
-      orange: '#f77123',
-      purple: '#8e3ccb'
+      trader: '#f77123',
+      user: '#8e3ccb'
     }
   };
   signout = () => {
     this.setState({ user: {} });
   };
   componentDidMount = async () => {
-    const project = await getProject(2)
+    const project = await getProject(2);
     const user = await getTrader('kitlets');
     this.setState({ project, isLoading: false, user });
   };
