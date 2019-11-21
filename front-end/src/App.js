@@ -9,10 +9,12 @@ import TraderMap from './components/TraderMap';
 import { ThemeProvider } from 'styled-components';
 import { getProject } from './utils/projects.js';
 import { getUser } from './utils/users.js';
+import { getTrader } from './utils/traders.js';
 import NotFound from './components/404NotFound';
 import { AppProvider } from './components/AppContext';
 import DashBoard from './components/DashBoard';
 import LoginForm from './components/LoginForm';
+import TraderProfile from './components/TraderProfile';
 
 export default class App extends Component {
   state = {
@@ -26,7 +28,9 @@ export default class App extends Component {
   };
   componentDidMount = async () => {
     const project = await getProject(2);
-    const user = await getUser('By-Tor2114');
+
+    const user = await getTrader('kitlets');
+    // const user = await getUser('By-Tor2114');
 
     this.setState({ project, isLoading: false, user });
   };
@@ -48,10 +52,8 @@ export default class App extends Component {
 
                 <LoginForm path="/login" />
                 <SignUpForm path="/signup" />
-
-                {!this.state.isLoading && (
-                  <TraderMap path="/traders" project={this.state.project} />
-                )}
+                <TraderProfile path="/traders/:username" />
+                <TraderMap path="/traders" project={this.state.project} />
 
                 <NotFound default />
               </Router>

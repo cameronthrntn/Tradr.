@@ -9,6 +9,7 @@ const Container = styled.div`
   border: solid 1px green;
   display: flex;
   height: 100vh;
+  overflow-y: scroll;
   @media (max-width: 768px) {
     flex-direction: column;
   }
@@ -17,6 +18,7 @@ const Container = styled.div`
 const ProjectListsContainer = styled.div`
   border: solid red 1px;
   width: 70%;
+
   @media (max-width: 768px) {
     width: 100%;
   }

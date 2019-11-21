@@ -21,4 +21,17 @@ const getDistances = (project, traders) => {
   });
 };
 
-export { getDistances };
+const getAge = birthday => {
+  const ageDifMs = Date.now() - birthday.getTime();
+  const ageDate = new Date(ageDifMs);
+  return Math.abs(ageDate.getUTCFullYear() - 1970);
+};
+
+const ratingBgColorChooser = score => {
+  if (score === 0) return '#c5c5c5';
+  else if (score > 0 && score < 2) return 'red';
+  else if (score > 2 && score < 3) return '#FFBF00';
+  else if (score > 3 && score <= 5) return '#1EB300';
+};
+
+export { getDistances, getAge, ratingBgColorChooser };
