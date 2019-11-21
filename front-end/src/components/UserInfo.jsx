@@ -2,15 +2,18 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { AppConsumer } from './AppContext';
 import { getAge } from '../utils';
+import ReviewList from '../components/ReviewList';
 
 const Container = styled.div`
   color: white;
   background: ${props =>
     props.user.trade ? props.theme.trader : props.theme.user};
   width: 30%;
+  min-width: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-y: scroll;
   @media (max-width: 768px) {
     width: 100%;
   }
@@ -18,6 +21,7 @@ const Container = styled.div`
 
 const AvatarWrapper = styled.aside`
   width: 6em;
+  min-height: 6em;
   border: 4px solid white;
   margin: 5px;
   border-radius: 50px;
@@ -38,6 +42,20 @@ const Info = styled.div`
   padding: 10px;
   border-radius: 10px;
   box-shadow: inset 1px 0 3px 0 rgb(0, 0, 0, 0.3);
+`;
+
+const Score = styled.span`
+  color: white;
+  font-weight: bold;
+  font-size: 2rem;
+  margin: 0px;
+
+  border-radius: 50%;
+  padding: 10px;
+`;
+
+const Infolet = styled.p`
+  margin: 0px;
 `;
 
 const TraderInfo = styled(Info)``;
@@ -67,19 +85,27 @@ class UserInfo extends Component {
                   </Info>
                 )}
                 {user.trade && (
-                  <TraderInfo>
+                  <>
+                    <TraderInfo>
+                      <Infolet>
+                        {user.first_name} {user.last_name}
+                      </Infolet>
+                      <hr />
+                      <Infolet>{getAge(new Date(user.dob))}</Infolet>
+                      <hr />
+                      <Infolet>{user.trade}</Infolet>
+                      <hr />
+                      <Infolet>{user.personal_site}</Infolet>
+                      <hr />
+                      <Infolet>{user.rate}/d</Infolet>
+                    </TraderInfo>
+
+                    <ReviewList />
                     <p>
-                      {user.first_name} {user.last_name}
+                      Trader Score:{' '}
+                      <Score score={user.score}>{user.score}</Score>
                     </p>
-                    <hr />
-                    <p>{getAge(new Date(user.dob))}</p>
-                    <hr />
-                    <p>{user.trade}</p>
-                    <hr />
-                    <p>{user.personal_site}</p>
-                    <hr />
-                    <p>{user.rate}/d</p>
-                  </TraderInfo>
+                  </>
                 )}
               </Container>
             </>
