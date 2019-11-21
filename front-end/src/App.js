@@ -26,12 +26,12 @@ export default class App extends Component {
       purple: '#8e3ccb'
     }
   };
+  signout = () => {
+    this.setState({ user: {} });
+  };
   componentDidMount = async () => {
-    const project = await getProject(2);
-
+    const project = await getProject(2)
     const user = await getTrader('kitlets');
-    // const user = await getUser('By-Tor2114');
-
     this.setState({ project, isLoading: false, user });
   };
   render() {
@@ -39,13 +39,13 @@ export default class App extends Component {
       <div className="App">
         <ThemeProvider theme={this.state.theme}>
           <AppProvider value={this.state.user}>
-            <Header />
+            <Header signout={this.signout} />
             {this.state.isLoading ? (
               <h1>IS LOADING</h1>
             ) : (
               <Router className="router">
                 {this.state.user ? (
-                  <DashBoard path="/" />
+                  <DashBoard path="/" username={this.state.user.username} />
                 ) : (
                   <LandingPage path="/" />
                 )}
@@ -54,7 +54,6 @@ export default class App extends Component {
                 <SignUpForm path="/signup" />
                 <TraderProfile path="/traders/:username" />
                 <TraderMap path="/traders" project={this.state.project} />
-
                 <NotFound default />
               </Router>
             )}

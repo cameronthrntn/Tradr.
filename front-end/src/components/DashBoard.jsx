@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import UserInfo from '../components/UserInfo';
 import ProjectList from '../components/ProjectList';
 import styled from 'styled-components';
@@ -8,7 +7,8 @@ import { getProjectsByUsername, getProjectsByTrader } from '../utils/projects';
 const Container = styled.div`
   border: solid 1px green;
   display: flex;
-  height: 100vh;
+  /* margin-top: 6vh; */
+  height: 94vh;
   overflow-y: scroll;
   @media (max-width: 768px) {
     flex-direction: column;
@@ -26,18 +26,27 @@ const ProjectListsContainer = styled.div`
 
 export default class DashBoard extends Component {
   state = {
-    projects: []
+    inPlanning: [],
+    inProgress: [],
+    complete: []
   };
-  componentDidMount() {}
+  componentDidMount = async () => {
+    const projects = await getProjectsByUsername(this.props.username);
+    console.log(projects);
+    this.setState({
+      inPlanning: projects.filter(project => project.status === 'in planning'),
+      inProgress: projects.filter(project => project.status === 'in progress'),
+      complete: projects.filter(project => project.status === 'complete')
+    });
+  };
   render() {
     return (
       <Container>
         <UserInfo />
-
         <ProjectListsContainer>
-          <ProjectList projects="" />
-          <ProjectList projects="" />
-          <ProjectList projects="" />
+          <ProjectList heading="In planning" projects={this.state.inPlanning} />
+          <ProjectList heading="In Progress" projects={this.state.inProgress} />
+          <ProjectList heading="Complete" projects={this.state.complete} />
         </ProjectListsContainer>
       </Container>
     );

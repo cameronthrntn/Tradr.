@@ -8,7 +8,7 @@ export default class TraderList extends Component {
     const List = styled.ul`
       list-style: none;
       padding: 15px;
-      height: 100%;
+      height: 90%;
       overflow-y: scroll;
     `;
     return (
