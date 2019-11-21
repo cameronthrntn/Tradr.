@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import GoogleMapReact from 'google-map-react';
 import TraderPin from './TraderPin';
 import ReviewList from '../components/ReviewList';
+import UserInfo from '../components/UserInfo';
 
 const AvatarWrapper = styled.aside`
   width: 6em;
@@ -91,40 +92,9 @@ class TraderProfile extends Component {
   render() {
     return (
       <Container>
-        <TraderInfoAndReviews>
-          <TraderInfo>
-            {' '}
-            <AvatarWrapper>
-              <Rating score={this.state.trader.score}>
-                {this.state.trader.score}
-              </Rating>
-            </AvatarWrapper>
-            <p>{this.state.trader.username}</p>
-            <p>
-              {this.state.trader.first_name} {this.state.trader.last_name}
-            </p>
-            <p>{this.state.trader.trade}</p>
-            <p>{this.state.trader.rate}/d</p>
-          </TraderInfo>
-        </TraderInfoAndReviews>
-        <MapWrapper>
-          <GoogleMapReact
-            bootstrapURLKeys={{
-              key: 'AIzaSyCLjaFTw1ZCyLDZrMtk7uX6PkISOr0u-Vk'
-            }}
-            defaultCenter={{
-              lat: this.state.trader.lat,
-              lng: this.state.trader.lng
-            }}
-            defaultZoom={15}
-          >
-            <TraderPin
-              project={false}
-              lat={this.state.trader.lat}
-              lng={this.state.trader.lng}
-            />
-          </GoogleMapReact>
-        </MapWrapper>
+        <UserInfo />
+
+        <MapWrapper></MapWrapper>
       </Container>
     );
   }
