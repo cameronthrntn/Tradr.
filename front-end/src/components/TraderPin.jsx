@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { navigate } from '@reach/router';
+
 
 export default function TraderPin(
   { username, trade, score, rate, project, avatar_ref },
@@ -45,8 +47,12 @@ export default function TraderPin(
     margin: 0px;
     padding: 10px;
   `;
+
+  const navigateToTrader = username => {
+    navigate(`/traders/${username}`);
+  };
   return (
-    <Pin>
+    <Pin onClick={() => navigateToTrader(username)}>
       <PinContent>
         {project ? (
           <ProjectName>Your Project</ProjectName>
