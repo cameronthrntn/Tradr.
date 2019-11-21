@@ -8,8 +8,8 @@ export default function TraderPin(
   const Pin = styled.div`
     padding: 0.9em;
     background: ${project
-      ? props => props.theme.purple
-      : props => props.theme.orange};
+      ? props => props.theme.user
+      : props => props.theme.trader};
     box-shadow: inset 1px 0 3px 0 rgb(0, 0, 0, 0.3);
     border-radius: 50% 50% 50% 0;
     transform: rotate(-45deg);

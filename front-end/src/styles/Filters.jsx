@@ -13,7 +13,7 @@ const FilterItem = styled.div`
 `;
 const FilterInput = styled.input`
   width: 100%;
-  border-bottom: 1px solid ${props => props.theme.orange};
+  border-bottom: 1px solid ${props => props.theme.trader};
   font-size: 1.5rem;
   background: none;
   border: none;
@@ -29,6 +29,6 @@ const FilterButton = styled.button`
   margin-left: 40vw;
   width: 20vw;
   height: 20px;
-`
+`;
 
 export { Filters, FilterItem, FilterInput, FilterSelect, FilterButton };

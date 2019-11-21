@@ -22,14 +22,14 @@ export default class App extends Component {
     project: {},
     isLoading: true,
     theme: {
-      orange: '#f77123',
-      purple: '#8e3ccb'
+      trader: '#f77123',
+      user: '#8e3ccb'
     }
   };
   componentDidMount = async () => {
     const project = await getProject(2);
 
-    const user = await getTrader('kitlets');
+    const user = await getTrader('kitlts');
     // const user = await getUser('By-Tor2114');
 
     this.setState({ project, isLoading: false, user });
