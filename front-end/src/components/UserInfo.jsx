@@ -28,6 +28,11 @@ const AvatarWrapper = styled.aside`
   height: 6em;
 `;
 
+const AvatarImg = styled.img`
+  width: 100%;
+  border-radius: 50%;
+`;
+
 const Info = styled.div`
   background: white;
   color: black;
@@ -67,7 +72,7 @@ class UserInfo extends Component {
             <>
               <Container user={user}>
                 <AvatarWrapper>
-                  <img src="" alt="" />
+                  <AvatarImg src={user.avatar_ref} alt="" />
                 </AvatarWrapper>
                 <p>{user.username}</p>
 
