@@ -10,7 +10,6 @@ const getTraders = async (project_id, filters) => {
 
 const getTrader = async username => {
   const { data } = await axios.get(`${BASEURL}/traders/${username}`);
-  console.log(data);
 
   return data.trader;
 };
