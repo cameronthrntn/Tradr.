@@ -1,6 +1,7 @@
 import React from 'react';
 import { getDistances } from '../utils';
 import styled from 'styled-components';
+import { navigate } from '@reach/router';
 
 export default function TraderCard(props) {
   const ratingBgColorChooser = () => {
@@ -35,6 +36,12 @@ export default function TraderCard(props) {
     border-radius: 50px;
     height: 6em;
   `;
+
+  const AvatarImg = styled.img`
+    width: 100%;
+    border-radius: 50%;
+  `;
+
   const Contents = styled.section`
     width: 65%;
     margin: 5px;
@@ -71,9 +78,11 @@ export default function TraderCard(props) {
   const TraderProp = styled.p`
     margin: 4px;
   `;
-
+  const navigateToTrader = username => {
+    navigate(`/traders/${username}`);
+  };
   return (
-    <Trader>
+    <Trader onClick={() => navigateToTrader(props.trader.username)}>
       <Contents>
         <Username>{props.trader.username}</Username>
         <TraderProp>{props.trader.trade}</TraderProp>
@@ -82,7 +91,7 @@ export default function TraderCard(props) {
       </Contents>
       <RightContainer>
         <AvatarWrapper>
-          <img src="" alt="" />
+          <AvatarImg src={props.trader.avatar_ref} alt="" />
         </AvatarWrapper>
         <Rating>{props.trader.score}</Rating>
       </RightContainer>

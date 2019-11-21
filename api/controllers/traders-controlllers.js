@@ -7,15 +7,19 @@ const {
 
 exports.getAllTraders = (req, res, next) => {
   if (req.query.sort_by) req.query.order = 'asc';
-  selectAllTraders(req.query).then(traders => {
-    res.status(200).send({ traders });
-  });
+  selectAllTraders(req.query)
+    .then(traders => {
+      res.status(200).send({ traders });
+    })
+    .catch(next);
 };
 
 exports.getTraderByUsername = (req, res, next) => {
-  selectTraderByUsername(req.params.username).then(trader => {
-    res.status(200).send({ trader: trader[0] });
-  });
+  selectTraderByUsername(req.params.username)
+    .then(trader => {
+      res.status(200).send({ trader: trader[0] });
+    })
+    .catch(next);
 };
 
 exports.postNewTrader = (req, res, next) => {
