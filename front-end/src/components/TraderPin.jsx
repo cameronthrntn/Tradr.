@@ -19,6 +19,7 @@ export default function TraderPin(
     &:hover {
       transform: scale(1.1) rotate(-45deg);
       transition: 0.2s;
+      cursor: pointer;
     }
   `;
 

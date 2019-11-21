@@ -13,7 +13,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow-y: scroll;
+
+  /* min-height: 800px; */
   @media (max-width: 768px) {
     width: 100%;
   }
@@ -43,8 +44,7 @@ const Score = styled.span`
   color: white;
   font-weight: bold;
   font-size: 2rem;
-  margin: 0px;
-
+  margin: 20px;
   border-radius: 50%;
   padding: 10px;
 `;
@@ -52,6 +52,8 @@ const Score = styled.span`
 const Infolet = styled.p`
   margin: 0px;
 `;
+
+const ScoreContainer = styled.div``;
 
 const TraderInfo = styled(Info)``;
 
@@ -96,10 +98,10 @@ class UserInfo extends Component {
                     </TraderInfo>
 
                     <ReviewList />
-                    <p>
+                    <ScoreContainer>
                       Trader Score:{' '}
                       <Score score={user.score}>{user.score}</Score>
-                    </p>
+                    </ScoreContainer>
                   </>
                 )}
               </Container>
