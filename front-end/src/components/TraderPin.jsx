@@ -43,7 +43,6 @@ export default function TraderPin(
   return (
     <Pin>
       <PinContent>
-        <img src={avatar_ref} alt="" />
         {project ? (
           <ProjectName>Your Project</ProjectName>
         ) : (
