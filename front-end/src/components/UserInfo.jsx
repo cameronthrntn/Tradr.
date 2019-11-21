@@ -9,14 +9,16 @@ const Container = styled.div`
   background: ${props =>
     props.user.trade ? props.theme.trader : props.theme.user};
   width: 30%;
-  min-width: 400px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  /* min-height: 800px; */
   @media (max-width: 768px) {
     width: 100%;
+  }
+  @media (min-width: 768px) {
+    min-width: 400px;
   }
 `;
 

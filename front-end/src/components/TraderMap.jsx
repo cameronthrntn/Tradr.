@@ -56,23 +56,24 @@ export default class TraderMap extends Component {
   };
   render() {
     const MapWrapper = styled.div`
-      height: 90vh;
+      height: 100%;
       width: 60%;
       @media (max-width: 900px) {
-        height: 300px;
+        height: 60%;
         width: 100%;
       }
     `;
     const TraderWrapper = styled.div`
       height: 90vh;
       margin: 0;
-
       width: 35%;
       @media (max-width: 900px) {
         width: 100%;
+        height: 40%;
       }
     `;
     const MapAndList = styled.div`
+      height: 90vh;
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
