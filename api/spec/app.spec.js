@@ -387,7 +387,7 @@ describe('/api', () => {
       });
     });
     describe('GET', () => {
-      it.only('Status 200: Returns a user by username', () => {
+      it('Status 200: Returns a user by username', () => {
         return request(app)
           .get('/api/users/By-Tor2114')
           .expect(200)
