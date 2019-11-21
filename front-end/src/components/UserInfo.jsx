@@ -6,7 +6,7 @@ import { getAge } from '../utils';
 const Container = styled.div`
   color: white;
   background: ${props =>
-    props.user.trade ? props.theme.orange : props.theme.purple};
+    props.user.trade ? props.theme.trader : props.theme.user};
   width: 30%;
   display: flex;
   flex-direction: column;
