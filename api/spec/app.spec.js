@@ -113,7 +113,7 @@ describe('/api', () => {
       });
       describe('Error Handling', () => {});
     });
-    describe('/api/traders', () => {
+    describe('/traders', () => {
       describe('PATCH', () => {
         it('responds with an updated trader object', () => {
           return request(app)
@@ -294,38 +294,36 @@ describe('/api', () => {
           });
       });
     });
-  });
-  describe('/api/projects/:id', () => {
-    describe('GET', () => {
-      it('Status 200: Returns a project by its ID', () => {
-        return request(app)
-          .get('/api/projects/1')
-          .expect(200)
-          .then(({ body }) => {
-            expect(body.project[0].project_id).to.equal(1);
-            expect(body.project[0].username).to.equal('By-Tor2114');
+    describe('/:id', () => {
+      describe('GET', () => {
+        it('Status 200: Returns a project by its ID', () => {
+          return request(app)
+            .get('/api/projects/1')
+            .expect(200)
+            .then(({ body }) => {
+              expect(body.project[0].project_id).to.equal(1);
+              expect(body.project[0].username).to.equal('By-Tor2114');
+            });
+        });
+      });
+      describe('/traders', () => {
+        describe('GET', () => {
+          it('Status 200: Returns an array of all traders linked to a project, along with relevant project information', () => {
+            return request(app)
+              .get('/api/projects/2/traders')
+              .expect(200)
+              .then(({ body }) => {
+                expect(body.traders).to.be.an('array');
+                expect(body.traders[0].trader_username).to.equal('Shubwub');
+                expect(body.traders[1].trader_username).to.equal('kitlets');
+                expect(body.traders.length).to.equal(2);
+              });
           });
+        });
       });
     });
   });
-
-  describe('/api/projects/:id/traders', () => {
-    describe('GET', () => {
-      it('Status 200: Returns an array of all traders linked to a project, along with relevant project information', () => {
-        return request(app)
-          .get('/api/projects/2/traders')
-          .expect(200)
-          .then(({ body }) => {
-            expect(body.traders).to.be.an('array');
-            expect(body.traders[0].trader_username).to.equal('Shubwub');
-            expect(body.traders[1].trader_username).to.equal('kitlets');
-            expect(body.traders.length).to.equal(2);
-          });
-      });
-    });
-  });
-
-  describe('/api/users', () => {
+  describe('/users', () => {
     describe('POST', () => {
       it('Status 201: Creates a new user object and returns that object', () => {
         return request(app)
@@ -339,68 +337,148 @@ describe('/api', () => {
           .expect(201)
           .then(({ body }) => {
             expect(body.user[0].username).to.equal('newUser');
-            expect(body.user[0].avatar_ref).to.equal(
-              './api/data/dev/img/default-avatar.png'
-            );
           });
+      });
+    });
+    describe('/:username', () => {
+      describe('PATCH', () => {
+        it('Status 200: Returns an updated user object when supplied a new first name', () => {
+          return request(app)
+            .patch('/api/users/By-Tor2114')
+            .send({ first_name: 'Benji' })
+            .expect(200)
+            .then(({ body }) => {
+              expect(body.user[0].first_name).to.equal('Benji');
+            });
+        });
+        it('Status 200: Returns an updated user object when supplied a new last name', () => {
+          return request(app)
+            .patch('/api/users/By-Tor2114')
+            .send({ last_name: 'Weitz' })
+            .expect(200)
+            .then(({ body }) => {
+              expect(body.user[0].last_name).to.equal('Weitz');
+            });
+        });
+        it('Status 200: Returns an updated user object when supplied a new avatar ref', () => {
+          return request(app)
+            .patch('/api/users/By-Tor2114')
+            .send({ avatar_ref: 'www.google.com' })
+            .expect(200)
+            .then(({ body }) => {
+              expect(body.user[0].avatar_ref).to.equal('www.google.com');
+            });
+        });
+        it('Status 200: Returns an updated user object when supplied a new date of birth', () => {
+          return request(app)
+            .patch('/api/users/By-Tor2114')
+            .send({ dob: '01/01/1985' })
+            .expect(200)
+            .then(({ body }) => {
+              expect(body.user[0].dob).to.equal('1985-01-01T00:00:00.000Z');
+            });
+        });
+      });
+      describe('GET', () => {
+        it('Status 200: Returns a user by username', () => {
+          return request(app)
+            .get('/api/users/By-Tor2114')
+            .expect(200)
+            .then(({ body }) => {
+              expect(body.user[0]).to.eql({
+                username: 'By-Tor2114',
+                first_name: 'Ben',
+                last_name: 'Jones',
+                avatar_ref:
+                  '/api/db/data/test/Images/stock-person-png-stock-photo-man-11563049686zqeb9zmqjd.png',
+                dob: '1988-10-07T23:00:00.000Z'
+              });
+            });
+        });
       });
     });
   });
-
-  describe('/api/users/:username', () => {
-    describe('PATCH', () => {
-      it('Status 200: Returns an updated user object when supplied a new first name', () => {
-        return request(app)
-          .patch('/api/users/By-Tor2114')
-          .send({ first_name: 'Benji' })
-          .expect(200)
-          .then(({ body }) => {
-            expect(body.user[0].first_name).to.equal('Benji');
-          });
-      });
-      it('Status 200: Returns an updated user object when supplied a new last name', () => {
-        return request(app)
-          .patch('/api/users/By-Tor2114')
-          .send({ last_name: 'Weitz' })
-          .expect(200)
-          .then(({ body }) => {
-            expect(body.user[0].last_name).to.equal('Weitz');
-          });
-      });
-      it('Status 200: Returns an updated user object when supplied a new avatar ref', () => {
-        return request(app)
-          .patch('/api/users/By-Tor2114')
-          .send({ avatar_ref: 'www.google.com' })
-          .expect(200)
-          .then(({ body }) => {
-            expect(body.user[0].avatar_ref).to.equal('www.google.com');
-          });
-      });
-      it('Status 200: Returns an updated user object when supplied a new date of birth', () => {
-        return request(app)
-          .patch('/api/users/By-Tor2114')
-          .send({ dob: '01/01/1985' })
-          .expect(200)
-          .then(({ body }) => {
-            expect(body.user[0].dob).to.equal('1985-01-01T00:00:00.000Z');
-          });
+  describe.only('/reviews', () => {
+    describe('GET', () => {
+      describe('OK', () => {
+        it('Status 200: Returns an array of reviews by a given valid user', () => {
+          return request(app)
+            .get('/api/reviews?user_username=BenRut')
+            .expect(200)
+            .then(({ body }) => {
+              expect(body.reviews[0].user_username).to.equal('BenRut');
+            });
+        });
+        it('Status 200: Returns an array of reviews for a given trader', () => {
+          return request(app)
+            .get('/api/reviews?trader_username=kitlets')
+            .expect(200)
+            .then(({ body }) => {
+              expect(body.reviews[0].trader_username).to.equal('kitlets');
+            });
+        });
+        it('Status 200: Returns an array of reviews for a given trader and user', () => {
+          return request(app)
+            .get('/api/reviews?trader_username=kitlets&user_username=BenRut')
+            .expect(200)
+            .then(({ body }) => {
+              expect(body.reviews[0].trader_username).to.equal('kitlets');
+              expect(body.reviews[0].user_username).to.equal('BenRut');
+            });
+        });
+        it('Status 200: Returns an empty array of reviews for a given trader with no reviews', () => {
+          return request(app)
+            .get('/api/reviews?trader_username=fakeTrader')
+            .expect(200)
+            .then(({ body }) => {
+              expect(body.reviews.length).to.equal(0);
+            });
+        });
       });
     });
-    describe('GET', () => {
-      it('Status 200: Returns a user by username', () => {
-        return request(app)
-          .get('/api/users/By-Tor2114')
-          .expect(200)
-          .then(({ body }) => {
-            expect(body.user[0]).to.eql({
-              username: 'By-Tor2114',
-              first_name: 'Ben',
-              last_name: 'Jones',
-              avatar_ref:
-                '/api/db/data/test/Images/stock-person-png-stock-photo-man-11563049686zqeb9zmqjd.png',
-              dob: '1988-10-07T23:00:00.000Z'
+    describe('POST', () => {
+      describe('OK', () => {
+        it('Status 201: Returns a posted valid review', () => {
+          return request(app)
+            .post('/api/reviews')
+            .send({
+              user_username: 'By-Tor2114',
+              trader_username: 'Shubwub',
+              heading: 'this is a review',
+              body: 'body here',
+              score: 4
+            })
+            .expect(201)
+            .then(({ body }) => {
+              expect(body.review.user_username).to.equal('By-Tor2114');
             });
-          });
+        });
+      });
+      describe('Error Handling', () => {
+        it('Status 404: Returns 404 for a user that doesnt exist', () => {
+          return request(app)
+            .post('/api/reviews')
+            .send({
+              user_username: 'notReal',
+              trader_username: 'Shubwub',
+              heading: 'this is a review',
+              body: 'body here',
+              score: 4
+            })
+            .expect(404);
+        });
+        it('Status 404: Returns 404 for a trader that doesnt exist', () => {
+          return request(app)
+            .post('/api/reviews')
+            .send({
+              user_username: 'BenRut',
+              trader_username: 'notReal',
+              heading: 'this is a review',
+              body: 'body here',
+              score: 4
+            })
+            .expect(404);
+        });
       });
     });
   });
