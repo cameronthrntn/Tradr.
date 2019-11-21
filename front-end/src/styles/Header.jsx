@@ -13,7 +13,7 @@ const Nav = styled.nav`
 `;
 
 const NavLogo = styled.div`
-  margin-left: 3vw; 
+  margin-left: 3vw;
   font-family: gilbert-color, sans-serif;
   font-style: normal;
   font-weight: 700;
@@ -21,13 +21,13 @@ const NavLogo = styled.div`
 `;
 
 const LogoHead = styled.p`
-  color: ${props => props.theme.orange};
+  color: ${props => props.theme.trader};
   float: left;
   margin: 0;
 `;
 
 const LogoBody = styled.p`
-  color: ${props => props.theme.purple};
+  color: ${props => props.theme.user};
   float: left;
   margin: 0;
 `;

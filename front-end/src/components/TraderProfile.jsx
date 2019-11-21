@@ -53,6 +53,7 @@ const TraderInfo = styled.div`
   border: solid blue 1px;
   width: 100%;
   height: 50%;
+  background: ${props => props.theme.trader};
 `;
 
 const TraderInfoAndReviews = styled.div`
