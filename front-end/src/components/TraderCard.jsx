@@ -1,6 +1,7 @@
 import React from 'react';
 import { getDistances } from '../utils';
 import styled from 'styled-components';
+import { navigate } from '@reach/router';
 
 export default function TraderCard(props) {
   const ratingBgColorChooser = () => {
@@ -77,10 +78,11 @@ export default function TraderCard(props) {
   const TraderProp = styled.p`
     margin: 4px;
   `;
-  console.log(props.trader.avatar_ref);
-
+  const navigateToTrader = username => {
+    navigate(`/traders/${username}`);
+  };
   return (
-    <Trader>
+    <Trader onClick={() => navigateToTrader(props.trader.username)}>
       <Contents>
         <Username>{props.trader.username}</Username>
         <TraderProp>{props.trader.trade}</TraderProp>
