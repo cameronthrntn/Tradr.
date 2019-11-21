@@ -57,20 +57,30 @@ export default class TraderMap extends Component {
   render() {
     const MapWrapper = styled.div`
       height: 90vh;
-      width: 80%;
+      width: 60%;
+      @media (max-width: 900px) {
+        height: 300px;
+        width: 100%;
+      }
     `;
     const TraderWrapper = styled.div`
       height: 90vh;
       margin: 0;
-      width: 18%;
-      border: 1px solid green;
+
+      width: 35%;
+      @media (max-width: 900px) {
+        width: 100%;
+      }
     `;
     const MapAndList = styled.div`
       display: flex;
-      flex-wrap: wrap;
       justify-content: center;
-      align-items: center;
+      flex-wrap: wrap;
+      overflow-y: scroll;
       margin-top: 2vh;
+      @media (max-width: 900px) {
+        flex-direction: column;
+      }
     `;
     const Button = styled.button`
       background: white;
@@ -81,6 +91,7 @@ export default class TraderMap extends Component {
           <h1>Loading...</h1>
         ) : (
           <>
+            <Button onClick={this.toggleForm}>Show Filters</Button>
             {this.state.showFilters && (
               <FilterBar updateTraders={this.updateTraders} />
             )}
@@ -117,7 +128,6 @@ export default class TraderMap extends Component {
                 </GoogleMapReact>
               </MapWrapper>
               <TraderWrapper>
-                <Button onClick={this.toggleForm}>Show Filters</Button>
                 <TraderList traders={this.state.traders} />
               </TraderWrapper>
             </MapAndList>
