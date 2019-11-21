@@ -1,20 +1,26 @@
 import React, { Component } from 'react';
-import Logo from '../img/tradr-logo.png';
-import { Nav, NavLogo, LogoHead, LogoBody  } from '../styles/Header';
+import { Link } from '@reach/router';
+import { Nav, NavLogo, LogoHead, LogoBody } from '../styles/Header';
 
 class Header extends Component {
   state = {
     show: true,
     scrollPos: 0
   };
+  signOut = () => {
+    this.props.signout();
+  };
   render() {
     return (
       <>
         <Nav className={this.state.show ? 'active' : 'hidden'}>
-          <NavLogo>
-            <LogoHead>Tr</LogoHead>
-            <LogoBody>adr.</LogoBody>
-          </NavLogo>
+          <Link to="/">
+            <NavLogo>
+              <LogoHead>Tr</LogoHead>
+              <LogoBody>adr.</LogoBody>
+            </NavLogo>
+          </Link>
+            <button onClick={this.signOut}>Sign out</button>
         </Nav>
       </>
     );

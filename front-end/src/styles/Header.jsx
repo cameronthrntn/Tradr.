@@ -3,12 +3,13 @@ import styled from 'styled-components';
 const Nav = styled.nav`
   background: white;
   height: 6vh;
-  position: fixed;
-  top: 0;
+  /* position: fixed; */
+  /* top: 0; */
   width: 100%;
-  z-index: 10;
+  z-index: 2;
   box-shadow: 0 4px 8px -2px gray;
   display: flex;
+  justify-content: space-between;
 `;
 
 const NavLogo = styled.div`

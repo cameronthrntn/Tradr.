@@ -12,7 +12,7 @@ import {
 
 export default class SignUpForm extends Component {
   state = {
-    userType: 'trader',
+    userType: 'user',
     first_name: '',
     last_name: '',
     username: '',

@@ -15,6 +15,11 @@ export default function TraderPin(
     transform: rotate(-45deg);
     width: 6em;
     height: 6em;
+    transition: 0.2s;
+    &:hover {
+      transform: scale(1.1) rotate(-45deg);
+      transition: 0.2s;
+    }
   `;
 
   const Score = styled.p`
@@ -48,7 +53,7 @@ export default function TraderPin(
           <ProjectName>Your Project</ProjectName>
         ) : (
           <>
-            <Score>{score}</Score>
+            <Score>{score === 0 ? 'n/a' : score}</Score>
             <Rate>£{rate}/d</Rate>
           </>
         )}
