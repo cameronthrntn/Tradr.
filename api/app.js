@@ -4,6 +4,7 @@ const apiRouter = require('./routes/api-router');
 const {
   handleCustomErrors,
   handle400s,
+  handle404s,
   handle405s,
   handle500s
 } = require('./errors');

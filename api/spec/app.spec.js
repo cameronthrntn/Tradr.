@@ -165,32 +165,32 @@ describe('/api', () => {
         });
         describe('Error Handling', () => {});
       });
-      xdescribe('PATCH', () => {
+      describe('PATCH', () => {
         describe('OK', () => {
           it('Status 200: responds with updated trader object', () => {
             return request(app)
-              .patch('/api/traders/kitlet')
+              .patch('/api/traders/kitlets')
               .send({
-                first_name: 'Russell',
-                last_name: 'Brand',
-                location: 'Essex (still)',
+                first_name: 'Test',
+                last_name: 'Name',
                 personal_site: 'https://www.russellbrand.com/',
                 trade: 'comedian'
               })
               .expect(200)
-              .then(({ body: { trader } }) => {
-                expect(trader).to.eql({
-                  first_name: 'Russell',
-                  last_name: 'Brand',
-                  location: 'Essex (still)',
+              .then(({ body }) => {
+                expect(body.trader[0]).to.eql({
+                  username: 'kitlets',
+                  first_name: 'Test',
+                  last_name: 'Name',
+                  lng: -1.54504,
+                  lat: 53.7952,
+                  rate: 230,
+                  dob: '1984-05-20T23:00:00.000Z',
+                  score: 0,
                   personal_site: 'https://www.russellbrand.com/',
                   trade: 'comedian',
-                  dob: new Date('21/05/1984'),
-                  score: 3.7,
-                  lat: 53.795227,
-                  long: -1.545038,
-                  avatar_ref: 'api/db/data/test/Images/18889192-plumber.jpg',
-                  rate: 230
+                  avatar_ref:
+                    'https://firebasestorage.googleapis.com/v0/b/tradr-4959b.appspot.com/o/images%2Fc0749ecb-ade4-4d23-8faf-da5732049b96.jpeg?alt=media&token=3b89da28-d162-4368-a868-c82436a375f6'
                 });
               });
           });
