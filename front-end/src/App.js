@@ -15,6 +15,7 @@ import { AppProvider } from './components/AppContext';
 import DashBoard from './components/DashBoard';
 import LoginForm from './components/LoginForm';
 import TraderProfile from './components/TraderProfile';
+import Loader from './components/Loader';
 
 export default class App extends Component {
   state = {
@@ -35,6 +36,12 @@ export default class App extends Component {
     // const user = await getUser('BenRut');
     this.setState({ project, isLoading: false, user });
   };
+  updateUserInfo = body => {
+    console.log(body);
+    this.setState(currentState => {
+      return { user: { ...currentState.user, ...body } };
+    });
+  };
   render() {
     return (
       <div className="App">
@@ -42,11 +49,15 @@ export default class App extends Component {
           <AppProvider value={this.state.user}>
             <Header signout={this.signout} />
             {this.state.isLoading ? (
-              <h1>IS LOADING</h1>
+              <Loader />
             ) : (
               <Router className="router">
                 {this.state.user ? (
-                  <DashBoard path="/" username={this.state.user.username} />
+                  <DashBoard
+                    updateUserInfo={this.updateUserInfo}
+                    path="/"
+                    username={this.state.user.username}
+                  />
                 ) : (
                   <LandingPage path="/" />
                 )}

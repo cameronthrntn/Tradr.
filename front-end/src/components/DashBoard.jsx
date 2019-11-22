@@ -41,7 +41,7 @@ export default class DashBoard extends Component {
   render() {
     return (
       <Container>
-        <UserInfo />
+        <UserInfo updateUserInfo={this.props.updateUserInfo} />
         <ProjectListsContainer>
           <ProjectList heading="In planning" projects={this.state.inPlanning} />
           <ProjectList heading="In Progress" projects={this.state.inProgress} />

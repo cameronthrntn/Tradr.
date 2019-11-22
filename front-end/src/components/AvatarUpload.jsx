@@ -67,7 +67,8 @@ class AvatarUpload extends Component {
           position: 'absolute',
           bottom: '-10px',
           right: '-10px',
-          borderRadius: '50%'
+          borderRadius: '50%',
+          boxShadow: '1px 0 3px 0 rgb(0, 0, 0, 0.3)'
         }}
       >
         +

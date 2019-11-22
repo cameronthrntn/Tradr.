@@ -103,9 +103,11 @@ const EditButton = styled.button`
   right: -10px;
   height: 30px;
   width: 30px;
+  box-shadow: 1px 0 3px 0 rgb(0, 0, 0, 0.3);
+  border: none;
 `;
 
-const SaveButton = styled.div`
+const SaveButton = styled.button`
   text-align: center;
   background: lightgray;
   border-radius: 5px;
@@ -128,11 +130,12 @@ class UserInfo extends Component {
   };
 
   handleSubmit = (e, user) => {
-    console.log(user);
+    console.log('in handle submit');
 
     e.preventDefault();
     updateProfile(this.state.body, user.trade, user.username).then(user => {
-      this.setState({ body: {} });
+      this.props.updateUserInfo(this.state.body);
+      this.setState({ body: {}, isEditing: false });
     });
   };
 
@@ -293,7 +296,7 @@ class UserInfo extends Component {
                       </TraderInfo>
                     )}
 
-                    <ReviewList />
+                    <ReviewList username={user.username} />
                     <ScoreContainer>
                       Trader Score:{' '}
                       <Score score={user.score}>{user.score}</Score>
