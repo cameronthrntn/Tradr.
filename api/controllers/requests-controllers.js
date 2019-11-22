@@ -21,11 +21,13 @@ exports.postRequest = (req, res, next) => {
 };
 
 exports.deleteRequest = (req, res, next) => {
-  removeRequest(req.query)
+  removeRequest(req.body)
     .then(rows => {
-      rows
-        ? res.send({ rows })
-        : res.status(404).send({ msg: 'request not found!' });
+      if (rows === 1 || rows.length > 0) {
+        res.send({ rows });
+      } else {
+        res.status(404).send({ msg: 'request not found!' });
+      }
     })
     .catch(next);
 };

@@ -7,15 +7,42 @@ exports.fetchRequests = ({ user_username, trader_username }) => {
   });
 };
 
-exports.removeRequest = ({ request_id, a }) => {
-  if (a) {
+exports.removeRequest = ({
+  request_id,
+  accepted,
+  trader_username,
+  project_id
+}) => {
+  if (!accepted) {
     return connection('requests')
       .where({ request_id })
       .del();
   } else {
     return connection('requests')
       .where({ request_id })
-      .del();
+      .del()
+      .then(() => {
+        return connection
+          .select('*')
+          .from('traders-projects-junction')
+          .join(
+            'projects',
+            'projects.project_id',
+            '=',
+            'traders-projects-junction.project_id'
+          )
+          .where(
+            'traders-projects-junction.trader_username',
+            '=',
+            trader_username
+          )
+          .where('traders-projects-junction.project_id', '=', project_id);
+      })
+      .then(() => {
+        return connection('traders-projects-junction')
+          .insert({ project_id, trader_username })
+          .returning('*');
+      });
   }
 };
 
