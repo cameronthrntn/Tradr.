@@ -7,6 +7,7 @@ const {
   reviewsData,
   requestsData
 } = require('../data/index');
+const bcrypt = require('bcrypt');
 
 exports.seed = function(knex) {
   return knex.migrate
@@ -14,7 +15,11 @@ exports.seed = function(knex) {
     .then(() => knex.migrate.latest())
     .then(() => {
       const seedUsers = () => {
-        return knex.insert(userData).into('users');
+        const encryptedusers = userData.map(user => ({
+          ...user,
+          password: bcrypt.hashSync(user.password, 10)
+        }));
+        return knex.insert(encryptedusers).into('users');
       };
       const seedTraders = () => {
         return knex.insert(tradersData).into('traders');
