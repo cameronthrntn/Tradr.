@@ -542,10 +542,10 @@ describe('/api', () => {
         });
         it('Status 200: Returns a list of open requests to a trader', () => {
           return request(app)
-            .get('/api/requests?trader_username=kitlets')
+            .get('/api/requests?trader_username=Shubwub')
             .expect(200)
             .then(({ body }) => {
-              expect(body.requests[0].trader_username).to.equal('kitlets');
+              expect(body.requests[0].trader_username).to.equal('Shubwub');
             });
         });
       });
@@ -556,26 +556,26 @@ describe('/api', () => {
           return request(app)
             .post('/api/requests')
             .send({
-              user_username: 'BenRut',
+              user_username: 'By-Tor2114',
               trader_username: 'fakeTrader',
-              project_id: 2
+              project_id: 1
             })
             .expect(201)
             .then(({ body }) => {
-              expect(body.request.user_username).to.equal('BenRut');
+              expect(body.request.user_username).to.equal('By-Tor2114');
             });
         });
         it('Status 200: A new request can be found on the users list', () => {
           return request(app)
             .post('/api/requests')
             .send({
-              user_username: 'BenRut',
+              user_username: 'By-Tor2114',
               trader_username: 'fakeTrader',
-              project_id: 2
+              project_id: 1
             })
             .then(({ body }) => {
               return request(app)
-                .get('/api/requests?user_username=BenRut')
+                .get('/api/requests?user_username=By-Tor2114')
                 .expect(200)
                 .then(({ body }) => {
                   expect(body.requests.length).to.equal(2);
@@ -586,9 +586,9 @@ describe('/api', () => {
           return request(app)
             .post('/api/requests')
             .send({
-              user_username: 'BenRut',
+              user_username: 'By-Tor2114',
               trader_username: 'fakeTrader',
-              project_id: 2
+              project_id: 1
             })
             .then(() => {
               return request(app)
@@ -630,6 +630,67 @@ describe('/api', () => {
               project_id: 2
             })
             .expect(400);
+        });
+      });
+    });
+    describe('DELETE', () => {
+      describe('OK', () => {
+        it('Status 200: Returns the number of deleted requests (1) when a request is denied', () => {
+          return request(app)
+            .del('/api/requests')
+            .send({
+              request_id: 1,
+              accepted: false,
+              trader_username: 'Shubwub',
+              project_id: 1
+            })
+            .expect(200)
+            .then(({ body }) => {
+              expect(body.rows).to.equal(1);
+            });
+        });
+        it('Status 200: Adds a trader to a project when a request is accepted', () => {
+          return request(app)
+            .del('/api/requests')
+            .send({
+              request_id: 1,
+              accepted: true,
+              trader_username: 'Shubwub',
+              project_id: 1
+            })
+            .expect(200)
+            .then(() => {
+              return request(app)
+                .get('/api/projects/1/traders')
+                .expect(200);
+            })
+            .then(({ body }) => {
+              expect(body.traders.length).to.equal(2);
+            });
+        });
+      });
+      describe('Error Handling', () => {
+        it('Status 404: Returns 404 for a project that doesnt exist', () => {
+          return request(app)
+            .del('/api/requests')
+            .send({
+              request_id: 1,
+              accepted: true,
+              trader_username: 'Shubwub',
+              project_id: 13
+            })
+            .expect(404);
+        });
+        it('Status 404: Returns 404 for a trader that doesnt exist', () => {
+          return request(app)
+            .del('/api/requests')
+            .send({
+              request_id: 1,
+              accepted: true,
+              trader_username: 'notReal',
+              project_id: 1
+            })
+            .expect(404);
         });
       });
     });
