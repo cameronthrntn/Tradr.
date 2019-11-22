@@ -65,7 +65,28 @@ exports.updateProject = ({ lat, lng, status }, id) => {
 };
 
 exports.insertTraderToProject = body => {
-  return connection('traders-projects-junction')
-    .insert(body)
-    .returning('*');
+  return connection
+    .select('*')
+    .from('traders-projects-junction')
+    .join(
+      'projects',
+      'projects.project_id',
+      '=',
+      'traders-projects-junction.project_id'
+    )
+    .where(
+      'traders-projects-junction.trader_username',
+      '=',
+      body.trader_username
+    )
+    .andWhere('traders-projects-junction.project_id', '=', body.project_id)
+    .then(res => {
+      if (res.length > 0) {
+        return Promise.reject({ msg: 'tradesperson already added to project' });
+      } else {
+        return connection('traders-projects-junction')
+          .insert(body)
+          .returning('*');
+      }
+    });
 };
