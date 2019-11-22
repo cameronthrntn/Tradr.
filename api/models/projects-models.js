@@ -63,3 +63,9 @@ exports.updateProject = ({ lat, lng, status }, id) => {
       if (status) modifier.update({ status }).returning('*');
     });
 };
+
+exports.insertTraderToProject = body => {
+  return connection('traders-projects-junction')
+    .insert(body)
+    .returning('*');
+};

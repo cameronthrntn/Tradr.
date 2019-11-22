@@ -55,18 +55,17 @@ export default class SignUpForm extends Component {
       dob: formatDate(dob)
     };
 
-    const account = this.state.userType === 'user'
-      ? await postAccount('user', standardValues)
-      : await postAccount('trader', {
-          ...standardValues,
-          personal_site,
-          trade,
-          rate: Number(rate),
-          lat,
-          lng
-        });
-    console.log(account);
-    
+    const account =
+      this.state.userType === 'user'
+        ? await postAccount('user', standardValues)
+        : await postAccount('trader', {
+            ...standardValues,
+            personal_site,
+            trade,
+            rate: Number(rate),
+            lat,
+            lng
+          });
   };
 
   render() {

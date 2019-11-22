@@ -323,6 +323,22 @@ describe('/api', () => {
           });
       });
     });
+    describe('POST', () => {
+      it('Status 201: Post a trader to a project', () => {
+        return request(app)
+          .post('/api/projects/1/traders')
+          .send({
+            username: 'Shubwub'
+          })
+          .expect(201)
+          .then(({ body }) => {
+            expect(body.project[0]).to.eql({
+              trader_username: 'Shubwub',
+              project_id: 1
+            });
+          });
+      });
+    });
   });
 
   describe('/api/users', () => {
@@ -340,7 +356,7 @@ describe('/api', () => {
           .then(({ body }) => {
             expect(body.user[0].username).to.equal('newUser');
             expect(body.user[0].avatar_ref).to.equal(
-              './api/data/dev/img/default-avatar.png'
+              'https://firebasestorage.googleapis.com/v0/b/tradr-4959b.appspot.com/o/images%2Fimage.jpeg?alt=media&token=6e64d204-8665-44f3-8fa7-fd7ad58d488d'
             );
           });
       });

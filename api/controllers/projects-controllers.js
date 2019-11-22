@@ -3,7 +3,8 @@ const {
   selectTradersByProject,
   insertNewProject,
   selectProjectById,
-  updateProject
+  updateProject,
+  insertTraderToProject
 } = require('../models/projects-models');
 
 exports.getAllProjects = (req, res, next) => {
@@ -42,6 +43,18 @@ exports.patchProject = (req, res, next) => {
   updateProject(req.body, req.params.id)
     .then(project => {
       res.status(200).send({ project });
+    })
+    .catch(next);
+};
+
+exports.postTraderToProject = (req, res, next) => {
+  const body = {
+    project_id: req.params.id,
+    trader_username: req.body.username
+  };
+  insertTraderToProject(body)
+    .then(project => {
+      res.status(201).send({ project });
     })
     .catch(next);
 };
