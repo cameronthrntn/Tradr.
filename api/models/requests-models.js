@@ -7,6 +7,18 @@ exports.fetchRequests = ({ user_username, trader_username }) => {
   });
 };
 
+exports.removeRequest = ({ request_id, a }) => {
+  if (a) {
+    return connection('requests')
+      .where({ request_id })
+      .del();
+  } else {
+    return connection('requests')
+      .where({ request_id })
+      .del();
+  }
+};
+
 exports.insertRequest = async body => {
   const getOwner = async () => {
     const userOfProject = await connection('projects')
