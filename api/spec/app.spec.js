@@ -398,7 +398,7 @@ describe('/api', () => {
       });
     });
   });
-  describe.only('/reviews', () => {
+  describe('/reviews', () => {
     describe('GET', () => {
       describe('OK', () => {
         it('Status 200: Returns an array of reviews by a given valid user', () => {
@@ -453,6 +453,34 @@ describe('/api', () => {
               expect(body.review.user_username).to.equal('By-Tor2114');
             });
         });
+        it('Status 201: The traders score is updated based on how the review affects their average score', () => {
+          return request(app)
+            .post('/api/reviews')
+            .send({
+              user_username: 'By-Tor2114',
+              trader_username: 'kitlets',
+              heading: 'this is a review',
+              body: 'body here',
+              score: 4
+            })
+            .then(() => {
+              return request(app)
+                .post('/api/reviews')
+                .send({
+                  user_username: 'BenRut',
+                  trader_username: 'kitlets',
+                  heading: 'this is a review',
+                  body: 'body here',
+                  score: 3
+                });
+            })
+            .then(() => {
+              return request(app).get('/api/traders/kitlets');
+            })
+            .then(({ body }) => {
+              expect(body.trader.score).to.equal(3.5);
+            });
+        });
       });
       describe('Error Handling', () => {
         it('Status 404: Returns 404 for a user that doesnt exist', () => {
@@ -478,6 +506,111 @@ describe('/api', () => {
               score: 4
             })
             .expect(404);
+        });
+      });
+    });
+  });
+  describe('/requests', () => {
+    describe('GET', () => {
+      describe('OK', () => {
+        it('Status 200: Returns a list of open requests from a user', () => {
+          return request(app)
+            .get('/api/requests?user_username=BenRut')
+            .expect(200)
+            .then(({ body }) => {
+              expect(body.requests[0].user_username).to.equal('BenRut');
+            });
+        });
+        it('Status 200: Returns a list of open requests to a trader', () => {
+          return request(app)
+            .get('/api/requests?trader_username=kitlets')
+            .expect(200)
+            .then(({ body }) => {
+              expect(body.requests[0].trader_username).to.equal('kitlets');
+            });
+        });
+      });
+    });
+    describe('POST', () => {
+      describe('OK', () => {
+        it('Status 201: Returns the posted request', () => {
+          return request(app)
+            .post('/api/requests')
+            .send({
+              user_username: 'BenRut',
+              trader_username: 'fakeTrader',
+              project_id: 2
+            })
+            .expect(201)
+            .then(({ body }) => {
+              expect(body.request.user_username).to.equal('BenRut');
+            });
+        });
+        it('Status 200: A new request can be found on the users list', () => {
+          return request(app)
+            .post('/api/requests')
+            .send({
+              user_username: 'BenRut',
+              trader_username: 'fakeTrader',
+              project_id: 2
+            })
+            .then(({ body }) => {
+              return request(app)
+                .get('/api/requests?user_username=BenRut')
+                .expect(200)
+                .then(({ body }) => {
+                  expect(body.requests.length).to.equal(2);
+                });
+            });
+        });
+        it('Status 200: A new request can be found on the traders list', () => {
+          return request(app)
+            .post('/api/requests')
+            .send({
+              user_username: 'BenRut',
+              trader_username: 'fakeTrader',
+              project_id: 2
+            })
+            .then(() => {
+              return request(app)
+                .get('/api/requests?trader_username=fakeTrader')
+                .expect(200)
+                .then(({ body }) => {
+                  expect(body.requests.length).to.equal(2);
+                });
+            });
+        });
+      });
+      describe('Error Handling', () => {
+        it('Status 400: Should not allow a request to a trader already on a project', () => {
+          return request(app)
+            .post('/api/requests')
+            .send({
+              user_username: 'BenRut',
+              trader_username: 'kitlets',
+              project_id: 2
+            })
+            .expect(400);
+        });
+        it('Status 400: Should not allow a request to a trader with an open request for that project', () => {
+          return request(app)
+            .post('/api/requests')
+            .send({
+              user_username: 'By-Tor2114',
+              trader_username: 'Shubwub',
+              project_id: 1
+            })
+            .expect(400);
+        });
+        it('Status 400: Should not allow a request for a project the user does not own', () => {
+          return request(app)
+            .post('/api/requests')
+            .send({
+              user_username: 'By-Tor2114',
+              trader_username: 'fakeTrader',
+              project_id: 2
+            })
+            .expect(400);
         });
       });
     });
