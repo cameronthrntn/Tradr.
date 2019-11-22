@@ -42,7 +42,7 @@ const AvatarImg = styled.img`
 const Info = styled.div`
   background: white;
   color: black;
-  width: 90%;
+  width: 80%;
   text-align: left;
   margin: 20px;
   padding: 10px;
@@ -50,6 +50,7 @@ const Info = styled.div`
   box-shadow: inset 1px 0 3px 0 rgb(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
+  position: relative;
 `;
 
 const Score = styled.span`
@@ -72,19 +73,57 @@ const TraderInfo = styled(Info)``;
 
 const PatchInput = styled.input`
   padding: 10px;
+
+  ::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: black;
+    opacity: 1; /* Firefox */
+  }
+
+  :-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: black;
+  }
+
+  ::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: black;
+  }
+`;
+
+const PatchUserForm = styled.form`
+  display: flex;
+  flex-direction: column;
+`;
+
+const EditButton = styled.button`
+  position: absolute;
+  border-radius: 50%;
+  top: -10px;
+  right: -10px;
+  height: 30px;
+  width: 30px;
+`;
+
+const SaveButton = styled.div`
+  text-align: center;
+  background: lightgray;
+  border-radius: 5px;
+  border: solid black 1px;
+  width: 30%;
 `;
 
 class UserInfo extends Component {
   state = {
     newAvatarRef: '',
-    isEditing: true,
+    isEditing: false,
     body: {},
     isTrader: true
   };
 
   handleChange = e => {
     this.setState({
-      body: { ...this.state.body, [e.target.name]: e.target.value }
+      body: { ...this.state.body, [e.target.id]: e.target.value }
     });
   };
 
@@ -95,6 +134,11 @@ class UserInfo extends Component {
     updateProfile(this.state.body, user.trade, user.username).then(user => {
       this.setState({ body: {} });
     });
+  };
+
+  handleClick = e => {
+    e.preventDefault();
+    this.setState({ isEditing: true });
   };
 
   updateAvatar = newAvatarRef => {
@@ -129,6 +173,7 @@ class UserInfo extends Component {
                   <>
                     {!this.state.isEditing ? (
                       <Info>
+                        <EditButton onClick={this.handleClick}>Edit</EditButton>
                         <Infolet>
                           {user.first_name} {user.last_name}
                         </Infolet>
@@ -136,31 +181,40 @@ class UserInfo extends Component {
                       </Info>
                     ) : (
                       <Info>
-                        <form
+                        <PatchUserForm
                           onSubmit={e => {
                             this.handleSubmit(e, user);
                           }}
                         >
-                          <PatchInput
-                            onChange={this.handleChange}
-                            name="first_name"
-                            placeholder={user.first_name}
-                            type="text"
-                          />
-                          <PatchInput
-                            onChange={this.handleChange}
-                            name="last_name"
-                            type="text"
-                            placeholder="Last name"
-                          />
-                          <PatchInput
-                            onChange={this.handleChange}
-                            name="dob"
-                            type="date"
-                          />
+                          <div>
+                            <label htmlFor="first_name">First name:</label>
+                            <PatchInput
+                              onChange={this.handleChange}
+                              id="first_name"
+                              placeholder={user.first_name}
+                              type="text"
+                            />
+                          </div>
+                          <div>
+                            <label htmlFor="last_name">Last name:</label>
+                            <PatchInput
+                              onChange={this.handleChange}
+                              id="last_name"
+                              type="text"
+                              placeholder={user.last_name}
+                            />
+                          </div>
+                          <div>
+                            <label htmlFor="dob">DOB:</label>
+                            <PatchInput
+                              onChange={this.handleChange}
+                              id="dob"
+                              type="date"
+                            />
+                          </div>
 
-                          <button>I AM A BUTTON!!!</button>
-                        </form>
+                          <SaveButton>Save</SaveButton>
+                        </PatchUserForm>
                       </Info>
                     )}
                   </>
@@ -169,6 +223,7 @@ class UserInfo extends Component {
                   <>
                     {!this.state.isEditing ? (
                       <TraderInfo>
+                        <EditButton onClick={this.handleClick}>Edit</EditButton>
                         <Infolet>
                           {user.first_name} {user.last_name}
                         </Infolet>
@@ -179,49 +234,62 @@ class UserInfo extends Component {
                       </TraderInfo>
                     ) : (
                       <TraderInfo>
-                        <form
+                        <PatchUserForm
                           action=""
                           onSubmit={e => {
                             this.handleSubmit(e, user);
                           }}
                         >
-                          <PatchInput
-                            onChange={this.handleChange}
-                            name="first_name"
-                            placeholder={user.first_name}
-                            type="text"
-                          />
-                          <PatchInput
-                            onChange={this.handleChange}
-                            name="last_name"
-                            placeholder={user.last_name}
-                            type="text"
-                          />
-                          <PatchInput
-                            onChange={this.handleChange}
-                            name="dob"
-                            type="date"
-                          />
-                          <PatchInput
-                            onChange={this.handleChange}
-                            name="trade"
-                            placeholder={user.trade}
-                            type="text"
-                          />
-                          <PatchInput
-                            onChange={this.handleChange}
-                            name="personal_site"
-                            placeholder={user.personal_site}
-                            type="text"
-                          />
-                          <PatchInput
-                            onChange={this.handleChange}
-                            name="rate"
-                            placeholder={`${user.rate}/d`}
-                            type="text"
-                          />
-                          <button>I AM A BUTTON!!!</button>
-                        </form>
+                          <div>
+                            <label htmlFor="first_name">First name:</label>
+                            <PatchInput
+                              onChange={this.handleChange}
+                              id="first_name"
+                              placeholder={user.first_name}
+                              type="text"
+                            />
+                          </div>
+                          <div>
+                            <label htmlFor="last_name">Last name:</label>
+                            <PatchInput
+                              onChange={this.handleChange}
+                              id="last_name"
+                              placeholder={user.last_name}
+                              type="text"
+                            />
+                          </div>
+                          <div>
+                            <label htmlFor="dob">DOB:</label>
+                            <PatchInput
+                              onChange={this.handleChange}
+                              id="dob"
+                              type="date"
+                            />
+                          </div>
+                          <div>
+                            <label htmlFor="trader">
+                              Personal website address (Optional):
+                            </label>
+                            <PatchInput
+                              onChange={this.handleChange}
+                              id="personal_site"
+                              placeholder={user.personal_site}
+                              type="text"
+                            />
+                          </div>
+                          <div>
+                            <label htmlFor="rate">Rate:</label>
+                            <PatchInput
+                              onChange={this.handleChange}
+                              id="rate"
+                              placeholder={user.rate}
+                              type="text"
+                            />
+                            /d
+                          </div>
+
+                          <SaveButton>Save</SaveButton>
+                        </PatchUserForm>
                       </TraderInfo>
                     )}
 
