@@ -7,8 +7,6 @@ module.exports = [
     lng: -1.545038,
     rate: 230,
     dob: new Date('05/21/1984'),
-    score: 3.7,
-    avatar_ref: 'test',
     personal_site: 'https://stackoverflow.com/',
     trade: 'plumber'
   },
