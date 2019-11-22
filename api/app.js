@@ -19,6 +19,7 @@ app.all('/*', (req, res, next) =>
 
 app.use(handleCustomErrors);
 app.use(handle400s);
+app.use(handle404s);
 app.use(handle405s);
 app.use(handle500s);
 

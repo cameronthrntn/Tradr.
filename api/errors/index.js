@@ -8,9 +8,17 @@ exports.handleCustomErrors = (err, req, res, next) => {
 
 exports.handle400s = (err, req, res, next) => {
   const errCodes = ['22P02', '42703', '400'];
-
   if (errCodes.includes(err.code)) {
     res.status(400).send({ msg: 'bad request' });
+  } else {
+    next(err);
+  }
+};
+
+exports.handle404s = (err, req, res, next) => {
+  const errCodes = ['23503'];
+  if (errCodes.includes(err.code)) {
+    res.status(404).send({ msg: 'item not found ' });
   } else {
     next(err);
   }

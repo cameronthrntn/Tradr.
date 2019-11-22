@@ -41,7 +41,6 @@ const Rating = styled.div`
 `;
 
 const Container = styled.div`
-  border: solid 1px green;
   display: flex;
   height: 100vh;
   overflow-y: scroll;
@@ -97,11 +96,8 @@ class TraderProfile extends Component {
   render() {
     return (
       <Container>
-
         <UserInfo />
-
         <MapWrapper></MapWrapper>
-
       </Container>
     );
   }

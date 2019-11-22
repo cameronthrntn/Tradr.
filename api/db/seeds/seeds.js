@@ -3,7 +3,9 @@ const {
   userData,
   projectsData,
   tradersData,
-  projectsTradersData
+  projectsTradersData,
+  reviewsData,
+  requestsData
 } = require('../data/index');
 
 exports.seed = function(knex) {
@@ -11,33 +13,36 @@ exports.seed = function(knex) {
     .rollback()
     .then(() => knex.migrate.latest())
     .then(() => {
-      return knex
-        .insert(userData)
-        .into('users')
-        .returning('*');
+      const seedUsers = () => {
+        return knex.insert(userData).into('users');
+      };
+      const seedTraders = () => {
+        return knex.insert(tradersData).into('traders');
+      };
+      return Promise.all([seedUsers(), seedTraders()]);
     })
-    .then(res => {
-      return knex
-        .insert(tradersData)
-        .into('traders')
-        .returning('*');
+    .then(() => {
+      const seedProjects = () => {
+        return knex.insert(reviewsData).into('reviews');
+      };
+      const seedReviews = () => {
+        return knex.insert(projectsData).into('projects');
+      };
+
+      return Promise.all([seedProjects(), seedReviews()]);
     })
-    .then(res => {
-      return knex
-        .insert(projectsData)
-        .into('projects')
-        .returning('*');
-    })
-    .then(res => {
-      return knex
-        .insert(projectsTradersData)
-        .into('traders-projects-junction')
-        .return('*');
-    })
-    .then(res => {
-      return knex
-        .insert(imagesData)
-        .into('images')
-        .return('*');
+    .then(() => {
+      const seedProjectTraders = () => {
+        return knex
+          .insert(projectsTradersData)
+          .into('traders-projects-junction');
+      };
+      const seedImages = () => {
+        return knex.insert(imagesData).into('images');
+      };
+      const seedRequests = () => {
+        return knex.insert(requestsData).into('requests');
+      };
+      return Promise.all([seedProjectTraders(), seedImages(), seedRequests()]);
     });
 };
