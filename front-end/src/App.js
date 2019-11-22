@@ -32,6 +32,7 @@ export default class App extends Component {
   componentDidMount = async () => {
     const project = await getProject(2);
     const user = await getTrader('kitlets');
+    // const user = await getUser('By-Tor2114');
     this.setState({ project, isLoading: false, user });
   };
   render() {
