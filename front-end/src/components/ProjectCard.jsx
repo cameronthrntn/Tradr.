@@ -4,7 +4,6 @@ import styled from 'styled-components';
 export default function ProjectCard(props) {
   const Card = styled.li`
     float: left;
-    border: 1px solid pink;
     height: 95%;
     width: 300px;
     margin: 10px;
@@ -12,6 +11,17 @@ export default function ProjectCard(props) {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+
+    cursor: pointer;
+
+    background: white;
+
+    box-shadow: 1px 0 3px 0 rgb(0, 0, 0, 0.3);
+    transition: transform 0.1s;
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 1px 0 10px 0 rgb(0, 0, 0, 0.3);
+    }
   `;
   const DateText = styled.p`
     float: left;
@@ -30,15 +40,15 @@ export default function ProjectCard(props) {
     border: 1px solid black;
   `;
   const ProjectImage = styled.div`
-  height: 70%;
-  width: 90%;
-  border: 1px solid blue;
-  `
+    height: 70%;
+    width: 90%;
+    border: 1px solid blue;
+  `;
   const StatusBar = styled.div`
     width: 100%;
     background: orange;
     height: 5%;
-  `
+  `;
   return (
     <Card>
       <p>{props.project.title}</p>

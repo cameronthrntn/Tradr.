@@ -4,6 +4,7 @@ import { AppConsumer } from './AppContext';
 import { getAge } from '../utils';
 import AvatarUpload from './AvatarUpload';
 import ReviewList from '../components/ReviewList';
+import { updateProfile } from '../utils/profile-patch';
 
 const Container = styled.div`
   color: white;
@@ -30,6 +31,7 @@ const AvatarWrapper = styled.aside`
   margin: 5px;
   border-radius: 50px;
   height: 6em;
+  position: relative;
 `;
 
 const AvatarImg = styled.img`
@@ -46,6 +48,8 @@ const Info = styled.div`
   padding: 10px;
   border-radius: 10px;
   box-shadow: inset 1px 0 3px 0 rgb(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
 `;
 
 const Score = styled.span`
@@ -59,19 +63,39 @@ const Score = styled.span`
 
 const Infolet = styled.p`
   margin: 0px;
+  margin: 10px;
 `;
 
 const ScoreContainer = styled.div``;
 
 const TraderInfo = styled(Info)``;
 
+const PatchInput = styled.input`
+  padding: 10px;
+`;
+
 class UserInfo extends Component {
   state = {
-    newAvatarRef: ''
+    newAvatarRef: '',
+    isEditing: true,
+    body: {},
+    isTrader: true
   };
-  componentDidMount() {
-    //make request to api for userinfo
-  }
+
+  handleChange = e => {
+    this.setState({
+      body: { ...this.state.body, [e.target.name]: e.target.value }
+    });
+  };
+
+  handleSubmit = (e, user) => {
+    console.log(user);
+
+    e.preventDefault();
+    updateProfile(this.state.body, user.trade, user.username).then(user => {
+      this.setState({ body: {} });
+    });
+  };
 
   updateAvatar = newAvatarRef => {
     this.setState({ newAvatarRef });
@@ -92,37 +116,114 @@ class UserInfo extends Component {
                     }
                     alt=""
                   />
+                  <AvatarUpload
+                    updateAvatar={this.updateAvatar}
+                    trader={user.trade}
+                    username={user.username}
+                  />
                 </AvatarWrapper>
-                <AvatarUpload
-                  updateAvatar={this.updateAvatar}
-                  trader={user.trade}
-                  username={user.username}
-                />
+
                 <p>{user.username}</p>
 
                 {!user.trade && (
-                  <Info>
-                    <p>
-                      {user.first_name} {user.last_name}
-                    </p>
-                    <p>{getAge(new Date(user.dob))}</p>
-                  </Info>
+                  <>
+                    {!this.state.isEditing ? (
+                      <Info>
+                        <Infolet>
+                          {user.first_name} {user.last_name}
+                        </Infolet>
+                        <Infolet>{getAge(new Date(user.dob))}</Infolet>
+                      </Info>
+                    ) : (
+                      <Info>
+                        <form
+                          onSubmit={e => {
+                            this.handleSubmit(e, user);
+                          }}
+                        >
+                          <PatchInput
+                            onChange={this.handleChange}
+                            name="first_name"
+                            placeholder={user.first_name}
+                            type="text"
+                          />
+                          <PatchInput
+                            onChange={this.handleChange}
+                            name="last_name"
+                            type="text"
+                            placeholder="Last name"
+                          />
+                          <PatchInput
+                            onChange={this.handleChange}
+                            name="dob"
+                            type="date"
+                          />
+
+                          <button>I AM A BUTTON!!!</button>
+                        </form>
+                      </Info>
+                    )}
+                  </>
                 )}
                 {user.trade && (
                   <>
-                    <TraderInfo>
-                      <Infolet>
-                        {user.first_name} {user.last_name}
-                      </Infolet>
-                      <hr />
-                      <Infolet>{getAge(new Date(user.dob))}</Infolet>
-                      <hr />
-                      <Infolet>{user.trade}</Infolet>
-                      <hr />
-                      <Infolet>{user.personal_site}</Infolet>
-                      <hr />
-                      <Infolet>{user.rate}/d</Infolet>
-                    </TraderInfo>
+                    {!this.state.isEditing ? (
+                      <TraderInfo>
+                        <Infolet>
+                          {user.first_name} {user.last_name}
+                        </Infolet>
+                        <Infolet>{getAge(new Date(user.dob))}</Infolet>
+                        <Infolet>{user.trade}</Infolet>
+                        <Infolet>{user.personal_site}</Infolet>
+                        <Infolet>{user.rate}/d</Infolet>
+                      </TraderInfo>
+                    ) : (
+                      <TraderInfo>
+                        <form
+                          action=""
+                          onSubmit={e => {
+                            this.handleSubmit(e, user);
+                          }}
+                        >
+                          <PatchInput
+                            onChange={this.handleChange}
+                            name="first_name"
+                            placeholder={user.first_name}
+                            type="text"
+                          />
+                          <PatchInput
+                            onChange={this.handleChange}
+                            name="last_name"
+                            placeholder={user.last_name}
+                            type="text"
+                          />
+                          <PatchInput
+                            onChange={this.handleChange}
+                            name="dob"
+                            type="date"
+                          />
+                          <PatchInput
+                            onChange={this.handleChange}
+                            name="trade"
+                            placeholder={user.trade}
+                            type="text"
+                          />
+                          <PatchInput
+                            onChange={this.handleChange}
+                            name="personal_site"
+                            placeholder={user.personal_site}
+                            type="text"
+                          />
+                          <PatchInput
+                            onChange={this.handleChange}
+                            name="rate"
+                            placeholder={`${user.rate}/d`}
+                            type="text"
+                          />
+                          <button>I AM A BUTTON!!!</button>
+                        </form>
+                      </TraderInfo>
+                    )}
 
                     <ReviewList />
                     <ScoreContainer>
