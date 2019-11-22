@@ -16,6 +16,8 @@ const config = {
 };
 firebase.initializeApp(config);
 
+const Container = styled.label``;
+
 class AvatarUpload extends Component {
   state = {
     username: '',
@@ -51,16 +53,24 @@ class AvatarUpload extends Component {
 
   render() {
     return (
-      <label
+      <Container
         style={{
-          backgroundColor: 'steelblue',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: '#ededed',
           color: 'white',
-          padding: 10,
+          height: '30px',
+          width: '30px',
           borderRadius: 4,
-          cursor: 'pointer'
+          cursor: 'pointer',
+          position: 'absolute',
+          bottom: '-10px',
+          right: '-10px',
+          borderRadius: '50%'
         }}
       >
-        Select your awesome avatar
+        +
         <FileUploader
           hidden
           accept="image/*"
@@ -70,7 +80,7 @@ class AvatarUpload extends Component {
           onUploadSuccess={this.handleUploadSuccess}
           onProgress={this.handleProgress}
         />
-      </label>
+      </Container>
     );
   }
 }

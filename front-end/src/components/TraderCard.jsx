@@ -13,11 +13,13 @@ export default function TraderCard(props) {
   };
   const Trader = styled.li`
     display: flex;
-    /* flex-direction: column; */
+    cursor: pointer;
     justify-content: center;
     align-items: flex-start;
     margin: 5px;
     background: white;
+    min-width: 300px;
+    height: 150px;
     box-shadow: 1px 0 3px 0 rgb(0, 0, 0, 0.3);
     transition: transform 0.1s;
     &:hover {
