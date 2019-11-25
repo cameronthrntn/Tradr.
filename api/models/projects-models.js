@@ -33,10 +33,10 @@ exports.selectTradersByProject = id => {
     .select('*')
     .from('traders-projects-junction')
     .join(
-      'projects',
-      'projects.project_id',
+      'traders',
+      'traders.username',
       '=',
-      'traders-projects-junction.project_id'
+      'traders-projects-junction.trader_username'
     )
     .where('traders-projects-junction.project_id', '=', id);
 };

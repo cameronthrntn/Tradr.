@@ -1,8 +1,7 @@
 const { instance } = require('./axios');
-const BASEURL = 'http://localhost:9090/api';
 
 const getTraders = async (project_id, filters) => {
-  const { data } = await instance.get(`${BASEURL}/traders`, {
+  const { data } = await instance.get(`/traders`, {
     params: { project_id, ...filters }
   });
 
@@ -10,8 +9,15 @@ const getTraders = async (project_id, filters) => {
 };
 
 const getTrader = async username => {
-  const { data } = await instance.get(`${BASEURL}/traders/${username}`);
+  const { data } = await instance.get(`/traders/${username}`);
   return data.trader;
 };
 
-export { getTraders, getTrader };
+const getTradersOnProject = async project_id => {
+  const { data } = await instance.get(`/projects/${project_id}/traders`);
+  console.log(data.traders);
+
+  return data.traders;
+};
+
+export { getTraders, getTrader, getTradersOnProject };

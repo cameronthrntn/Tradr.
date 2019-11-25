@@ -1,27 +1,22 @@
 import React, { Component } from 'react';
 import { Router } from '@reach/router';
-import { setToken } from './utils/axios';
 import './styles/App.css';
 import Header from './components/Header';
 import LandingPage from './components/LandingPage';
-// import LogInForm from './components/LoginForm';
 import SignUpForm from './components/SignUpForm';
 import TraderMap from './components/TraderMap';
 import { ThemeProvider } from 'styled-components';
-import { getProject } from './utils/projects.js';
-import { getTrader } from './utils/traders.js';
-import { getUser } from './utils/users.js';
 import NotFound from './components/404NotFound';
 import { AppProvider } from './components/AppContext';
 import DashBoard from './components/DashBoard';
 import LoginForm from './components/LoginForm';
 import TraderProfile from './components/TraderProfile';
 import Loader from './components/Loader';
+import ProjectPage from './components/ProjectPage';
 
 export default class App extends Component {
   state = {
     user: {},
-    project: {},
     isLoading: true,
     theme: {
       trader: '#f77123',
@@ -41,14 +36,8 @@ export default class App extends Component {
     sessionStorage.setItem('user', JSON.stringify(user));
   };
   componentDidMount = async () => {
-   // const project = await getProject(2);
-    // const user = await getTrader('Shubwub');
-   // const user = await getUser('BenRut');
-    //this.setState({ project, isLoading: false, user });
     if (sessionStorage.token) {
-      const project = await getProject(2);
       this.setState({
-        project,
         isLoading: false,
         user: JSON.parse(sessionStorage.user)
       });
@@ -59,7 +48,6 @@ export default class App extends Component {
     }
   };
   updateUserInfo = body => {
-    console.log(body);
     this.setState(currentState => {
       return { user: { ...currentState.user, ...body } };
     });
@@ -88,9 +76,10 @@ export default class App extends Component {
                   path="/login"
                   initialiseAccount={this.initialiseAccount}
                 />
+                <ProjectPage path="/project/:project_id" />
                 <SignUpForm path="/signup" />
                 <TraderProfile path="/traders/:username" />
-                <TraderMap path="/traders" project={this.state.project} />
+                <TraderMap path="/map/:project_id" />
                 <NotFound default />
               </Router>
             )}
