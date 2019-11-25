@@ -20,7 +20,11 @@ class Header extends Component {
               <LogoBody>adr.</LogoBody>
             </NavLogo>
           </Link>
-            <button onClick={this.signOut}>Sign out</button>
+          {this.props.isLoggedIn && (
+            <Link to="/">
+              <button onClick={this.signOut}>Sign out</button>
+            </Link>
+          )}
         </Nav>
       </>
     );

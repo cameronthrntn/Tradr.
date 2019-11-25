@@ -15,15 +15,20 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   background: white;
+  /* height: 100vh; */
+  /* margin-top: 8em; */
+`;
+const SignUpContainer = styled(Container)`
+  background: ${props => props.theme.user};
   height: 100vh;
-  margin-top: 8em;
 `;
 
 const Form = styled.form`
-  background-color: ${props =>
-    props.userType === 'trader' ? props.theme.trader : props.theme.user};
+  /* background-color: ${props =>
+    props.userType === 'trader' ? props.theme.trader : props.theme.user}; */
   align-self: center;
   margin: 3em 20px 20px 20px;
+  /* margin: 0; */
   border-radius: 10px;
   min-width: 50%;
   margin: auto;
@@ -57,10 +62,28 @@ const Input = styled.input`
   padding: 10px;
 `;
 
+const Select = styled.select`
+  border-radius: 5px;
+  border: none;
+  margin: 5px;
+  padding: 10px;
+  background: none;
+`;
+
 const HalfInput = styled(Input)`
   @media (min-width: 768px) {
     width: 50%;
   }
 `;
 
-export { Container, Form, LogInButton, Inputs, Input, InputWrapper, HalfInput };
+export {
+  Container,
+  Form,
+  LogInButton,
+  Inputs,
+  Input,
+  InputWrapper,
+  HalfInput,
+  Select,
+  SignUpContainer
+};

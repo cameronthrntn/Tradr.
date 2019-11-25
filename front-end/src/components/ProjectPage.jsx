@@ -5,16 +5,21 @@ import styled from 'styled-components';
 import GoogleMapReact from 'google-map-react';
 import TraderPin from './TraderPin';
 import { getTradersOnProject } from '../utils/traders';
+import Loader from './Loader';
+import ChatWindow from './ChatWindow';
 
 export default class ProjectPage extends Component {
   state = {
     project: {},
-    traders: []
+    traders: [],
+    messages: [],
+    isLoading: true
   };
+
   componentDidMount = async () => {
     const project = await getProject(this.props.project_id);
     const traders = await getTradersOnProject(this.props.project_id);
-    this.setState({ project, traders });
+    this.setState({ project, traders, isLoading: false });
   };
   render() {
     const ProjectHeader = styled.header`
@@ -28,13 +33,10 @@ export default class ProjectPage extends Component {
       margin-left: 5vw;
     `;
     const ProjectInfo = styled.div`
-      width: 80%;
+      width: 70%;
       border: 1px solid pink;
     `;
-    const ChatWindow = styled.div`
-      width: 20%;
-      border: 1px solid blue;
-    `;
+
     const Timeline = styled.div`
       width: 100%;
       display: flex;
@@ -69,8 +71,8 @@ export default class ProjectPage extends Component {
       padding-left: 10px;
     `;
     const ProjectImage = styled.div`
-      width: 150px;
-      height: 150px;
+      width: 125px;
+      height: 125px;
       border: 1px solid blue;
       margin: 10px;
     `;
@@ -82,10 +84,14 @@ export default class ProjectPage extends Component {
         width: 100%;
       }
     `;
-    const { project } = this.state;
-    console.log(project);
 
-    return JSON.parse(sessionStorage.user).username === project.username ? (
+    const { project } = this.state;
+    return this.state.isLoading ? (
+      <Loader />
+    ) : JSON.parse(sessionStorage.user).username === project.username ||
+      this.state.traders.filter(
+        trader => trader.username === JSON.parse(sessionStorage.user).username
+      ).length > 0 ? (
       <>
         <ProjectHeader>
           <h1>{project.title}</h1>
@@ -142,7 +148,7 @@ export default class ProjectPage extends Component {
                     {this.state.traders.map((trader, idx) => {
                       console.log(trader);
                       console.log(trader.lat);
-                      
+
                       return (
                         <TraderPin
                           project={false}
@@ -163,7 +169,9 @@ export default class ProjectPage extends Component {
               </ProjectMap>
             </ProjectDetails>
           </ProjectInfo>
-          <ChatWindow>chat</ChatWindow>
+          <ChatWindow
+            project_id={this.state.project.project_id}
+          />
         </ProjectContent>
       </>
     ) : (

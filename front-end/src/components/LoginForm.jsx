@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { login } from '../utils/login';
-import { Container, Form, LogInButton, Inputs, Input } from '../styles/Forms';
+import { Container, Form, Inputs, Input, Select } from '../styles/Forms';
 import { navigate } from '@reach/router';
 import { getUser } from '../utils/users.js';
 import { getTrader } from '../utils/traders.js';
+import { LogInButton } from '../styles/LandingPage';
 
 export default class LoginForm extends Component {
   state = {
@@ -14,6 +15,11 @@ export default class LoginForm extends Component {
   handleChange = e => {
     this.setState({ [e.target.id]: e.target.value });
   };
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.type !== this.state.type) {
+      this.props.changeStyle(this.state.type);
+    }
+  }
   handleSubmit = async e => {
     e.preventDefault();
     const token = await login(this.state);
@@ -30,16 +36,16 @@ export default class LoginForm extends Component {
   render() {
     return (
       <Container>
-        <Form userType={this.state.type} action="" onSubmit={this.handleSubmit}>
+        <Form userType={this.state.type} onSubmit={this.handleSubmit}>
           <Inputs>
-            <select
+            <Select
               id="type"
               value={this.state.type}
               onChange={this.handleChange}
             >
               <option value="user">User</option>
               <option value="trader">Trader</option>
-            </select>
+            </Select>
             <Input
               id="username"
               type="text"

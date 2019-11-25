@@ -7,7 +7,8 @@ import {
   Inputs,
   Input,
   InputWrapper,
-  HalfInput
+  HalfInput,
+  SignUpContainer
 } from '../styles/Forms';
 
 export default class SignUpForm extends Component {
@@ -70,7 +71,7 @@ export default class SignUpForm extends Component {
 
   render() {
     return (
-      <Container>
+      <SignUpContainer>
         <Form
           userType={this.state.userType}
           action=""
@@ -197,7 +198,7 @@ export default class SignUpForm extends Component {
 
           <LogInButton>Sign up</LogInButton>
         </Form>
-      </Container>
+      </SignUpContainer>
     );
   }
 }
