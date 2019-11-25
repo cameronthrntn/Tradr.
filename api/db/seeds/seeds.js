@@ -22,7 +22,11 @@ exports.seed = function(knex) {
         return knex.insert(encryptedusers).into('users');
       };
       const seedTraders = () => {
-        return knex.insert(tradersData).into('traders');
+        const encryptedTraders = tradersData.map(trader => ({
+          ...trader,
+          password: bcrypt.hashSync(trader.password, 10)
+        }));
+        return knex.insert(encryptedTraders).into('traders');
       };
       return Promise.all([seedUsers(), seedTraders()]);
     })

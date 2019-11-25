@@ -29,7 +29,6 @@ exports.loginController = async (req, res, next) => {
               ]);
             else next({ code: 'invalidCredentials' });
           });
-
   try {
     if (user && passwordOk) {
       const token = jwt.sign(

@@ -1,5 +1,5 @@
 import React from 'react';
-import { getDistances } from '../utils';
+// import { getDistances } from '../utils';
 import styled from 'styled-components';
 import { navigate } from '@reach/router';
 

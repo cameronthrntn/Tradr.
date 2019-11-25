@@ -147,21 +147,7 @@ describe('/api', () => {
             })
             .expect(200)
             .then(({ body }) => {
-              expect(body.trader[0]).to.eql({
-                username: 'fakeTrader',
-                score: 1.9,
-                first_name: 'new',
-                last_name: 'name',
-                lat: 1.1234,
-                lng: -1.4321,
-                personal_site: 'www.google.com',
-                trade: 'Sparky',
-                rate: 100,
-                avatar_ref:
-                  'https://pickaface.net/gallery/avatar/unr_test_180612_1021_b05p.png',
-                dob: '1985-01-01T00:00:00.000Z',
-                password: 'myPassword123!'
-              });
+              expect(body.trader[0].first_name).to.equal('new');
             });
         });
       });

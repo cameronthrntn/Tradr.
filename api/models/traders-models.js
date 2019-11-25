@@ -1,5 +1,6 @@
 const { connection } = require('../db/connection');
 const { getDistances } = require('../utils');
+const bcrypt = require('bcrypt');
 
 exports.selectAllTraders = async ({
   sort_by = 'score',
@@ -34,14 +35,28 @@ exports.selectAllTraders = async ({
 
 exports.selectTraderByUsername = username => {
   return connection
-    .select('*')
+    .select(
+      'username',
+      'first_name',
+      'last_name',
+      'lat',
+      'lng',
+      'personal_site',
+      'trade',
+      'rate',
+      'avatar_ref',
+      'dob',
+      'score'
+    )
     .from('traders')
     .where('traders.username', '=', username);
 };
 
 exports.addTrader = ({ body }) => {
+  const trader = { ...body };
+  trader.password = bcrypt.hashSync(trader.password, 10);
   return connection('traders')
-    .insert(body)
+    .insert(trader)
     .returning('*');
 };
 

@@ -1,8 +1,8 @@
+const { instance } = require('./axios');
 const axios = require('axios');
-const BASEURL = 'http://localhost:9090/api';
 
 const postAccount = async (type, body) => {
-  const { data } = await axios.post(`${BASEURL}/${type}s`, body);
+  const { data } = await instance.post(`/${type}s`, body);
   return data[type];
 };
 
