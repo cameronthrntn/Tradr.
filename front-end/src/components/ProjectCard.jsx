@@ -51,9 +51,16 @@ export default function ProjectCard(props) {
       props.user.trade ? props.theme.trader : props.theme.user};
     height: 5%;
   `;
+
+  const ProjectAvatar = styled.img`
+    height: 80%;
+  `;
+
   return (
     <AppConsumer>
       {user => {
+        console.log(props.project);
+
         return (
           <Card>
             <p>{props.project.title}</p>
@@ -68,6 +75,7 @@ export default function ProjectCard(props) {
                 <DateText>{endDate}</DateText>
               </div>
             </DateSection>
+            <ProjectAvatar src={props.project.avatar_ref} />
             <ProjectImage></ProjectImage>
             <StatusBar user={user}></StatusBar>
           </Card>
