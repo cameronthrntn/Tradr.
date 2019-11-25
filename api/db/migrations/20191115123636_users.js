@@ -8,9 +8,7 @@ exports.up = function(knex) {
     usersTable.string('last_name').notNullable();
     usersTable
       .string('avatar_ref')
-      .defaultTo(
-        'https://firebasestorage.googleapis.com/v0/b/tradr-4959b.appspot.com/o/images%2Fimage.jpeg\\?alt=media&token=6e64d204-8665-44f3-8fa7-fd7ad58d488d'
-      );
+      .defaultTo('api/db/images/defaultAvatar.jpeg');
     usersTable.timestamp('dob').notNullable();
   });
 };
