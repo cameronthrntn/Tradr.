@@ -5,7 +5,8 @@ module.exports = [
     last_name: 'Jones',
     avatar_ref:
       '/api/db/data/test/Images/stock-person-png-stock-photo-man-11563049686zqeb9zmqjd.png',
-    dob: new Date('10/08/1988')
+    dob: new Date('10/08/1988'),
+    password: 'myPassword123!'
   },
   {
     username: 'BenRut',
@@ -13,6 +14,7 @@ module.exports = [
     last_name: 'Rutledge',
     avatar_ref:
       '/api/db/data/test/Images/depositphotos_23040102-stock-photo-smiling-man-with-thumbs-up.jpg',
-    dob: new Date('10/12/1998')
+    dob: new Date('10/12/1998'),
+    password: 'myPassword123!'
   }
 ];

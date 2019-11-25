@@ -1,8 +1,11 @@
 const { connection } = require('../db/connection');
+const bcrypt = require('bcrypt');
 
 exports.insertUser = body => {
+  const user = { ...body };
+  user.password = bcrypt.hashSync(user.password, 10);
   return connection('users')
-    .insert(body)
+    .insert(user)
     .returning('*');
 };
 
@@ -18,5 +21,7 @@ exports.patchUser = ({ first_name, last_name, avatar_ref, dob }, username) => {
 };
 
 exports.fetchUserByUsername = username => {
-  return connection('users').where('username', '=', username);
+  return connection('users')
+    .select('username', 'dob', 'first_name', 'last_name', 'avatar_ref')
+    .where('username', '=', username);
 };

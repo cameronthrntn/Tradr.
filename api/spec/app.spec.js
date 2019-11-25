@@ -3,10 +3,24 @@ const { app } = require('../app');
 const chai = require('chai');
 const expect = chai.expect;
 chai.use(require('chai-sorted'));
-const request = require('supertest');
+// const request = require('supertest');
+const defaults = require('superagent-defaults');
+const request = defaults(require('supertest')(app));
 const { connection } = require('../db/connection');
 
-beforeEach(() => connection.seed.run());
+beforeEach(() =>
+  connection.seed
+    .run()
+    .then(() => {
+      return request
+        .post('/api/login')
+        .send({ type: 'user', username: 'BenRut', password: 'myPassword123!' })
+        .expect(200);
+    })
+    .then(({ body }) => {
+      request.set('authorization', `BEARER ${body.token}`);
+    })
+);
 after(() => connection.destroy());
 
 describe('/api', () => {
@@ -14,7 +28,7 @@ describe('/api', () => {
     describe('GET', () => {
       describe('OK', () => {
         it('Status 200: responds with array of trader objects', () => {
-          return request(app)
+          return request
             .get('/api/traders?project_id=1')
             .expect(200)
             .then(({ body }) => {
@@ -22,7 +36,7 @@ describe('/api', () => {
             });
         });
         it('Traders are sorted by score as a default in descending order', () => {
-          return request(app)
+          return request
             .get('/api/traders?project_id=1')
             .expect(200)
             .then(({ body }) => {
@@ -32,7 +46,7 @@ describe('/api', () => {
             });
         });
         xit('when sorting query is distance, traders array is sorted by given distance in ascending order', () => {
-          return request(app)
+          return request
             .get('/api/traders?sort_by=distance&project_id=1')
             .expect(200)
             .then(({ body }) => {
@@ -42,7 +56,7 @@ describe('/api', () => {
             });
         });
         it('when sorting query is rate, traders array is sorted by given rate in ascending order', () => {
-          return request(app)
+          return request
             .get('/api/traders?sort_by=rate&project_id=1')
             .expect(200)
             .then(({ body }) => {
@@ -52,7 +66,7 @@ describe('/api', () => {
             });
         });
         it('traders array contains only those with given trade in query', () => {
-          return request(app)
+          return request
             .get('/api/traders?trade=plumber&project_id=1')
             .expect(200)
             .then(({ body }) => {
@@ -60,7 +74,7 @@ describe('/api', () => {
             });
         });
         it('traders array can be queried by score', () => {
-          return request(app)
+          return request
             .get('/api/traders?score=3.8&project_id=1')
             .expect(200)
             .then(({ body }) => {
@@ -68,7 +82,7 @@ describe('/api', () => {
             });
         });
         it('traders array can be queried by rate', () => {
-          return request(app)
+          return request
             .get('/api/traders?upper_rate=120&project_id=1')
             .expect(200)
             .then(({ body }) => {
@@ -81,7 +95,7 @@ describe('/api', () => {
     describe('POST', () => {
       describe('OK', () => {
         it('Status 201: responds with created trader object', () => {
-          return request(app)
+          return request
             .post('/api/traders')
             .send({
               username: 'BobTheBuilder',
@@ -92,7 +106,8 @@ describe('/api', () => {
               rate: 200,
               dob: '03/12/88',
               personal_site: 'www.google.com',
-              trade: 'builder'
+              trade: 'builder',
+              password: 'myPassword123!'
             })
             .then(({ body }) => {
               expect(body.trader[0]).to.contain.keys(
@@ -116,7 +131,7 @@ describe('/api', () => {
     describe('/traders', () => {
       describe('PATCH', () => {
         it('responds with an updated trader object', () => {
-          return request(app)
+          return request
             .patch('/api/traders/fakeTrader')
             .send({
               first_name: 'new',
@@ -132,20 +147,7 @@ describe('/api', () => {
             })
             .expect(200)
             .then(({ body }) => {
-              expect(body.trader[0]).to.eql({
-                username: 'fakeTrader',
-                score: 1.9,
-                first_name: 'new',
-                last_name: 'name',
-                lat: 1.1234,
-                lng: -1.4321,
-                personal_site: 'www.google.com',
-                trade: 'Sparky',
-                rate: 100,
-                avatar_ref:
-                  'https://pickaface.net/gallery/avatar/unr_test_180612_1021_b05p.png',
-                dob: '1985-01-01T00:00:00.000Z'
-              });
+              expect(body.trader[0].first_name).to.equal('new');
             });
         });
       });
@@ -155,7 +157,7 @@ describe('/api', () => {
       describe('GET', () => {
         describe('OK', () => {
           it('Status 200: responds with requested trader object', () => {
-            return request(app)
+            return request
               .get('/api/traders/kitlets')
               .expect(200)
               .then(({ body }) => {
@@ -202,7 +204,7 @@ describe('/api', () => {
   describe('/projects', () => {
     describe('GET', () => {
       it('Status 200: returns an array of project Objects containing specific keys', () => {
-        return request(app)
+        return request
           .get('/api/projects')
           .expect(200)
           .then(({ body }) => {
@@ -221,7 +223,7 @@ describe('/api', () => {
           });
       });
       it('Status 200: returns an array of projects that are sorted in descending order by start date as default', () => {
-        return request(app)
+        return request
           .get('/api/projects')
           .expect(200)
           .then(({ body }) => {
@@ -229,7 +231,7 @@ describe('/api', () => {
           });
       });
       it('Status 200: returns an array of projects that are filtered by username', () => {
-        return request(app)
+        return request
           .get('/api/projects?username=By-Tor2114')
           .expect(200)
           .then(({ body }) => {
@@ -237,7 +239,7 @@ describe('/api', () => {
           });
       });
       it('Status 200: returns an array of projects that are filtered by status', () => {
-        return request(app)
+        return request
           .get('/api/projects?status=in planning')
           .expect(200)
           .then(({ body }) => {
@@ -247,7 +249,7 @@ describe('/api', () => {
     });
     describe('POST', () => {
       it('Status 201: responds with a created project object', () => {
-        return request(app)
+        return request
           .post('/api/projects')
           .send({
             lng: 53.795227,
@@ -271,7 +273,7 @@ describe('/api', () => {
     });
     describe('PATCH', () => {
       it('Status 200: Returns an updated project object when supplied with new lng/lat details and an updated status', () => {
-        return request(app)
+        return request
           .patch('/api/projects/1')
           .send({
             lat: 11,
@@ -297,7 +299,7 @@ describe('/api', () => {
     describe('/:id', () => {
       describe('GET', () => {
         it('Status 200: Returns a project by its ID', () => {
-          return request(app)
+          return request
             .get('/api/projects/1')
             .expect(200)
             .then(({ body }) => {
@@ -309,7 +311,7 @@ describe('/api', () => {
       describe('/traders', () => {
         describe('GET', () => {
           it('Status 200: Returns an array of all traders linked to a project, along with relevant project information', () => {
-            return request(app)
+            return request
               .get('/api/projects/2/traders')
               .expect(200)
               .then(({ body }) => {
@@ -324,7 +326,7 @@ describe('/api', () => {
     });
     describe('POST', () => {
       it('Status 201: Post a trader to a project', () => {
-        return request(app)
+        return request
           .post('/api/projects/1/traders')
           .send({
             username: 'Shubwub'
@@ -342,13 +344,14 @@ describe('/api', () => {
   describe('/users', () => {
     describe('POST', () => {
       it('Status 201: Creates a new user object and returns that object', () => {
-        return request(app)
+        return request
           .post('/api/users')
           .send({
             username: 'newUser',
             first_name: 'bobicus',
             last_name: 'buildicus',
-            dob: '01/01/88'
+            dob: '01/01/88',
+            password: 'myPassword123!'
           })
           .expect(201)
           .then(({ body }) => {
@@ -362,7 +365,7 @@ describe('/api', () => {
     describe('/:username', () => {
       describe('PATCH', () => {
         it('Status 200: Returns an updated user object when supplied a new first name', () => {
-          return request(app)
+          return request
             .patch('/api/users/By-Tor2114')
             .send({ first_name: 'Benji' })
             .expect(200)
@@ -371,7 +374,7 @@ describe('/api', () => {
             });
         });
         it('Status 200: Returns an updated user object when supplied a new last name', () => {
-          return request(app)
+          return request
             .patch('/api/users/By-Tor2114')
             .send({ last_name: 'Weitz' })
             .expect(200)
@@ -380,7 +383,7 @@ describe('/api', () => {
             });
         });
         it('Status 200: Returns an updated user object when supplied a new avatar ref', () => {
-          return request(app)
+          return request
             .patch('/api/users/By-Tor2114')
             .send({ avatar_ref: 'www.google.com' })
             .expect(200)
@@ -389,7 +392,7 @@ describe('/api', () => {
             });
         });
         it('Status 200: Returns an updated user object when supplied a new date of birth', () => {
-          return request(app)
+          return request
             .patch('/api/users/By-Tor2114')
             .send({ dob: '01/01/1985' })
             .expect(200)
@@ -400,18 +403,11 @@ describe('/api', () => {
       });
       describe('GET', () => {
         it('Status 200: Returns a user by username', () => {
-          return request(app)
+          return request
             .get('/api/users/By-Tor2114')
             .expect(200)
             .then(({ body }) => {
-              expect(body.user[0]).to.eql({
-                username: 'By-Tor2114',
-                first_name: 'Ben',
-                last_name: 'Jones',
-                avatar_ref:
-                  '/api/db/data/test/Images/stock-person-png-stock-photo-man-11563049686zqeb9zmqjd.png',
-                dob: '1988-10-07T23:00:00.000Z'
-              });
+              expect(body.user[0].username).to.equal('By-Tor2114');
             });
         });
       });
@@ -421,7 +417,7 @@ describe('/api', () => {
     describe('GET', () => {
       describe('OK', () => {
         it('Status 200: Returns an array of reviews by a given valid user', () => {
-          return request(app)
+          return request
             .get('/api/reviews?user_username=BenRut')
             .expect(200)
             .then(({ body }) => {
@@ -429,7 +425,7 @@ describe('/api', () => {
             });
         });
         it('Status 200: Returns an array of reviews for a given trader', () => {
-          return request(app)
+          return request
             .get('/api/reviews?trader_username=kitlets')
             .expect(200)
             .then(({ body }) => {
@@ -437,7 +433,7 @@ describe('/api', () => {
             });
         });
         it('Status 200: Returns an array of reviews for a given trader and user', () => {
-          return request(app)
+          return request
             .get('/api/reviews?trader_username=kitlets&user_username=BenRut')
             .expect(200)
             .then(({ body }) => {
@@ -446,7 +442,7 @@ describe('/api', () => {
             });
         });
         it('Status 200: Returns an empty array of reviews for a given trader with no reviews', () => {
-          return request(app)
+          return request
             .get('/api/reviews?trader_username=fakeTrader')
             .expect(200)
             .then(({ body }) => {
@@ -458,7 +454,7 @@ describe('/api', () => {
     describe('POST', () => {
       describe('OK', () => {
         it('Status 201: Returns a posted valid review', () => {
-          return request(app)
+          return request
             .post('/api/reviews')
             .send({
               user_username: 'By-Tor2114',
@@ -473,7 +469,7 @@ describe('/api', () => {
             });
         });
         it('Status 201: The traders score is updated based on how the review affects their average score', () => {
-          return request(app)
+          return request
             .post('/api/reviews')
             .send({
               user_username: 'By-Tor2114',
@@ -483,18 +479,16 @@ describe('/api', () => {
               score: 4
             })
             .then(() => {
-              return request(app)
-                .post('/api/reviews')
-                .send({
-                  user_username: 'BenRut',
-                  trader_username: 'kitlets',
-                  heading: 'this is a review',
-                  body: 'body here',
-                  score: 3
-                });
+              return request.post('/api/reviews').send({
+                user_username: 'BenRut',
+                trader_username: 'kitlets',
+                heading: 'this is a review',
+                body: 'body here',
+                score: 3
+              });
             })
             .then(() => {
-              return request(app).get('/api/traders/kitlets');
+              return request.get('/api/traders/kitlets');
             })
             .then(({ body }) => {
               expect(body.trader.score).to.equal(3.5);
@@ -503,7 +497,7 @@ describe('/api', () => {
       });
       describe('Error Handling', () => {
         it('Status 404: Returns 404 for a user that doesnt exist', () => {
-          return request(app)
+          return request
             .post('/api/reviews')
             .send({
               user_username: 'notReal',
@@ -515,7 +509,7 @@ describe('/api', () => {
             .expect(404);
         });
         it('Status 404: Returns 404 for a trader that doesnt exist', () => {
-          return request(app)
+          return request
             .post('/api/reviews')
             .send({
               user_username: 'BenRut',
@@ -533,7 +527,7 @@ describe('/api', () => {
     describe('GET', () => {
       describe('OK', () => {
         it('Status 200: Returns a list of open requests from a user', () => {
-          return request(app)
+          return request
             .get('/api/requests?user_username=BenRut')
             .expect(200)
             .then(({ body }) => {
@@ -541,7 +535,7 @@ describe('/api', () => {
             });
         });
         it('Status 200: Returns a list of open requests to a trader', () => {
-          return request(app)
+          return request
             .get('/api/requests?trader_username=Shubwub')
             .expect(200)
             .then(({ body }) => {
@@ -553,7 +547,7 @@ describe('/api', () => {
     describe('POST', () => {
       describe('OK', () => {
         it('Status 201: Returns the posted request', () => {
-          return request(app)
+          return request
             .post('/api/requests')
             .send({
               user_username: 'By-Tor2114',
@@ -566,7 +560,7 @@ describe('/api', () => {
             });
         });
         it('Status 200: A new request can be found on the users list', () => {
-          return request(app)
+          return request
             .post('/api/requests')
             .send({
               user_username: 'By-Tor2114',
@@ -574,7 +568,7 @@ describe('/api', () => {
               project_id: 1
             })
             .then(({ body }) => {
-              return request(app)
+              return request
                 .get('/api/requests?user_username=By-Tor2114')
                 .expect(200)
                 .then(({ body }) => {
@@ -583,7 +577,7 @@ describe('/api', () => {
             });
         });
         it('Status 200: A new request can be found on the traders list', () => {
-          return request(app)
+          return request
             .post('/api/requests')
             .send({
               user_username: 'By-Tor2114',
@@ -591,7 +585,7 @@ describe('/api', () => {
               project_id: 1
             })
             .then(() => {
-              return request(app)
+              return request
                 .get('/api/requests?trader_username=fakeTrader')
                 .expect(200)
                 .then(({ body }) => {
@@ -602,7 +596,7 @@ describe('/api', () => {
       });
       describe('Error Handling', () => {
         it('Status 400: Should not allow a request to a trader already on a project', () => {
-          return request(app)
+          return request
             .post('/api/requests')
             .send({
               user_username: 'BenRut',
@@ -612,7 +606,7 @@ describe('/api', () => {
             .expect(400);
         });
         it('Status 400: Should not allow a request to a trader with an open request for that project', () => {
-          return request(app)
+          return request
             .post('/api/requests')
             .send({
               user_username: 'By-Tor2114',
@@ -622,7 +616,7 @@ describe('/api', () => {
             .expect(400);
         });
         it('Status 400: Should not allow a request for a project the user does not own', () => {
-          return request(app)
+          return request
             .post('/api/requests')
             .send({
               user_username: 'By-Tor2114',
@@ -636,7 +630,7 @@ describe('/api', () => {
     describe('DELETE', () => {
       describe('OK', () => {
         it('Status 200: Returns the number of deleted requests (1) when a request is denied', () => {
-          return request(app)
+          return request
             .del('/api/requests')
             .send({
               request_id: 1,
@@ -650,7 +644,7 @@ describe('/api', () => {
             });
         });
         it('Status 200: Adds a trader to a project when a request is accepted', () => {
-          return request(app)
+          return request
             .del('/api/requests')
             .send({
               request_id: 1,
@@ -660,9 +654,7 @@ describe('/api', () => {
             })
             .expect(200)
             .then(() => {
-              return request(app)
-                .get('/api/projects/1/traders')
-                .expect(200);
+              return request.get('/api/projects/1/traders').expect(200);
             })
             .then(({ body }) => {
               expect(body.traders.length).to.equal(2);
@@ -671,7 +663,7 @@ describe('/api', () => {
       });
       describe('Error Handling', () => {
         it('Status 404: Returns 404 for a project that doesnt exist', () => {
-          return request(app)
+          return request
             .del('/api/requests')
             .send({
               request_id: 1,
@@ -682,7 +674,7 @@ describe('/api', () => {
             .expect(404);
         });
         it('Status 404: Returns 404 for a trader that doesnt exist', () => {
-          return request(app)
+          return request
             .del('/api/requests')
             .send({
               request_id: 1,
