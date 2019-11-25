@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { getReviewsByUsername } from '../utils/reviews';
+import ReviewCard from './ReviewCard';
 
 const Container = styled.div`
   background: white;
   color: black;
-  min-height: 200px;
+  height: 200px;
   overflow-y: scroll;
-  width: 90%;
+  width: 80%;
   text-align: left;
   margin: 20px;
   padding: 10px;
@@ -15,8 +17,23 @@ const Container = styled.div`
 `;
 
 class ReviewList extends Component {
+  state = {
+    reviews: []
+  };
+  componentDidMount = async () => {
+    const reviews = await getReviewsByUsername(this.props.username);
+    this.setState({
+      reviews
+    });
+  };
   render() {
-    return <Container>REVIEW LIST</Container>;
+    return (
+      <Container>
+        {this.state.reviews.map(review => {
+          return <ReviewCard review={review}></ReviewCard>;
+        })}
+      </Container>
+    );
   }
 }
 

@@ -61,18 +61,17 @@ const Container = styled.div`
 //   background: ${props => props.theme.trader};
 // `;
 
-// const TraderInfoAndReviews = styled.div`
-//   border: solid green 1px;
-//   width: 30%;
-//   min-width: 400px;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   @media (max-width: 768px) {
-//     width: 100%;
-//     height: 50%;
-//   }
-// `;
+const TraderInfoAndReviews = styled.div`
+  width: 30%;
+  min-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 50%;
+  }
+`;
 
 const MapWrapper = styled.div`
   border: solid red 1px;

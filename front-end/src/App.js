@@ -16,6 +16,7 @@ import { AppProvider } from './components/AppContext';
 import DashBoard from './components/DashBoard';
 import LoginForm from './components/LoginForm';
 import TraderProfile from './components/TraderProfile';
+import Loader from './components/Loader';
 
 export default class App extends Component {
   state = {
@@ -24,7 +25,10 @@ export default class App extends Component {
     isLoading: true,
     theme: {
       trader: '#f77123',
-      user: '#8e3ccb'
+      user: '#8e3ccb',
+      grey: '#ececec',
+      greytext: '#898989',
+      deeperLayer: '#dcdcdc'
     },
     token: ''
   };
@@ -37,6 +41,10 @@ export default class App extends Component {
     sessionStorage.setItem('user', JSON.stringify(user));
   };
   componentDidMount = async () => {
+   // const project = await getProject(2);
+    // const user = await getTrader('Shubwub');
+   // const user = await getUser('BenRut');
+    //this.setState({ project, isLoading: false, user });
     if (sessionStorage.token) {
       const project = await getProject(2);
       this.setState({
@@ -50,6 +58,12 @@ export default class App extends Component {
       });
     }
   };
+  updateUserInfo = body => {
+    console.log(body);
+    this.setState(currentState => {
+      return { user: { ...currentState.user, ...body } };
+    });
+  };
   render() {
     return (
       <div className="App">
@@ -57,11 +71,15 @@ export default class App extends Component {
           <AppProvider value={this.state.user}>
             <Header signout={this.signout} />
             {this.state.isLoading ? (
-              <h1>IS LOADING</h1>
+              <Loader theme={this.state.theme} />
             ) : (
               <Router className="router">
                 {this.state.user.username ? (
-                  <DashBoard path="/" username={this.state.user.username} />
+                  <DashBoard
+                    updateUserInfo={this.updateUserInfo}
+                    path="/"
+                    username={this.state.user.username}
+                  />
                 ) : (
                   <LandingPage path="/" />
                 )}
