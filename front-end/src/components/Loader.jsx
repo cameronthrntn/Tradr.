@@ -21,26 +21,24 @@ const Spinner = styled.div`
 `;
 
 const Dot1 = styled.div`
-  background: ${props => props.theme.trader};
+  background-color: ${props => props.theme.trader};
   width: 60%;
   height: 60%;
   display: inline-block;
   position: absolute;
   top: 0;
-  background-color: #333;
   border-radius: 100%;
 
   -webkit-animation: sk-bounce 2s infinite ease-in-out;
   animation: sk-bounce 2s infinite ease-in-out;
 `;
 const Dot2 = styled.div`
-  background: ${props => props.theme.user};
+  background-color: #333;
   width: 60%;
   height: 60%;
   display: inline-block;
   position: absolute;
   top: 0;
-  background-color: #333;
   border-radius: 100%;
   -webkit-animation: sk-bounce 2s infinite ease-in-out;
   animation: sk-bounce 2s infinite ease-in-out;

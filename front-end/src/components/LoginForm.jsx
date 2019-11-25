@@ -9,7 +9,7 @@ export default class LoginForm extends Component {
   state = {
     username: '',
     password: '',
-    userType: 'user'
+    type: 'user'
   };
   handleChange = e => {
     this.setState({ [e.target.id]: e.target.value });
@@ -30,14 +30,10 @@ export default class LoginForm extends Component {
   render() {
     return (
       <Container>
-        <Form
-          userType={this.state.userType}
-          action=""
-          onSubmit={this.handleSubmit}
-        >
+        <Form userType={this.state.type} action="" onSubmit={this.handleSubmit}>
           <Inputs>
             <select
-              id="userType"
+              id="type"
               value={this.state.type}
               onChange={this.handleChange}
             >
