@@ -38,6 +38,7 @@ export default class DashBoard extends Component {
       complete: projects.filter(project => project.status === 'complete')
     });
   };
+
   render() {
     return (
       <Container>
