@@ -2,6 +2,16 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { postNewProject } from '../utils/projects';
 import { getCoordinates } from '../utils/makeAccount';
+import {
+  Inputs,
+  Input,
+  InputWrapper,
+  HalfInput,
+  Form,
+  LogInButton
+} from '../styles/Forms';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const Container = styled.div`
   position: fixed;
@@ -18,21 +28,12 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-const Form = styled.form`
-  display: flex;
-  position: relative;
-  flex-direction: column;
+const ProjectForm = styled(Form)`
+  width: 30%;
+  color: white;
   background-color: ${props => props.theme.user};
-  align-self: center;
-  margin: 3em 20px 20px 20px;
-  border-radius: 10px;
-  min-width: 25%;
-  margin: auto;
-  text-align: center;
-  align-items: center;
-  @media (max-width: 768px) {
-    width: 80%;
-  }
+  padding: 20px;
+  position: relative;
 `;
 
 const XButton = styled.button`
@@ -45,6 +46,7 @@ const XButton = styled.button`
   width: 30px;
   box-shadow: 1px 0 3px 0 rgb(0, 0, 0, 0.3);
   border: none;
+  font-size: 15px;
   background: ${props => props.theme.grey};
   cursor: pointer;
 `;
@@ -78,6 +80,7 @@ class NewProjectForm extends Component {
       end_date: this.state.end_date
     };
     postNewProject(newProject);
+    this.props.handleBool();
   };
 
   render() {
@@ -85,55 +88,66 @@ class NewProjectForm extends Component {
 
     return (
       <Container>
-        <Form action="" onSubmit={this.handleSubmit}>
-          <XButton onClick={this.props.handleBool}>X</XButton>
-          <input
-            id="title"
-            placeholder="Title"
-            type="text"
-            onChange={this.handleChange}
-          />
-          <input
-            id="house"
-            placeholder="House number"
-            type="text"
-            onChange={this.handleChange}
-          />
-          <input
-            id="town"
-            placeholder="Town"
-            type="text"
-            onChange={this.handleChange}
-          />
-          <input
-            required
-            id="city"
-            placeholder="City"
-            type="text"
-            onChange={this.handleChange}
-          />
-          <label htmlFor="country">Country:</label>
-          <select
-            id="country"
-            placeholder="Country"
-            onChange={this.handleChange}
-          >
-            <option value="United Kingdom">United Kingdom</option>
-            <option value="France">France</option>
-          </select>
+        <ProjectForm action="" onSubmit={this.handleSubmit}>
+          <h3>New project</h3>
+          <XButton onClick={this.props.handleBool}>
+            <FontAwesomeIcon icon={faTimes}></FontAwesomeIcon>
+          </XButton>
+          <Inputs>
+            <Input
+              id="title"
+              placeholder="Title"
+              type="text"
+              onChange={this.handleChange}
+            />
+            <InputWrapper>
+              <HalfInput
+                id="house"
+                placeholder="House number"
+                type="text"
+                onChange={this.handleChange}
+              />
+              <HalfInput
+                id="town"
+                placeholder="Town"
+                type="text"
+                onChange={this.handleChange}
+              />
+            </InputWrapper>
+            <InputWrapper>
+              <HalfInput
+                required
+                id="city"
+                placeholder="City"
+                type="text"
+                onChange={this.handleChange}
+              />
+              <HalfInput
+                id="postCode"
+                placeholder="Post code"
+                type="text"
+                onChange={this.handleChange}
+              />
+            </InputWrapper>
 
-          <input
-            id="postCode"
-            placeholder="Post code"
-            type="text"
-            onChange={this.handleChange}
-          />
-          <label htmlFor="start_date">Start date:</label>
-          <input id="start_date" type="date" onChange={this.handleChange} />
-          <label htmlFor="end_date">End date:</label>
-          <input id="end_date" type="date" onChange={this.handleChange} />
-          <button>Submit</button>
-        </Form>
+            <label htmlFor="country">Country:</label>
+            <select
+              id="country"
+              placeholder="Country"
+              onChange={this.handleChange}
+            >
+              <option value="United Kingdom">United Kingdom</option>
+              <option value="France">France</option>
+            </select>
+
+            <label htmlFor="start_date">Start date:</label>
+            <Input id="start_date" type="date" onChange={this.handleChange} />
+            <label htmlFor="end_date">End date:</label>
+            <Input id="end_date" type="date" onChange={this.handleChange} />
+          </Inputs>
+
+          <LogInButton>Submit</LogInButton>
+        </ProjectForm>
       </Container>
     );
   }

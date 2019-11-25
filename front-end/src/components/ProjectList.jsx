@@ -27,7 +27,7 @@ const ProjectListHeader = styled.div`
 const Projects = styled.div`
   width: auto;
   list-style: none;
-  border: solid orange 2px;
+
   padding: 20px;
   margin: 0;
   display: flex;
@@ -59,6 +59,10 @@ const AddProjectButton = styled.div`
     transform: scale(1.05);
     box-shadow: 1px 0 15px 0 rgb(0, 0, 0, 0.3);
   }
+`;
+
+const AddProjectButtonContainer = styled.div`
+  padding: 20px;
 `;
 
 const Heading = styled.h5`
@@ -96,12 +100,14 @@ class ProjectList extends Component {
                   <ProjectCard project={project} />
                 ))}
                 {this.props.heading === 'Planning' && !user.trade && (
-                  <AddProjectButton onClick={this.handleBool}>
-                    <p>
-                      <FontAwesomeIcon icon={faPlus} />
-                    </p>
-                    <p>New project</p>
-                  </AddProjectButton>
+                  <AddProjectButtonContainer>
+                    <AddProjectButton onClick={this.handleBool}>
+                      <p>
+                        <FontAwesomeIcon icon={faPlus} />
+                      </p>
+                      <p>New project</p>
+                    </AddProjectButton>
+                  </AddProjectButtonContainer>
                 )}
               </Projects>
             </Container>
