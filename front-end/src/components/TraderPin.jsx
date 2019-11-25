@@ -58,7 +58,7 @@ export default function TraderPin(
           <ProjectName>Your Project</ProjectName>
         ) : (
           <>
-            <Score>{score === 0 ? 'n/a' : score}</Score>
+            <Score>{score === 0 ? 'N/A' : score.toString().slice(0, 3)}</Score>
             <Rate>£{rate}/d</Rate>
           </>
         )}
