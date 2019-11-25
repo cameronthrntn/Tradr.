@@ -1,5 +1,6 @@
 import React from 'react';
 import ProjectCard from '../components/ProjectCard';
+import NewProjectForm from '../components/NewProjectForm';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -69,6 +70,7 @@ const ProjectList = props => {
       {user => {
         return (
           <Container>
+            <NewProjectForm username={user.username} />
             <ProjectListHeader>
               <Heading>{props.heading}</Heading>
             </ProjectListHeader>
