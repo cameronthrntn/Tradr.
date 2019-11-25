@@ -5,7 +5,8 @@ const {
   tradersData,
   projectsTradersData,
   reviewsData,
-  requestsData
+  requestsData,
+  messagesData
 } = require('../data/index');
 const bcrypt = require('bcrypt');
 
@@ -41,6 +42,9 @@ exports.seed = function(knex) {
       return Promise.all([seedProjects(), seedReviews()]);
     })
     .then(() => {
+      const seedMessages = () => {
+        return knex.insert(messagesData).into('messages');
+      };
       const seedProjectTraders = () => {
         return knex
           .insert(projectsTradersData)
@@ -52,6 +56,11 @@ exports.seed = function(knex) {
       const seedRequests = () => {
         return knex.insert(requestsData).into('requests');
       };
-      return Promise.all([seedProjectTraders(), seedImages(), seedRequests()]);
+      return Promise.all([
+        seedProjectTraders(),
+        seedImages(),
+        seedRequests(),
+        seedMessages()
+      ]);
     });
 };
