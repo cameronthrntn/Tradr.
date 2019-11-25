@@ -62,7 +62,6 @@ const TraderInfo = styled.div`
 `;
 
 const TraderInfoAndReviews = styled.div`
-  border: solid green 1px;
   width: 30%;
   min-width: 400px;
   display: flex;
