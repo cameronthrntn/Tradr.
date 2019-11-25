@@ -8,8 +8,9 @@ const getReviewsByUsername = async username => {
 };
 
 const postReview = async body => {
-  const { data } = await instance.post(`/reviews`, body);
+  const data = await instance.post(`/reviews`, body);
+  console.log(data);
   return data.review;
 };
 
-export { getReviewsByUsername };
+export { getReviewsByUsername, postReview };
