@@ -1,3 +1,11 @@
+exports.handleCustomErrors = (err, req, res, next) => {
+  if (err.msg === 'tradesperson already added to project') {
+    res.status(400).send({ msg: err.msg });
+  } else {
+    next(err);
+  }
+};
+
 exports.handle400s = (err, req, res, next) => {
   const errCodes = ['22P02', '42703', '400'];
   if (errCodes.includes(err.code)) {
@@ -21,5 +29,6 @@ exports.handle405s = (req, res, next) => {
 };
 
 exports.handle500s = (err, req, res, next) => {
+  console.log(err);
   res.status(500).send({ msg: 'internal server error!' });
 };

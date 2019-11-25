@@ -8,7 +8,8 @@ module.exports = [
     rate: 230,
     dob: new Date('05/21/1984'),
     personal_site: 'https://stackoverflow.com/',
-    trade: 'plumber'
+    trade: 'plumber',
+    password: 'myPassword123!'
   },
   {
     username: 'Shubwub',
@@ -20,7 +21,8 @@ module.exports = [
     dob: new Date('08/10/1997'),
     score: 3.8,
     personal_site: 'https://github.com/',
-    trade: 'builder'
+    trade: 'builder',
+    password: 'myPassword123!'
   },
   {
     username: 'fakeTrader',
@@ -32,6 +34,7 @@ module.exports = [
     dob: new Date('04/01/1976'),
     score: 1.9,
     personal_site: 'https://northcoders.com/',
-    trade: 'painter'
+    trade: 'painter',
+    password: 'myPassword123!'
   }
 ];
