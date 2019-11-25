@@ -57,7 +57,7 @@ class ReviewList extends Component {
   };
   updateReviews = newReview => {
     this.setState(currentState => {
-      return { reviews: { ...currentState.reviews, newReview } };
+      return { reviews: [...currentState.reviews, newReview] };
     });
   };
 

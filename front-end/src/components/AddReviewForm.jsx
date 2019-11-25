@@ -65,7 +65,7 @@ const ScoreContainer = styled.div`
 class AddReviewForm extends Component {
   state = {
     user_username: this.props.user_username,
-    trader_username: this.props.user_username,
+    trader_username: this.props.trader_username,
     heading: '',
     body: '',
     score: 0
@@ -76,8 +76,8 @@ class AddReviewForm extends Component {
   };
   handleSubmit = async e => {
     e.preventDefault();
-    postReview(this.state);
-    // this.props.updateReviews(this.state);
+    const newReview = await postReview(this.state);
+    this.props.updateReviews(newReview);
     this.props.handleClick();
   };
 
