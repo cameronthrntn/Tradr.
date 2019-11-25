@@ -7,6 +7,7 @@ import ReviewList from '../components/ReviewList';
 import { updateProfile } from '../utils/profile-patch';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import Requests from './Requests';
 
 const Container = styled.div`
   color: white;
@@ -131,7 +132,8 @@ class UserInfo extends Component {
     newAvatarRef: '',
     isEditing: false,
     body: {},
-    isTrader: true
+    isTrader: true,
+    requests: []
   };
 
   handleChange = e => {
@@ -158,6 +160,7 @@ class UserInfo extends Component {
   updateAvatar = newAvatarRef => {
     this.setState({ newAvatarRef });
   };
+
   render() {
     return (
       <AppConsumer>
@@ -179,8 +182,8 @@ class UserInfo extends Component {
                   username={user.username}
                 />
               </AvatarWrapper>
-
               <p>{user.username}</p>
+              <Requests user={user.username} />
 
               {!user.trade && (
                 <>

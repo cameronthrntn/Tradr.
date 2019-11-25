@@ -170,7 +170,7 @@ describe('/api', () => {
       describe('PATCH', () => {
         describe('OK', () => {
           it('Status 200: responds with updated trader object', () => {
-            return request(app)
+            return request
               .patch('/api/traders/kitlets')
               .send({
                 first_name: 'Test',

@@ -84,8 +84,6 @@ class NewProjectForm extends Component {
   };
 
   render() {
-    console.log(this.props.username);
-
     return (
       <Container>
         <ProjectForm action="" onSubmit={this.handleSubmit}>

@@ -14,4 +14,12 @@ const getTrader = async username => {
   return data.trader;
 };
 
-export { getTraders, getTrader };
+const getTraderRequests = async trader_username => {
+  const { data } = await instance.get(`${BASEURL}/requests`, {
+    params: { trader_username }
+  });
+
+  return data.requests;
+};
+
+export { getTraders, getTrader, getTraderRequests };
