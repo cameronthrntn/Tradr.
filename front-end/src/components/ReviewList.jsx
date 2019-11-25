@@ -2,23 +2,46 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { getReviewsByUsername } from '../utils/reviews';
 import ReviewCard from './ReviewCard';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import AddReviewForm from './AddReviewForm';
 
 const Container = styled.div`
   background: white;
   color: black;
   height: 200px;
-  overflow-y: scroll;
-  width: 80%;
-  text-align: left;
-  margin: 20px;
+
   padding: 10px;
+  text-align: left;
+  overflow-y: scroll;
   border-radius: 10px;
   box-shadow: inset 1px 0 3px 0 rgb(0, 0, 0, 0.3);
 `;
 
+const AddReviewButton = styled.button`
+  position: absolute;
+  border-radius: 50%;
+  top: -10px;
+  color: ${props => props.theme.greytext};
+  right: -10px;
+  height: 30px;
+  width: 30px;
+  box-shadow: 1px 0 3px 0 rgb(0, 0, 0, 0.3);
+  border: none;
+  background: ${props => props.theme.grey};
+  cursor: pointer;
+`;
+const ButtonHolder = styled.div`
+  position: relative;
+  margin: 20px;
+  width: 80%;
+  border-radius: 10px;
+`;
+
 class ReviewList extends Component {
   state = {
-    reviews: []
+    reviews: [],
+    isAddingReview: false
   };
   componentDidMount = async () => {
     const reviews = await getReviewsByUsername(this.props.username);
@@ -26,13 +49,28 @@ class ReviewList extends Component {
       reviews
     });
   };
+  handleClick = e => {
+    this.setState(currentState => {
+      return { isAddingReview: !currentState.isAddingReview };
+    });
+  };
+
   render() {
     return (
-      <Container>
-        {this.state.reviews.map(review => {
-          return <ReviewCard review={review}></ReviewCard>;
-        })}
-      </Container>
+      <ButtonHolder>
+        {this.state.isAddingReview && (
+          <AddReviewForm handleBool={this.handleBool} />
+        )}
+        <AddReviewButton onClick={this.handleClick}>
+          <FontAwesomeIcon icon={faPlus} />
+          Add review
+        </AddReviewButton>
+        <Container>
+          {this.state.reviews.map(review => {
+            return <ReviewCard review={review}></ReviewCard>;
+          })}
+        </Container>
+      </ButtonHolder>
     );
   }
 }

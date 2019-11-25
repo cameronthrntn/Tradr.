@@ -126,6 +126,11 @@ const SaveButtonWrapper = styled.div`
   justify-content: flex-end;
 `;
 
+const HeadingContainer = styled.div`
+  display: flex;
+  margin: 0px;
+`;
+
 class UserInfo extends Component {
   state = {
     newAvatarRef: '',
@@ -298,7 +303,9 @@ class UserInfo extends Component {
                 </PatchUserForm>
               </TraderInfo>
             )}
-
+            <HeadingContainer>
+              <h3>Reviews</h3>
+            </HeadingContainer>
             <ReviewList username={user.username} />
             <ScoreContainer>
               Trader Score: <Score score={user.score}>{user.score}</Score>
