@@ -5,7 +5,7 @@ import TraderList from './TraderList';
 import styled from 'styled-components';
 import { getDistances } from '../utils';
 import { getTraders } from '../utils/traders';
-import { AppConsumer } from './AppContext';
+// import { AppConsumer } from './AppContext';
 import FilterBar from './FilterBar';
 
 export default class TraderMap extends Component {

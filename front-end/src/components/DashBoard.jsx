@@ -5,20 +5,20 @@ import styled from 'styled-components';
 import { getProjectsByUsername, getProjectsByTrader } from '../utils/projects';
 
 const Container = styled.div`
-  border: solid 1px green;
+  overflow-y: scroll;
   display: flex;
-  /* margin-top: 6vh; */
-  height: 94vh;
+  height: 100vh;
   overflow-y: scroll;
   @media (max-width: 768px) {
     flex-direction: column;
+    overflow-y: scroll;
+    height: 100%;
   }
 `;
 
 const ProjectListsContainer = styled.div`
-  border: solid red 1px;
   width: 70%;
-
+  overflow-y: scroll;
   @media (max-width: 768px) {
     width: 100%;
   }
@@ -41,10 +41,10 @@ export default class DashBoard extends Component {
   render() {
     return (
       <Container>
-        <UserInfo />
+        <UserInfo updateUserInfo={this.props.updateUserInfo} />
         <ProjectListsContainer>
-          <ProjectList heading="In planning" projects={this.state.inPlanning} />
-          <ProjectList heading="In Progress" projects={this.state.inProgress} />
+          <ProjectList heading="Planning" projects={this.state.inPlanning} />
+          <ProjectList heading="In progress" projects={this.state.inProgress} />
           <ProjectList heading="Complete" projects={this.state.complete} />
         </ProjectListsContainer>
       </Container>

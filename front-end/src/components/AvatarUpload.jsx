@@ -3,6 +3,8 @@ import firebase from 'firebase';
 import FileUploader from 'react-firebase-file-uploader';
 import styled from 'styled-components';
 import { uploadAvatar } from '../utils/uploadAvatar';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 const config = {
   apiKey: 'AIzaSyC7jPTrrIK8sgqlUOWH4itIq_eVcPGNUzc',
@@ -58,8 +60,8 @@ class AvatarUpload extends Component {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: '#ededed',
-          color: 'white',
+          backgroundColor: '#ececec',
+          color: '#898989',
           height: '30px',
           width: '30px',
           borderRadius: 4,
@@ -67,10 +69,11 @@ class AvatarUpload extends Component {
           position: 'absolute',
           bottom: '-10px',
           right: '-10px',
-          borderRadius: '50%'
+          borderRadius: '50%',
+          boxShadow: '1px 0 3px 0 rgb(0, 0, 0, 0.3)'
         }}
       >
-        +
+        <FontAwesomeIcon icon={faPlus} />
         <FileUploader
           hidden
           accept="image/*"

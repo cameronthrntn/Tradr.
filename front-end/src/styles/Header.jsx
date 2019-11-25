@@ -6,7 +6,7 @@ const Nav = styled.nav`
 
   width: 100%;
   z-index: 2;
-  box-shadow: 0 4px 8px -2px gray;
+  box-shadow: 1px 0 10px 0 rgb(0, 0, 0, 0.3);
   display: flex;
   justify-content: space-between;
 `;

@@ -1,11 +1,11 @@
 import React from 'react';
-import { getDistances } from '../utils';
+// import { getDistances } from '../utils';
 import styled from 'styled-components';
 import { navigate } from '@reach/router';
 
 export default function TraderCard(props) {
   const ratingBgColorChooser = () => {
-    if (props.trader.scored === 'false') return '#c5c5c5';
+    if (props.trader.score === 0) return '#c5c5c5';
     else if (props.trader.score > 0 && props.trader.score < 2) return 'red';
     else if (props.trader.score > 2 && props.trader.score < 3) return '#FFBF00';
     else if (props.trader.score > 3 && props.trader.score <= 5)
@@ -35,7 +35,7 @@ export default function TraderCard(props) {
     width: 6em;
     border: 4px solid #fe7e0f;
     margin: 5px;
-    border-radius: 50px;
+    border-radius: 50%;
     height: 6em;
   `;
 

@@ -29,6 +29,7 @@ const LogInButton = styled.button`
   padding: 1em;
   width: 15em;
   border-radius: 34px;
+  cursor: pointer;
   &:hover {
     background: white;
     color: ${props => props.theme.trader};
