@@ -24,8 +24,8 @@ export default class App extends Component {
     project: {},
     isLoading: true,
     theme: {
-      trader: '#f77123',
-      user: '#8e3ccb',
+      trader: '#38C4BD',
+      user: '#A068CC',
       grey: '#ececec',
       greytext: '#898989',
       deeperLayer: '#dcdcdc'
