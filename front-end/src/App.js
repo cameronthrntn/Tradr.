@@ -24,8 +24,8 @@ export default class App extends Component {
     project: {},
     isLoading: true,
     theme: {
-      trader: '#f77123',
-      user: '#8e3ccb',
+      trader: '#38C4BD',
+      user: '#A068CC',
       grey: '#ececec',
       greytext: '#898989',
       deeperLayer: '#dcdcdc'
@@ -41,9 +41,9 @@ export default class App extends Component {
     sessionStorage.setItem('user', JSON.stringify(user));
   };
   componentDidMount = async () => {
-   // const project = await getProject(2);
+    // const project = await getProject(2);
     // const user = await getTrader('Shubwub');
-   // const user = await getUser('BenRut');
+    // const user = await getUser('BenRut');
     //this.setState({ project, isLoading: false, user });
     if (sessionStorage.token) {
       const project = await getProject(2);
@@ -59,7 +59,6 @@ export default class App extends Component {
     }
   };
   updateUserInfo = body => {
-    console.log(body);
     this.setState(currentState => {
       return { user: { ...currentState.user, ...body } };
     });
