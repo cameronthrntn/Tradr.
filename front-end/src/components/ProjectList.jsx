@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ProjectCard from '../components/ProjectCard';
 import NewProjectForm from '../components/NewProjectForm';
 import styled from 'styled-components';
@@ -10,6 +10,7 @@ const Container = styled.div`
   height: 350px;
   overflow-y: hidden;
   overflow-x: scroll;
+  position: relative;
   @media (max-width: 768px) {
     min-height: 300px;
   }
@@ -26,7 +27,7 @@ const ProjectListHeader = styled.div`
 const Projects = styled.div`
   width: auto;
   list-style: none;
-  border: solid orange 2px;
+
   padding: 20px;
   margin: 0;
   display: flex;
@@ -60,38 +61,61 @@ const AddProjectButton = styled.div`
   }
 `;
 
+const AddProjectButtonContainer = styled.div`
+  padding: 20px;
+`;
+
 const Heading = styled.h5`
   margin: 20px;
 `;
 
-const ProjectList = props => {
-  return (
-    <AppConsumer>
-      {user => {
-        return (
-          <Container>
-            <NewProjectForm username={user.username} />
-            <ProjectListHeader>
-              <Heading>{props.heading}</Heading>
-            </ProjectListHeader>
-            <Projects>
-              {props.projects.map(project => (
-                <ProjectCard project={project} />
-              ))}
-              {props.heading === 'Planning' && !user.trade && (
-                <AddProjectButton>
-                  <p>
-                    <FontAwesomeIcon icon={faPlus} />
-                  </p>
-                  <p>New project</p>
-                </AddProjectButton>
+class ProjectList extends Component {
+  state = {
+    isAddingProject: false
+  };
+
+  handleBool = e => {
+    this.setState(currentState => {
+      return { isAddingProject: !currentState.isAddingProject };
+    });
+  };
+
+  render() {
+    return (
+      <AppConsumer>
+        {user => {
+          return (
+            <Container>
+              {this.state.isAddingProject && (
+                <NewProjectForm
+                  handleBool={this.handleBool}
+                  username={user.username}
+                />
               )}
-            </Projects>
-          </Container>
-        );
-      }}
-    </AppConsumer>
-  );
-};
+              <ProjectListHeader>
+                <Heading>{this.props.heading}</Heading>
+              </ProjectListHeader>
+              <Projects>
+                {this.props.projects.map(project => (
+                  <ProjectCard project={project} />
+                ))}
+                {this.props.heading === 'Planning' && !user.trade && (
+                  <AddProjectButtonContainer>
+                    <AddProjectButton onClick={this.handleBool}>
+                      <p>
+                        <FontAwesomeIcon icon={faPlus} />
+                      </p>
+                      <p>New project</p>
+                    </AddProjectButton>
+                  </AddProjectButtonContainer>
+                )}
+              </Projects>
+            </Container>
+          );
+        }}
+      </AppConsumer>
+    );
+  }
+}
 
 export default ProjectList;

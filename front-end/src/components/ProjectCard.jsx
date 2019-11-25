@@ -44,7 +44,9 @@ export default function ProjectCard(props) {
   const ProjectImage = styled.div`
     height: 70%;
     width: 90%;
-    border: 1px solid blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   `;
   const StatusBar = styled.div`
     width: 100%;
@@ -52,9 +54,16 @@ export default function ProjectCard(props) {
       props.user.trade ? props.theme.trader : props.theme.user};
     height: 5%;
   `;
+
+  const ProjectAvatar = styled.img`
+    height: 100%;
+  `;
+
   return (
     <AppConsumer>
       {user => {
+        console.log(props.project);
+
         return (
           <Card
             onClick={() => navigate(`/project/${props.project.project_id}`)}
@@ -71,7 +80,9 @@ export default function ProjectCard(props) {
                 <DateText>{endDate}</DateText>
               </div>
             </DateSection>
-            <ProjectImage></ProjectImage>
+            <ProjectImage>
+              <ProjectAvatar src={props.project.avatar_ref} />
+            </ProjectImage>
             <StatusBar user={user}></StatusBar>
           </Card>
         );

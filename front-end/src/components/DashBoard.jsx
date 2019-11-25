@@ -3,6 +3,7 @@ import UserInfo from '../components/UserInfo';
 import ProjectList from '../components/ProjectList';
 import styled from 'styled-components';
 import { getProjectsByUsername, getProjectsByTrader } from '../utils/projects';
+import { AppConsumer } from './AppContext';
 
 const Container = styled.div`
   overflow-y: scroll;
@@ -38,16 +39,35 @@ export default class DashBoard extends Component {
       complete: projects.filter(project => project.status === 'complete')
     });
   };
+
   render() {
     return (
-      <Container>
-        <UserInfo updateUserInfo={this.props.updateUserInfo} />
-        <ProjectListsContainer>
-          <ProjectList heading="Planning" projects={this.state.inPlanning} />
-          <ProjectList heading="In progress" projects={this.state.inProgress} />
-          <ProjectList heading="Complete" projects={this.state.complete} />
-        </ProjectListsContainer>
-      </Container>
+      <AppConsumer>
+        {user => {
+          return (
+            <Container>
+              <UserInfo
+                user={user}
+                updateUserInfo={this.props.updateUserInfo}
+              />
+              <ProjectListsContainer>
+                <ProjectList
+                  heading="Planning"
+                  projects={this.state.inPlanning}
+                />
+                <ProjectList
+                  heading="In progress"
+                  projects={this.state.inProgress}
+                />
+                <ProjectList
+                  heading="Complete"
+                  projects={this.state.complete}
+                />
+              </ProjectListsContainer>
+            </Container>
+          );
+        }}
+      </AppConsumer>
     );
   }
 }

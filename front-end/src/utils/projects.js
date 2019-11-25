@@ -15,4 +15,14 @@ const getProjectsByTrader = async trader => {
   return data.projects;
 };
 
-export { getProject, getProjectsByUsername, getProjectsByTrader };
+const postNewProject = async project => {
+  const { data } = await instance.post(`/projects`, project);
+  return data.project;
+};
+
+export {
+  getProject,
+  getProjectsByUsername,
+  getProjectsByTrader,
+  postNewProject
+};
