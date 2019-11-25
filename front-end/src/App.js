@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { Router } from '@reach/router';
+import { setToken } from './utils/axios';
 import './styles/App.css';
 import Header from './components/Header';
 import LandingPage from './components/LandingPage';
-import LogInForm from './components/LoginForm';
+// import LogInForm from './components/LoginForm';
 import SignUpForm from './components/SignUpForm';
 import TraderMap from './components/TraderMap';
 import { ThemeProvider } from 'styled-components';
 import { getProject } from './utils/projects.js';
-import { getUser } from './utils/users.js';
 import { getTrader } from './utils/traders.js';
+import { getUser } from './utils/users.js';
 import NotFound from './components/404NotFound';
 import { AppProvider } from './components/AppContext';
 import DashBoard from './components/DashBoard';
@@ -24,16 +25,30 @@ export default class App extends Component {
     theme: {
       trader: '#f77123',
       user: '#8e3ccb'
-    }
+    },
+    token: ''
   };
   signout = () => {
     this.setState({ user: {} });
+    sessionStorage.clear();
+  };
+  initialiseAccount = (token, user) => {
+    this.setState({ token, user });
+    sessionStorage.setItem('user', JSON.stringify(user));
   };
   componentDidMount = async () => {
-    const project = await getProject(2);
-    const user = await getTrader('kitlets');
-    // const user = await getUser('BenRut');
-    this.setState({ project, isLoading: false, user });
+    if (sessionStorage.token) {
+      const project = await getProject(2);
+      this.setState({
+        project,
+        isLoading: false,
+        user: JSON.parse(sessionStorage.user)
+      });
+    } else {
+      this.setState({
+        isLoading: false
+      });
+    }
   };
   render() {
     return (
@@ -45,13 +60,16 @@ export default class App extends Component {
               <h1>IS LOADING</h1>
             ) : (
               <Router className="router">
-                {this.state.user ? (
+                {this.state.user.username ? (
                   <DashBoard path="/" username={this.state.user.username} />
                 ) : (
                   <LandingPage path="/" />
                 )}
 
-                <LoginForm path="/login" />
+                <LoginForm
+                  path="/login"
+                  initialiseAccount={this.initialiseAccount}
+                />
                 <SignUpForm path="/signup" />
                 <TraderProfile path="/traders/:username" />
                 <TraderMap path="/traders" project={this.state.project} />

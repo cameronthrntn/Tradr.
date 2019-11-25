@@ -1,9 +1,11 @@
 const { DB_URL } = process.env;
 const ENV = process.env.NODE_ENV || 'test';
 const creds = ENV === 'production' ? null : require('./db/config');
+const { key } = require('./secretkey');
 
 const baseConfig = {
   client: 'pg',
+  JWT_SECRET: key,
   migrations: {
     directory: './db/migrations'
   },

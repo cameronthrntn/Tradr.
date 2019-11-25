@@ -1,8 +1,11 @@
-const axios = require('axios');
-const BASEURL = 'http://localhost:9090/api';
+const { instance } = require('./axios');
 
-const getUser = async username => {
-  const { data } = await axios.get(`${BASEURL}/users/${username}`);
+const getUser = async (username, authorization) => {
+  console.log('...getting user...');
+
+  const { data } = await instance.get(`/users/${username}`);
+  console.log(data);
+
   return data.user[0];
 };
 
