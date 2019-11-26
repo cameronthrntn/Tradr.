@@ -11,7 +11,8 @@ module.exports = [
   },
   {
     project_id: 2,
-    path: 'api/db/data/test/Images/cabinInside.jpg'
+    path:
+      'https://firebasestorage.googleapis.com/v0/b/tradr-4959b.appspot.com/o/projects%2FcabinInside.jpg?alt=media&token=6a15b777-7e92-4437-8dff-ddc9356e5f89'
   },
   {
     project_id: 3,
@@ -20,10 +21,12 @@ module.exports = [
   },
   {
     project_id: 3,
-    path: 'api/db/data/test/Images/frenchInside.jpg'
+    path:
+      'https://firebasestorage.googleapis.com/v0/b/tradr-4959b.appspot.com/o/projects%2FfrenchInside.jpg?alt=media&token=03c85006-4aef-4cc4-8cdb-f0713e8ff7d5'
   },
   {
     project_id: 3,
-    path: 'api/db/data/test/Images/frenchInside2.jpg'
+    path:
+      'https://firebasestorage.googleapis.com/v0/b/tradr-4959b.appspot.com/o/projects%2FfrenchInside2.jpeg?alt=media&token=6eae89e6-15b1-406b-8e7c-caa5d7dac58b'
   }
 ];

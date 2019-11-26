@@ -79,7 +79,9 @@ class NewProjectForm extends Component {
       start_date: this.state.start_date,
       end_date: this.state.end_date
     };
-    postNewProject(newProject);
+
+    const project = await postNewProject(newProject);
+    this.props.updateInPlanning(project);
     this.props.handleBool();
   };
 

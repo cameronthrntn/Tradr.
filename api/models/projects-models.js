@@ -90,3 +90,10 @@ exports.insertTraderToProject = body => {
       }
     });
 };
+
+exports.fetchImagesByProjectId = id => {
+  return connection
+    .select('path')
+    .from('images')
+    .where('images.project_id', '=', id);
+};

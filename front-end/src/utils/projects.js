@@ -6,23 +6,29 @@ const getProject = async id => {
 };
 
 const getProjectsByUsername = async username => {
-  const { data } = await instance.get(`/projects?username=${username}`);
+  const { data } = await instance.get(`/projects`, { params: { username } });
   return data.projects;
 };
 
 const getProjectsByTrader = async trader => {
-  const { data } = await instance.get(`/projects?trader=${trader}`);
+  const { data } = await instance.get(`/projects`, { params: { trader } });
   return data.projects;
 };
 
 const postNewProject = async project => {
   const { data } = await instance.post(`/projects`, project);
-  return data.project;
+  return data.project[0];
+};
+
+const getProjectImages = async id => {
+  const { data } = await instance.get(`/projects/${id}/images`);
+  return data;
 };
 
 export {
   getProject,
   getProjectsByUsername,
   getProjectsByTrader,
-  postNewProject
+  postNewProject,
+  getProjectImages
 };

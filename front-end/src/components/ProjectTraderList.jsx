@@ -88,7 +88,7 @@ export default class ProjectTraderList extends Component {
         {this.props.traders.map(trader => (
           <TraderCard key={trader.trader_username}>
             <AvatarWrapper>
-              <TraderImg />
+              <TraderImg src={trader.avatar_ref} />
             </AvatarWrapper>
             <TraderName>{trader.trader_username}</TraderName>
             <TraderOccupation>{trader.trade}</TraderOccupation>
