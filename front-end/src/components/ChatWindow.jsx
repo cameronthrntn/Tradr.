@@ -34,8 +34,10 @@ export default class ChatWindow extends Component {
             ? props.theme.trader
             : props.theme.user};
       border-radius: 5px;
-      box-shadow: 1px 10px 10px ${props => props.theme.grey};
-      padding: 10px;
+      z-index: 1000;
+      box-shadow: 1px 10px 10px ${props => props.theme.grey},
+        inset 3px 3px 5px 0 rgb(0, 0, 0, 0.3);
+      padding: 0 10px 0 10px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -46,6 +48,8 @@ export default class ChatWindow extends Component {
     const Messages = styled.ul`
       list-style: none;
       padding: 0;
+      margin-top: 0;
+      margin-bottom: 0;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
@@ -56,7 +60,7 @@ export default class ChatWindow extends Component {
     const TraderMessage = styled.li`
       padding: 15px 10px;
       /* border: 1px solid red; */
-      margin-top: 5px;
+      margin-top: 30px;
       margin-bottom: 5px;
       width: 60%;
       font-size: 1.2rem;
@@ -79,13 +83,12 @@ export default class ChatWindow extends Component {
     const Meta = styled.p`
       margin: 0;
       font-size: 0.8rem;
-      color: ${props => props.theme.greytext};
+      color: #4f4c4d;
     `;
     return (
       <ChatWindow>
         <Messages>
           {this.state.messages.map(message => {
-            console.log(message);
             return message.trader_username ? (
               message.trader_username ===
               JSON.parse(sessionStorage.user).username ? (

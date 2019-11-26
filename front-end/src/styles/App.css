@@ -2,3 +2,13 @@
   height: 100vh;
   overflow: hidden;
 }
+
+@media (max-width: 768px) {
+  .App {
+    height: auto;
+  }
+}
+
+.router {
+  margin-top: 70px;
+}

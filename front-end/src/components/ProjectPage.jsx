@@ -39,6 +39,9 @@ export default class ProjectPage extends Component {
       width: 90vw;
       display: flex;
       margin-left: 5vw;
+      @media (max-width: 900px) {
+        flex-direction: column;
+      }
     `;
     const ProjectInfo = styled.div`
       width: 70%;
@@ -62,6 +65,9 @@ export default class ProjectPage extends Component {
       width: 100%;
       height: 65vh;
       display: flex;
+      @media (max-width: 900px) {
+        width: 100%;
+      }
     `;
     const TraderListWrapper = styled.div`
       overflow-x: hidden;
@@ -69,6 +75,9 @@ export default class ProjectPage extends Component {
     const ProjectMap = styled.aside`
       width: 70%;
       height: 100%;
+      @media (max-width: 900px) {
+        width: 70%;
+      }
     `;
     const MapWrapper = styled.div`
       height: 100%;

@@ -22,6 +22,8 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   padding: 20px;
+  box-shadow: 1px 0 3px 0 rgb(0, 0, 0, 0.3);
+  z-index: 10000;
   @media (max-width: 768px) {
     width: 100%;
   }
@@ -294,7 +296,7 @@ class UserInfo extends Component {
                 Request to work on your project
               </SendRequestButton>
             ) : (
-              <Requests user={user.username}/>
+              <Requests user={user.username} />
             )}
             {!this.state.isEditing ? (
               <TraderInfo>
