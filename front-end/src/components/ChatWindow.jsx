@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import NewMessageForm from './NewMessageForm';
 import { getMessages } from '../utils/messages';
@@ -7,6 +7,12 @@ export default class ChatWindow extends Component {
   state = {
     messages: []
   };
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
+  scrollToBottom() {
+    this.el.scrollIntoView();
+  }
   updateMessages = message => {
     this.setState(curr => {
       return {
@@ -17,6 +23,7 @@ export default class ChatWindow extends Component {
   componentDidMount = async () => {
     let messages = await getMessages(this.props.project_id);
     this.setState({ messages });
+    this.scrollToBottom();
   };
   render() {
     const ChatWindow = styled.div`
@@ -34,7 +41,7 @@ export default class ChatWindow extends Component {
       justify-content: space-between;
       overflow: hidden;
       margin-left: 1%;
-      height: 70vh;
+      height: 68vh;
     `;
     const Messages = styled.ul`
       list-style: none;
@@ -109,6 +116,11 @@ export default class ChatWindow extends Component {
               </OwnerMessage>
             );
           })}
+          <div
+            ref={el => {
+              this.el = el;
+            }}
+          />
         </Messages>
         <NewMessageForm
           project_id={this.props.project_id}

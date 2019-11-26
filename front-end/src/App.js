@@ -20,8 +20,10 @@ export default class App extends Component {
     theme: {
       trader: '#38C4BD',
       trader_light: '#b1f0ec',
+      trader_dark: '#23918c',
       user: '#A068CC',
-      user_light: '#dcbcf5',
+      user_light: '#874eb5',
+      user_dark: '#713f99',
       grey: '#ececec',
       greytext: '#898989',
       deeperLayer: '#dcdcdc'

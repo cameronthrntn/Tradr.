@@ -7,6 +7,8 @@ import TraderPin from './TraderPin';
 import { getTradersOnProject } from '../utils/traders';
 import Loader from './Loader';
 import ChatWindow from './ChatWindow';
+import { LogoHead, LogoBody } from '../styles/Header';
+import ProjectImages from './ProjectImages';
 
 export default class ProjectPage extends Component {
   state = {
@@ -26,6 +28,11 @@ export default class ProjectPage extends Component {
       width: 100vw;
       height: 5vh;
       text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2rem;
+      font-weight: bolder;
     `;
     const ProjectContent = styled.section`
       width: 90vw;
@@ -34,47 +41,33 @@ export default class ProjectPage extends Component {
     `;
     const ProjectInfo = styled.div`
       width: 70%;
-      border: 1px solid pink;
     `;
-
     const Timeline = styled.div`
       width: 100%;
       display: flex;
       height: 5vh;
     `;
     const Time = styled.div`
-      width: 50%;
+      width: 45%;
+      text-align: center;
+      font-size: 2rem;
+      font-weight: bolder;
+      color: ${props => props.theme.trader};
+    `;
+    const EndTime = styled(Time)`
+      color: ${props => props.theme.user};
     `;
     const ProjectDetails = styled.div`
       width: 100%;
       height: 65vh;
-      border: 1px solid green;
       display: flex;
     `;
     const TraderListWrapper = styled.div`
       overflow-x: hidden;
     `;
-    const ProjectImages = styled.section`
-      width: 30%;
-      border: 1px solid black;
-      height: 100%;
-      overflow-y: scroll;
-    `;
     const ProjectMap = styled.aside`
       width: 70%;
-      border: 1px solid purple;
       height: 100%;
-    `;
-    const ImageList = styled.ul`
-      display: flex;
-      flex-wrap: wrap;
-      padding-left: 10px;
-    `;
-    const ProjectImage = styled.div`
-      width: 125px;
-      height: 125px;
-      border: 1px solid blue;
-      margin: 10px;
     `;
     const MapWrapper = styled.div`
       height: 100%;
@@ -84,6 +77,12 @@ export default class ProjectPage extends Component {
         width: 100%;
       }
     `;
+    const Arrow = styled.p`
+      width: 10%;   
+      margin: 0;
+      font-size: 2rem;
+      font-weight: bolder; 
+    `
 
     const { project } = this.state;
     return this.state.isLoading ? (
@@ -94,7 +93,8 @@ export default class ProjectPage extends Component {
       ).length > 0 ? (
       <>
         <ProjectHeader>
-          <h1>{project.title}</h1>
+          <LogoHead>{project.title.slice(0, 2)}</LogoHead>
+          <LogoBody>{project.title.slice(2)}</LogoBody>
         </ProjectHeader>
         <TraderListWrapper>
           <ProjectTraderList
@@ -108,26 +108,13 @@ export default class ProjectPage extends Component {
               <Time>
                 {new Date(project.start_date).toLocaleString().split(',')[0]}
               </Time>
-              <Time>
+              <Arrow>></Arrow>
+              <EndTime>
                 {new Date(project.end_date).toLocaleString().split(',')[0]}
-              </Time>
+              </EndTime>
             </Timeline>
             <ProjectDetails>
-              <ProjectImages>
-                Images:
-                <ImageList>
-                  <ProjectImage />
-                  <ProjectImage />
-                  <ProjectImage />
-                  <ProjectImage />
-                  <ProjectImage />
-                  <ProjectImage />
-                  <ProjectImage />
-                  <ProjectImage />
-                  <ProjectImage />
-                  <ProjectImage />
-                </ImageList>
-              </ProjectImages>
+              <ProjectImages project_id={project.project_id} />
               <ProjectMap>
                 <MapWrapper>
                   <GoogleMapReact
@@ -169,9 +156,7 @@ export default class ProjectPage extends Component {
               </ProjectMap>
             </ProjectDetails>
           </ProjectInfo>
-          <ChatWindow
-            project_id={this.state.project.project_id}
-          />
+          <ChatWindow project_id={this.state.project.project_id} />
         </ProjectContent>
       </>
     ) : (
