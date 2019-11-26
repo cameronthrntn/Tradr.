@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from '@reach/router';
+import { Link, navigate } from '@reach/router';
 import { Nav, NavLogo, LogoHead, LogoBody } from '../styles/Header';
 
 class Header extends Component {
@@ -7,7 +7,8 @@ class Header extends Component {
     show: true,
     scrollPos: 0
   };
-  signOut = () => {
+  signOut = async () => {
+    navigate('/');
     this.props.signout();
   };
   render() {
@@ -21,9 +22,7 @@ class Header extends Component {
             </NavLogo>
           </Link>
           {this.props.isLoggedIn && (
-            <Link to="/">
-              <button onClick={this.signOut}>Sign out</button>
-            </Link>
+            <button onClick={this.signOut}>Sign out</button>
           )}
         </Nav>
       </>

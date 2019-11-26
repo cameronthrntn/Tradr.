@@ -5,12 +5,18 @@ import { navigate } from '@reach/router';
 import { getUser } from '../utils/users.js';
 import { getTrader } from '../utils/traders.js';
 import { LogInButton } from '../styles/LandingPage';
+import styled from 'styled-components';
+
+const ErrorLoggingIn = styled.p`
+  color: red;
+`;
 
 export default class LoginForm extends Component {
   state = {
     username: '',
     password: '',
-    type: 'user'
+    type: 'user',
+    invalidLogin: false
   };
   handleChange = e => {
     this.setState({ [e.target.id]: e.target.value });
@@ -22,12 +28,17 @@ export default class LoginForm extends Component {
   }
   handleSubmit = async e => {
     e.preventDefault();
-    const token = await login(this.state);
-    const user =
-      this.state.type === 'user'
-        ? await getUser(this.state.username)
-        : await getTrader(this.state.username);    
-    await this.props.initialiseAccount(token, user);
+    const { username, password, type } = this.state;
+    try {
+      const token = await login({ username, password, type });
+      const user =
+        this.state.type === 'user'
+          ? await getUser(this.state.username)
+          : await getTrader(this.state.username);
+      await this.props.initialiseAccount(token, user);
+    } catch (e) {
+      this.setState({ invalidLogin: true });
+    }
     navigate('/');
   };
   handleChange = e => {
@@ -59,6 +70,11 @@ export default class LoginForm extends Component {
               onChange={this.handleChange}
             />
           </Inputs>
+          {this.state.invalidLogin && (
+            <ErrorLoggingIn>
+              Either your username or password was incorrect!
+            </ErrorLoggingIn>
+          )}
           <LogInButton>Log in</LogInButton>
         </Form>
       </Container>

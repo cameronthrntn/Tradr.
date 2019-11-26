@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { getProjectImages } from '../utils/projects';
-import { loadavg } from 'os';
 
 const ImageArea = styled.section`
   width: 30%;
@@ -47,8 +46,6 @@ export default class ProjectImages extends Component {
   };
 
   render() {
-    console.log(this.state.images, '<-----');
-
     return (
       <ImageArea>
         Images:
@@ -58,7 +55,7 @@ export default class ProjectImages extends Component {
           ) : (
             this.state.images.map(image => {
               return (
-                <ProjectImageWrapper>
+                <ProjectImageWrapper key={image.image_id}>
                   <Image src={image.path} />
                 </ProjectImageWrapper>
               );

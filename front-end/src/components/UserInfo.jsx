@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { AppConsumer } from './AppContext';
 import { getAge } from '../utils';
 import { postRequest } from '../utils/users';
 import AvatarUpload from './AvatarUpload';
@@ -204,8 +203,7 @@ class UserInfo extends Component {
   };
 
   sendRequest = async () => {
-    console.dir(sessionStorage);
-    const request = await postRequest({
+    await postRequest({
       project_id: sessionStorage.project_id,
       trader_username: this.props.user.username,
       user_username: JSON.parse(sessionStorage.user).username
@@ -227,11 +225,13 @@ class UserInfo extends Component {
               }
               alt="user avatar image"
             />
-            <AvatarUpload
-              updateAvatar={this.updateAvatar}
-              trader={user.trade}
-              username={user.username}
-            />
+            {JSON.parse(sessionStorage.user).username === user.username && (
+              <AvatarUpload
+                updateAvatar={this.updateAvatar}
+                trader={user.trade}
+                username={user.username}
+              />
+            )}
           </AvatarWrapper>
           <UserName>{user.username}</UserName>
         </AvatarSection>
@@ -240,9 +240,11 @@ class UserInfo extends Component {
           <>
             {!this.state.isEditing ? (
               <Info>
-                <EditButton onClick={this.handleClick}>
-                  <FontAwesomeIcon icon={faPencilAlt} />
-                </EditButton>
+                {JSON.parse(sessionStorage.user).username === user.username && (
+                  <EditButton onClick={this.handleClick}>
+                    <FontAwesomeIcon icon={faPencilAlt} />
+                  </EditButton>
+                )}
                 <Infolet>
                   {user.first_name} {user.last_name}
                 </Infolet>
@@ -289,7 +291,7 @@ class UserInfo extends Component {
           <>
             {!JSON.parse(sessionStorage.user).trade &&
               sessionStorage.project_id &&
-              !this.state.sentRequest(
+              !this.state.sentRequest && (
                 <SendRequestButton onClick={this.sendRequest}>
                   Request to work on your project
                 </SendRequestButton>
@@ -301,16 +303,18 @@ class UserInfo extends Component {
 
             {!this.state.isEditing ? (
               <TraderInfo>
-                <EditButton onClick={this.handleClick}>
-                  <FontAwesomeIcon icon={faPencilAlt} />
-                </EditButton>
+                {JSON.parse(sessionStorage.user).username === user.username && (
+                  <EditButton onClick={this.handleClick}>
+                    <FontAwesomeIcon icon={faPencilAlt} />
+                  </EditButton>
+                )}
                 <Infolet>
                   {user.first_name} {user.last_name}
                 </Infolet>
                 <Infolet>{getAge(new Date(user.dob))}</Infolet>
                 <Infolet>{user.trade}</Infolet>
                 <Infolet>{user.personal_site}</Infolet>
-                <Infolet>{user.rate}/d</Infolet>
+                <Infolet>£{user.rate}/d</Infolet>
               </TraderInfo>
             ) : (
               <TraderInfo>

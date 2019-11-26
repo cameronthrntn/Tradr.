@@ -32,11 +32,7 @@ const getTraderRequests = async trader_username => {
 };
 
 const replyRequest = async body => {
-  console.log(body);
-
   await instance.delete('/requests', { data: body });
-  const { data } = await instance.get(`/projects/${body.project_id}/traders`);
-  console.log(data.traders);
 };
 
 export {

@@ -85,9 +85,7 @@ export default class ProjectPage extends Component {
       font-weight: bolder;
     `;
 
-    const { project } = this.state;
-    console.log(this.state.traders);
-    
+    const { project } = this.state;    
     return this.state.isLoading ? (
       <Loader />
     ) : JSON.parse(sessionStorage.user).username === project.username ||
@@ -136,9 +134,6 @@ export default class ProjectPage extends Component {
                       lng={this.state.project.lng}
                     />
                     {this.state.traders.map((trader, idx) => {
-                      console.log(trader);
-                      console.log(trader.lat);
-
                       return (
                         <TraderPin
                           project={false}

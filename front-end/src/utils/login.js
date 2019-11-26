@@ -1,4 +1,4 @@
-const { instance, setToken } = require('./axios');
+const { instance } = require('./axios');
 
 const login = async credentials => {
   const { data } = await instance.post(`/login`, credentials);

@@ -30,8 +30,8 @@ export default class App extends Component {
     },
     token: ''
   };
-  signout = () => {
-    this.setState({ user: {} });
+  signout = async () => {
+    await this.setState({ user: {} });
     sessionStorage.clear();
   };
   initialiseAccount = async (token, user) => {

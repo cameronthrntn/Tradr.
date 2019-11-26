@@ -513,8 +513,6 @@ describe('/api', () => {
             .get('/api/requests?trader_username=fakeTrader')
             .expect(200)
             .then(({ body }) => {
-              console.log(body.requests);
-              
               expect(body.requests.length).to.equal(1);
             });
         });

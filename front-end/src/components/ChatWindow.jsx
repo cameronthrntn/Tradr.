@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useRef } from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import NewMessageForm from './NewMessageForm';
 import { getMessages } from '../utils/messages';
@@ -85,17 +85,16 @@ export default class ChatWindow extends Component {
       <ChatWindow>
         <Messages>
           {this.state.messages.map(message => {
-            console.log(message);
             return message.trader_username ? (
               message.trader_username ===
               JSON.parse(sessionStorage.user).username ? (
-                <TraderOwnMessage>
+                <TraderOwnMessage key={message.message_id}>
                   <Meta>{message.trader_username}</Meta>
                   <p>{message.body}</p>
                   <Meta>{new Date(message.timestamp).toLocaleString()}</Meta>
                 </TraderOwnMessage>
               ) : (
-                <TraderMessage>
+                <TraderMessage key={message.message_id}>
                   <Meta>{message.trader_username}</Meta>
                   <p>{message.body}</p>
                   <Meta>{new Date(message.timestamp).toLocaleString()}</Meta>
@@ -103,13 +102,13 @@ export default class ChatWindow extends Component {
               )
             ) : message.user_username ===
               JSON.parse(sessionStorage.user).username ? (
-              <OwnerOwnMessage>
+              <OwnerOwnMessage key={message.message_id}>
                 <Meta>{message.user_username}</Meta>
                 <p>{message.body}</p>
                 <Meta>{new Date(message.timestamp).toLocaleString()}</Meta>
               </OwnerOwnMessage>
             ) : (
-              <OwnerMessage>
+              <OwnerMessage key={message.message_id}>
                 <Meta>{message.user_username}</Meta>
                 <p>{message.body}</p>
                 <Meta>{new Date(message.timestamp).toLocaleString()}</Meta>

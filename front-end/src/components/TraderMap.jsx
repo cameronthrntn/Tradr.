@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import { getDistances } from '../utils';
 import { getTraders } from '../utils/traders';
 import { getProject } from '../utils/projects';
-// import { AppConsumer } from './AppContext';
 import FilterBar from './FilterBar';
 
 export default class TraderMap extends Component {
