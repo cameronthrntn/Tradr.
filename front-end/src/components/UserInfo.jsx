@@ -34,8 +34,8 @@ const Container = styled.div`
 `;
 
 const AvatarWrapper = styled.aside`
-  width: 6em;
-  min-height: 6em;
+  max-width: 6em;
+  max-height: 6em;
   border: 4px solid white;
   margin: 5px;
   border-radius: 50%;
