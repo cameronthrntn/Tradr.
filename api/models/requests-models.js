@@ -9,11 +9,11 @@ exports.fetchRequests = async ({ user_username, trader_username }) => {
     .join('projects', 'projects.project_id', '=', 'requests.project_id');
 
   for (let i = 0; i < requests.length; i++) {
-    const [{ path }] = await connection('images')
+    const row = await connection('images')
       .select('path')
       .where('images.project_id', requests[i].project_id)
       .limit(1);
-    requests[i].path = path;
+    if (row[0]) requests[i].path = row[0].path;
   }
   return requests;
 };

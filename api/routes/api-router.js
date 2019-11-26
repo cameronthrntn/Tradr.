@@ -15,6 +15,8 @@ apiRouter.route('/');
 //   .all(handle405s);
 
 apiRouter.post('/login', loginController);
+apiRouter.use('/users', usersRouter);
+apiRouter.use('/traders', tradersRouter);
 
 apiRouter.use((req, res, next) => {
   const { authorization } = req.headers;
@@ -32,8 +34,6 @@ apiRouter.use((req, res, next) => {
   });
 });
 
-apiRouter.use('/users', usersRouter);
-apiRouter.use('/traders', tradersRouter);
 apiRouter.use('/projects', projectsRouter);
 apiRouter.use('/reviews', reviewsRouter);
 apiRouter.use('/requests', requestsRouter);
