@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { getTrader } from '../utils/traders';
+import { getProjectsByTrader, filterProjects } from '../utils/projects';
 import { ratingBgColorChooser } from '../utils';
 import styled from 'styled-components';
 // import GoogleMapReact from 'google-map-react';
 // import TraderPin from './TraderPin';
 // import ReviewList from '../components/ReviewList';
-import UserInfo from '../components/UserInfo';
+import UserInfo from './UserInfo';
+// import ProjectCard from './ProjectCard';
+import PastProjects from './PastProjects';
 
 // const AvatarWrapper = styled.aside`
 //   width: 6em;
@@ -42,7 +45,8 @@ import UserInfo from '../components/UserInfo';
 
 const Container = styled.div`
   display: flex;
-
+  height: 100%;
+  overflow-y: scroll;
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: center;
@@ -71,30 +75,28 @@ const TraderInfoAndReviews = styled.div`
   }
 `;
 
-const MapWrapper = styled.div`
-  border: solid red 1px;
-  width: 70%;
-  @media (max-width: 768px) {
-    height: 50%;
-    width: 100%;
-  }
-`;
+// const Card = styled(ProjectCard)`
+//   max-width: 300px;
+// `;
 
 class TraderProfile extends Component {
   state = {
-    trader: {}
+    trader: {},
+    completedProjects: []
   };
 
   componentDidMount = async () => {
     const trader = await getTrader(this.props.username);
-    this.setState({ trader });
+    const projects = await getProjectsByTrader(this.props.username);
+    const completedProjects = filterProjects(projects);
+    this.setState({ trader, completedProjects });
   };
 
   render() {
     return (
       <Container>
         <UserInfo user={this.state.trader} />
-        <MapWrapper></MapWrapper>
+        <PastProjects projects={this.state.completedProjects} />
       </Container>
     );
   }

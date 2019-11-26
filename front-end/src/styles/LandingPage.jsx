@@ -5,6 +5,7 @@ import LandingPageTrader from '../img/landing-page-trader.png';
 const Page = styled.div`
   color: ${props => props.theme.trader};
   display: flex;
+  justify-content: space-between;
   height: 100%;
   overflow-y: scroll;
   @media (max-width: 768px) {
@@ -22,7 +23,7 @@ const Info = styled.div`
 
 const ExampleWrapper = styled.div`
   height: 100vh;
-  width: 60%;
+  width: 100%;
   color: white;
   font-weight: bolder;
   font-size: 3rem;
@@ -48,7 +49,7 @@ const TraderWrapper = styled(ExampleWrapper)`
 `;
 
 const LoginSide = styled.aside`
-  width: 500px;
+  min-width: 500px;
   display: flex;
   flex-direction: column;
   justify-content: center;

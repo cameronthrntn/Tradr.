@@ -25,10 +25,17 @@ const getProjectImages = async id => {
   return data;
 };
 
+const filterProjects = projects => {
+  return projects.filter(project => {
+    return project.status === 'complete';
+  });
+};
+
 export {
   getProject,
   getProjectsByUsername,
   getProjectsByTrader,
   postNewProject,
-  getProjectImages
+  getProjectImages,
+  filterProjects
 };
