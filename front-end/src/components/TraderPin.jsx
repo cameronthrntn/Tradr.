@@ -59,6 +59,7 @@ export default function TraderPin(
           <ProjectName>Your Project</ProjectName>
         ) : (
           <>
+
             {projectPage ? (
               <Rate>{username}</Rate>
             ) : (
@@ -67,6 +68,7 @@ export default function TraderPin(
                 <Rate>£{rate}/d</Rate>
               </>
             )}
+
           </>
         )}
       </PinContent>

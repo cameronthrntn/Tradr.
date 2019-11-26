@@ -7,6 +7,7 @@ import ReviewList from '../components/ReviewList';
 import { updateProfile } from '../utils/profile-patch';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import Requests from './Requests';
 
 const Container = styled.div`
   color: white;
@@ -136,7 +137,8 @@ class UserInfo extends Component {
     newAvatarRef: '',
     isEditing: false,
     body: {},
-    isTrader: true
+    isTrader: true,
+    requests: []
   };
 
   handleChange = e => {
@@ -161,6 +163,7 @@ class UserInfo extends Component {
   updateAvatar = newAvatarRef => {
     this.setState({ newAvatarRef });
   };
+
   render() {
     const user = this.props.user;
     return (
@@ -180,7 +183,6 @@ class UserInfo extends Component {
             username={user.username}
           />
         </AvatarWrapper>
-
         <p>{user.username}</p>
 
         {!user.trade && (
@@ -306,7 +308,10 @@ class UserInfo extends Component {
             </HeadingContainer>
             <ReviewList username={user.username} />
             <ScoreContainer>
-              Trader Score: <Score score={user.score}>{user.score}</Score>
+              Trader Score:{' '}
+              <Score score={user.score}>
+                {user.score === 0 ? 'N/A' : user.score.toString().slice(0, 3)}
+              </Score>
             </ScoreContainer>
           </>
         )}

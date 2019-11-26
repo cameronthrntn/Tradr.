@@ -1,4 +1,5 @@
 const { instance } = require('./axios');
+const { getCity } = require('./makeAccount');
 
 const getTraders = async (project_id, filters) => {
   const { data } = await instance.get(`/traders`, {
@@ -20,4 +21,17 @@ const getTradersOnProject = async project_id => {
   return data.traders;
 };
 
-export { getTraders, getTrader, getTradersOnProject };
+const getTraderRequests = async trader_username => {
+  const { data } = await instance.get(`${BASEURL}/requests`, {
+    params: { trader_username }
+  });
+
+  data.requests.map(async request => {
+    request.city = await getCity(request.lat, request.lng);
+    return request;
+  });
+
+  return data.requests;
+};
+
+export { getTraders, getTrader, getTraderRequests, getTradersOnProject };

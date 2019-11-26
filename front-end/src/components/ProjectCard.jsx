@@ -62,8 +62,6 @@ export default function ProjectCard(props) {
   return (
     <AppConsumer>
       {user => {
-        console.log(props.project);
-
         return (
           <Card
             onClick={() => navigate(`/project/${props.project.project_id}`)}

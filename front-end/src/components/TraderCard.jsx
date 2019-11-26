@@ -95,7 +95,11 @@ export default function TraderCard(props) {
         <AvatarWrapper>
           <AvatarImg src={props.trader.avatar_ref} alt="" />
         </AvatarWrapper>
-        <Rating>{props.trader.score}</Rating>
+        <Rating>
+          {props.trader.score === 0
+            ? 'N/A'
+            : props.trader.score.toString().slice(0, 3)}
+        </Rating>
       </RightContainer>
     </Trader>
   );

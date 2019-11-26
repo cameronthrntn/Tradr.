@@ -5,6 +5,7 @@ import ReviewCard from './ReviewCard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import AddReviewForm from './AddReviewForm';
+import { AppConsumer } from './AppContext';
 
 const Container = styled.div`
   background: white;
@@ -54,23 +55,39 @@ class ReviewList extends Component {
       return { isAddingReview: !currentState.isAddingReview };
     });
   };
+  updateReviews = newReview => {
+    this.setState(currentState => {
+      return { reviews: [...currentState.reviews, newReview] };
+    });
+  };
 
   render() {
     return (
-      <ButtonHolder>
-        {this.state.isAddingReview && (
-          <AddReviewForm handleBool={this.handleBool} />
-        )}
-        <AddReviewButton onClick={this.handleClick}>
-          <FontAwesomeIcon icon={faPlus} />
-          Add review
-        </AddReviewButton>
-        <Container>
-          {this.state.reviews.map(review => {
-            return <ReviewCard review={review}></ReviewCard>;
-          })}
-        </Container>
-      </ButtonHolder>
+      <AppConsumer>
+        {user => {
+          return (
+            <ButtonHolder>
+              {this.state.isAddingReview && (
+                <AddReviewForm
+                  trader_username={this.props.username}
+                  user_username={user.username}
+                  handleClick={this.handleClick}
+                  updateReviews={this.updateReviews}
+                />
+              )}
+              <AddReviewButton onClick={this.handleClick}>
+                <FontAwesomeIcon icon={faPlus} />
+                Add review
+              </AddReviewButton>
+              <Container>
+                {this.state.reviews.map(review => {
+                  return <ReviewCard review={review}></ReviewCard>;
+                })}
+              </Container>
+            </ButtonHolder>
+          );
+        }}
+      </AppConsumer>
     );
   }
 }
