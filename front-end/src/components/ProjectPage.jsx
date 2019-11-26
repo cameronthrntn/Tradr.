@@ -21,6 +21,7 @@ export default class ProjectPage extends Component {
   componentDidMount = async () => {
     const project = await getProject(this.props.project_id);
     const traders = await getTradersOnProject(this.props.project_id);
+    sessionStorage.setItem('project_id', project.project_id);
     this.setState({ project, traders, isLoading: false });
   };
   render() {

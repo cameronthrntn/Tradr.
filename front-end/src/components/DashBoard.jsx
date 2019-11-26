@@ -6,10 +6,10 @@ import { getProjectsByUsername, getProjectsByTrader } from '../utils/projects';
 import { AppConsumer } from './AppContext';
 
 const Container = styled.div`
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   display: flex;
-  height: 100vh;
-  overflow-y: scroll;
+  height: 94vh;
+  /* overflow-y: scroll; */
   @media (max-width: 768px) {
     flex-direction: column;
     overflow-y: scroll;

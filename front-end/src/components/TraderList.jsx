@@ -19,9 +19,13 @@ export default class TraderList extends Component {
     `;
     return (
       <List>
-        {this.props.traders.map(trader => (
-          <TraderCard trader={trader} key={trader.username} />
-        ))}
+        {this.props.traders.length > 0 ? (
+          this.props.traders.map(trader => (
+            <TraderCard trader={trader} key={trader.username} />
+          ))
+        ) : (
+          <h1>-There are no traders nearby-</h1>
+        )}
       </List>
     );
   }
