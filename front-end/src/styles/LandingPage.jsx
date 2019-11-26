@@ -57,6 +57,7 @@ const LoginSide = styled.aside`
   box-shadow: 1px 0 10px 0 rgb(0, 0, 0, 0.3);
   @media (max-width: 768px) {
     width: 100%;
+    min-width: 0px;
   }
 `;
 
