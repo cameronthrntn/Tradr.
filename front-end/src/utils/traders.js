@@ -22,7 +22,7 @@ const getTradersOnProject = async project_id => {
 };
 
 const getTraderRequests = async trader_username => {
-  const { data } = await instance.get(`${BASEURL}/requests`, {
+  const { data } = await instance.get(`/requests`, {
     params: { trader_username }
   });
 
