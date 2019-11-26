@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { dateFormatter } from '../utils/helper-funcs';
+import { getCity } from '../utils/makeAccount';
 
 const Container = styled.div`
   position: relative;
@@ -64,6 +65,9 @@ const SaveButton = styled.button`
     }
   }
 `;
+const ProjectImage = styled.img`
+  height: 10rem;
+`;
 
 class Requests extends Component {
   state = {
@@ -109,7 +113,9 @@ class Requests extends Component {
                     <p>Start Date: {dateFormatter(request.start_date)}</p>
                     <p>End Date: {dateFormatter(request.end_date)}</p>
                     <p>Date Posted: {dateFormatter(request.posted)}</p>
-                    <p>Location: </p>
+                    <p>Location: {request.city}</p>
+                    <p>Project Image:</p>
+                    <ProjectImage src={request.path} alt="" />
                   </li>
                 );
               })}

@@ -1,5 +1,6 @@
 const { instance } = require('./axios');
 const BASEURL = 'http://localhost:9090/api';
+const { getCity } = require('./makeAccount');
 
 const getTraders = async (project_id, filters) => {
   const { data } = await instance.get(`${BASEURL}/traders`, {
@@ -17,6 +18,11 @@ const getTrader = async username => {
 const getTraderRequests = async trader_username => {
   const { data } = await instance.get(`${BASEURL}/requests`, {
     params: { trader_username }
+  });
+
+  data.requests.map(async request => {
+    request.city = await getCity(request.lat, request.lng);
+    return request;
   });
 
   return data.requests;

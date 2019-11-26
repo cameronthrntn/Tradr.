@@ -24,6 +24,7 @@ const getCity = async (lat, long) => {
       params: { latlng, key: 'AIzaSyCLjaFTw1ZCyLDZrMtk7uX6PkISOr0u-Vk' }
     }
   );
+
   return data.results[0].address_components[2].long_name;
 };
 
