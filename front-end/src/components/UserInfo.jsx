@@ -148,8 +148,6 @@ class UserInfo extends Component {
   };
 
   handleSubmit = (e, user) => {
-    console.log('in handle submit');
-
     e.preventDefault();
     updateProfile(this.state.body, user.trade, user.username).then(user => {
       this.props.updateUserInfo(this.state.body);
@@ -177,7 +175,7 @@ class UserInfo extends Component {
                 ? user.avatar_ref
                 : this.state.newAvatarRef
             }
-            alt=""
+            alt="user avatar image"
           />
           <AvatarUpload
             updateAvatar={this.updateAvatar}

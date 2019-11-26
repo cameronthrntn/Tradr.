@@ -5,6 +5,7 @@ import TraderList from './TraderList';
 import styled from 'styled-components';
 import { getDistances } from '../utils';
 import { getTraders } from '../utils/traders';
+import { getProject } from '../utils/projects';
 // import { AppConsumer } from './AppContext';
 import FilterBar from './FilterBar';
 
@@ -16,7 +17,7 @@ export default class TraderMap extends Component {
     isLoading: true
   };
   updateTraders = async filters => {
-    const traders = await getTraders(this.props.project.project_id, filters);
+    const traders = await getTraders(this.state.project, filters);
     this.setState({ traders });
   };
   toggleForm = () => {
@@ -26,32 +27,18 @@ export default class TraderMap extends Component {
       };
     });
   };
-  getTraders = async () => {
-    let traders = await getTraders(this.props.project.project_id);
-    traders = getDistances(
-      { lat: this.props.project.lat, lng: this.props.project.lng },
-      traders
-    );
+  getTraders = async project => {
+    let traders = await getTraders(project.project_id);
+    traders = getDistances(project, traders);
     return traders;
   };
-  componentDidUpdate = async (prevProps, prevState) => {
-    if (
-      JSON.stringify(prevProps.project) !== JSON.stringify(this.props.project)
-    ) {
-      const traders = await this.getTraders();
-      this.setState({
-        traders,
-        isLoading: false,
-        project: this.props.project
-      });
-    }
-  };
   componentDidMount = async () => {
-    const traders = await this.getTraders();
+    const project = await getProject(this.props.project_id);
+    const traders = await this.getTraders(project);
     this.setState({
       traders,
       isLoading: false,
-      project: this.props.project
+      project
     });
   };
   render() {
@@ -103,15 +90,15 @@ export default class TraderMap extends Component {
                     key: 'AIzaSyCLjaFTw1ZCyLDZrMtk7uX6PkISOr0u-Vk'
                   }}
                   defaultCenter={{
-                    lat: this.props.project.lat,
-                    lng: this.props.project.lng
+                    lat: this.state.project.lat,
+                    lng: this.state.project.lng
                   }}
                   defaultZoom={15}
                 >
                   <TraderPin
                     project={true}
-                    lat={this.props.project.lat}
-                    lng={this.props.project.lng}
+                    lat={this.state.project.lat}
+                    lng={this.state.project.lng}
                   />
                   {this.state.traders.map(trader => (
                     <TraderPin

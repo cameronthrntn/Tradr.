@@ -5,15 +5,13 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   background: white;
-  height: 100vh;
 `;
 
 const Form = styled.form`
   border: solid purple 1px;
   max-width: 500px;
-
   align-self: center;
-  margin: 3em 20px 20px 20px;
+  /* margin: 3em 20px 20px 20px; */
 `;
 
 const LogInButton = styled.button`

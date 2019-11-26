@@ -4,6 +4,7 @@ const tradersRouter = require('./traders-router');
 const projectsRouter = require('./projects-router');
 const reviewsRouter = require('./reviews-router');
 const requestsRouter = require('./requests-router');
+const messagesRouter = require('./messages-router');
 const { loginController } = require('../controllers/login-controllers');
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = require('../knexfile');
@@ -36,5 +37,6 @@ apiRouter.use('/traders', tradersRouter);
 apiRouter.use('/projects', projectsRouter);
 apiRouter.use('/reviews', reviewsRouter);
 apiRouter.use('/requests', requestsRouter);
+apiRouter.use('/messages', messagesRouter);
 
 module.exports = apiRouter;

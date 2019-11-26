@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { navigate } from '@reach/router';
 import { AppConsumer } from './AppContext';
 
 export default function ProjectCard(props) {
@@ -62,7 +63,9 @@ export default function ProjectCard(props) {
     <AppConsumer>
       {user => {
         return (
-          <Card>
+          <Card
+            onClick={() => navigate(`/project/${props.project.project_id}`)}
+          >
             <p>{props.project.title}</p>
             <DateSection>
               <div>

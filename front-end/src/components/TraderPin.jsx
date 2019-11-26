@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { navigate } from '@reach/router';
 
 export default function TraderPin(
-  { username, trade, score, rate, project, avatar_ref },
+  { username, trade, score, rate, project, avatar_ref, projectPage },
   props
 ) {
   const Pin = styled.div`
@@ -51,6 +51,7 @@ export default function TraderPin(
   const navigateToTrader = username => {
     navigate(`/traders/${username}`);
   };
+
   return (
     <Pin onClick={() => navigateToTrader(username)}>
       <PinContent>
@@ -58,8 +59,16 @@ export default function TraderPin(
           <ProjectName>Your Project</ProjectName>
         ) : (
           <>
-            <Score>{score === 0 ? 'N/A' : score.toString().slice(0, 3)}</Score>
-            <Rate>£{rate}/d</Rate>
+
+            {projectPage ? (
+              <Rate>{username}</Rate>
+            ) : (
+              <>
+                <Score>{score === 0 ? 'n/a' : score}</Score>
+                <Rate>£{rate}/d</Rate>
+              </>
+            )}
+
           </>
         )}
       </PinContent>

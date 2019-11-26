@@ -180,20 +180,7 @@ describe('/api', () => {
               })
               .expect(200)
               .then(({ body }) => {
-                expect(body.trader[0]).to.eql({
-                  username: 'kitlets',
-                  first_name: 'Test',
-                  last_name: 'Name',
-                  lng: -1.54504,
-                  lat: 53.7952,
-                  rate: 230,
-                  dob: '1984-05-20T23:00:00.000Z',
-                  score: 0,
-                  personal_site: 'https://www.russellbrand.com/',
-                  trade: 'comedian',
-                  avatar_ref:
-                    'https://firebasestorage.googleapis.com/v0/b/tradr-4959b.appspot.com/o/images%2Fc0749ecb-ade4-4d23-8faf-da5732049b96.jpeg?alt=media&token=3b89da28-d162-4368-a868-c82436a375f6'
-                });
+                expect(body.trader[0].trade).to.equal('comedian');
               });
           });
         });
@@ -683,6 +670,45 @@ describe('/api', () => {
               project_id: 1
             })
             .expect(404);
+        });
+      });
+    });
+  });
+  describe('/messages', () => {
+    describe('GET', () => {
+      describe('OK', () => {
+        it('Status 200: Should return a list of messages for a particular project', () => {
+          return request
+            .get('/api/messages?project_id=3')
+            .expect(200)
+            .then(({ body }) => {
+              expect(body.messages.length).to.equal(4);
+            });
+        });
+        it('Status 200: Should return an empty list of messages for a particular project with no messages', () => {
+          return request
+            .get('/api/messages?project_id=2')
+            .expect(200)
+            .then(({ body }) => {
+              expect(body.messages.length).to.equal(0);
+            });
+        });
+      });
+    });
+    describe('POST', () => {
+      describe('OK', () => {
+        it('Status 201: Should return a 201 and the written message when posting a new message', () => {
+          return request
+            .post('/api/messages')
+            .send({
+              body: 'Test',
+              trader_username: 'kitlets',
+              project_id: 2
+            })
+            .expect(201)
+            .then(({ body }) => {
+              expect(body.message.body).to.equal('Test');
+            });
         });
       });
     });
