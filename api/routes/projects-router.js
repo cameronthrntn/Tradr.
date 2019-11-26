@@ -6,7 +6,8 @@ const {
   getProjectsById,
   patchProject,
   postTraderToProject,
-  getImagesByProjectId
+  getImagesByProjectId,
+  postImageToProject
 } = require('../controllers/projects-controllers');
 const { handle405s } = require('../errors/index');
 
@@ -31,6 +32,7 @@ projectsRouter
 projectsRouter
   .route('/:id/images')
   .get(getImagesByProjectId)
+  .post(postImageToProject)
   .all(handle405s);
 
 module.exports = projectsRouter;

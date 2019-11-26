@@ -42,8 +42,6 @@ export default class DashBoard extends Component {
 
   updateInPlanning = project => {
     this.setState(currentState => {
-      console.log(project, '<-------');
-
       return { inPlanning: [...currentState.inPlanning, project] };
     });
   };

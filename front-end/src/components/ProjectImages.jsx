@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { getProjectImages } from '../utils/projects';
 import { loadavg } from 'os';
+import ProjectImageUpload from './ProjectImageUpload';
 
 const ImageArea = styled.section`
   width: 30%;
@@ -46,9 +47,14 @@ export default class ProjectImages extends Component {
     this.setState({ images });
   };
 
-  render() {
-    console.log(this.state.images, '<-----');
+  updateImages = path => {
+    console.log({ path }, '<----updating');
 
+    this.setState(currentState => {
+      return { images: [...currentState.images, { path }] };
+    });
+  };
+  render() {
     return (
       <ImageArea>
         Images:
@@ -64,6 +70,10 @@ export default class ProjectImages extends Component {
               );
             })
           )}
+          <ProjectImageUpload
+            updateImages={this.updateImages}
+            project_id={this.props.project_id}
+          />
         </ImageList>
       </ImageArea>
     );

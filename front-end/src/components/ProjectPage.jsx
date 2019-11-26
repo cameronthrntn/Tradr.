@@ -78,11 +78,11 @@ export default class ProjectPage extends Component {
       }
     `;
     const Arrow = styled.p`
-      width: 10%;   
+      width: 10%;
       margin: 0;
       font-size: 2rem;
-      font-weight: bolder; 
-    `
+      font-weight: bolder;
+    `;
 
     const { project } = this.state;
     return this.state.isLoading ? (
@@ -133,9 +133,6 @@ export default class ProjectPage extends Component {
                       lng={this.state.project.lng}
                     />
                     {this.state.traders.map((trader, idx) => {
-                      console.log(trader);
-                      console.log(trader.lat);
-
                       return (
                         <TraderPin
                           project={false}
