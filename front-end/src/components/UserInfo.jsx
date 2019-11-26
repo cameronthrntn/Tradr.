@@ -310,7 +310,10 @@ class UserInfo extends Component {
             </HeadingContainer>
             <ReviewList username={user.username} />
             <ScoreContainer>
-              Trader Score: <Score score={user.score}>{user.score}</Score>
+              Trader Score:{' '}
+              <Score score={user.score}>
+                {user.score === 0 ? 'N/A' : user.score.toString().slice(0, 3)}
+              </Score>
             </ScoreContainer>
           </>
         )}

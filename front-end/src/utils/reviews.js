@@ -1,8 +1,6 @@
 const { instance } = require('./axios');
 
 const getReviewsByUsername = async username => {
-  console.log(username);
-
   const { data } = await instance.get(`/reviews?trader_username=${username}`);
   return data.reviews;
 };
@@ -12,4 +10,4 @@ const postReview = async body => {
   return data.review;
 };
 
-export { getReviewsByUsername };
+export { getReviewsByUsername, postReview };
