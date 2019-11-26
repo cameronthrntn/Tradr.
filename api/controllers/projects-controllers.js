@@ -5,7 +5,8 @@ const {
   selectProjectById,
   updateProject,
   insertTraderToProject,
-  fetchImagesByProjectId
+  fetchImagesByProjectId,
+  insertImageToProject
 } = require('../models/projects-models');
 
 exports.getAllProjects = (req, res, next) => {
@@ -66,4 +67,15 @@ exports.getImagesByProjectId = (req, res, next) => {
       res.status(200).send({ images });
     })
     .catch(next);
+};
+
+exports.postImageToProject = (req, res, next) => {
+  const image = {
+    project_id: req.params.id,
+    path: req.body.path
+  };
+
+  return insertImageToProject(image).then(image => {
+    res.status(201).send(image);
+  });
 };

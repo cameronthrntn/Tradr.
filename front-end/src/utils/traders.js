@@ -16,7 +16,6 @@ const getTrader = async username => {
 
 const getTradersOnProject = async project_id => {
   const { data } = await instance.get(`/projects/${project_id}/traders`);
-  console.log(data.traders);
 
   return data.traders;
 };

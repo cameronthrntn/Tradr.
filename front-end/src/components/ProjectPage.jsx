@@ -134,9 +134,6 @@ export default class ProjectPage extends Component {
                       lng={this.state.project.lng}
                     />
                     {this.state.traders.map((trader, idx) => {
-                      console.log(trader);
-                      console.log(trader.lat);
-
                       return (
                         <TraderPin
                           project={false}

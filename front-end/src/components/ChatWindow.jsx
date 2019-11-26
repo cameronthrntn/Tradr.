@@ -85,7 +85,6 @@ export default class ChatWindow extends Component {
       <ChatWindow>
         <Messages>
           {this.state.messages.map(message => {
-            console.log(message);
             return message.trader_username ? (
               message.trader_username ===
               JSON.parse(sessionStorage.user).username ? (
