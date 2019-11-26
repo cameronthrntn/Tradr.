@@ -40,6 +40,12 @@ export default class DashBoard extends Component {
     });
   };
 
+  updateInPlanning = project => {
+    this.setState(currentState => {
+      return { inPlanning: [project, ...currentState.inPlanning] };
+    });
+  };
+
   render() {
     return (
       <AppConsumer>
@@ -54,6 +60,7 @@ export default class DashBoard extends Component {
                 <ProjectList
                   heading="Planning"
                   projects={this.state.inPlanning}
+                  updateInPlanning={this.updateInPlanning}
                 />
                 <ProjectList
                   heading="In progress"

@@ -38,7 +38,9 @@ const Image = styled.img`
 `;
 
 export default class ProjectImages extends Component {
-  state = { images: [] };
+  state = {
+    images: []
+  };
   componentDidMount = async () => {
     const { images } = await getProjectImages(this.props.project_id);
     this.setState({ images });
@@ -51,13 +53,17 @@ export default class ProjectImages extends Component {
       <ImageArea>
         Images:
         <ImageList>
-          {this.state.images.map(image => {
-            return (
-              <ProjectImageWrapper>
-                <Image src={image.path} />
-              </ProjectImageWrapper>
-            );
-          })}
+          {this.state.images.length === 0 ? (
+            <h3>No images currently added</h3>
+          ) : (
+            this.state.images.map(image => {
+              return (
+                <ProjectImageWrapper>
+                  <Image src={image.path} />
+                </ProjectImageWrapper>
+              );
+            })
+          )}
         </ImageList>
       </ImageArea>
     );

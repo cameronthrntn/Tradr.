@@ -90,6 +90,7 @@ class ProjectList extends Component {
                 <NewProjectForm
                   handleBool={this.handleBool}
                   username={user.username}
+                  updateInPlanning={this.props.updateInPlanning}
                 />
               )}
               <ProjectListHeader>
