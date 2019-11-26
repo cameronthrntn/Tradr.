@@ -20,10 +20,12 @@ module.exports = [
   },
   {
     project_id: 3,
-    path: 'api/db/data/test/Images/frenchInside.jpg'
+    path:
+      'https://firebasestorage.googleapis.com/v0/b/tradr-4959b.appspot.com/o/projects%2FfrenchInside.jpg?alt=media&token=03c85006-4aef-4cc4-8cdb-f0713e8ff7d5'
   },
   {
     project_id: 3,
-    path: 'api/db/data/test/Images/frenchInside2.jpg'
+    path:
+      'https://firebasestorage.googleapis.com/v0/b/tradr-4959b.appspot.com/o/projects%2FfrenchInside2.jpeg?alt=media&token=6eae89e6-15b1-406b-8e7c-caa5d7dac58b'
   }
 ];

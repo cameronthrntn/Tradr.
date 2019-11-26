@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { getProjectImages } from '../utils/projects';
+import { loadavg } from 'os';
 
 const ImageArea = styled.section`
   width: 30%;
@@ -20,11 +22,14 @@ const ImageList = styled.ul`
   flex-wrap: wrap;
   padding-left: 10px;
 `;
-const ProjectImage = styled.div`
+const ProjectImageWrapper = styled.div`
   width: 125px;
   height: 125px;
-  background: white;
   margin: 10px;
+`;
+
+const Image = styled.img`
+  width: 100%;
   box-shadow: 1px 2px 10px
     ${props =>
       JSON.parse(sessionStorage.user).trade
@@ -33,21 +38,26 @@ const ProjectImage = styled.div`
 `;
 
 export default class ProjectImages extends Component {
+  state = { images: [] };
+  componentDidMount = async () => {
+    const { images } = await getProjectImages(this.props.project_id);
+    this.setState({ images });
+  };
+
   render() {
+    console.log(this.state.images, '<-----');
+
     return (
       <ImageArea>
         Images:
         <ImageList>
-          <ProjectImage />
-          <ProjectImage />
-          <ProjectImage />
-          <ProjectImage />
-          <ProjectImage />
-          <ProjectImage />
-          <ProjectImage />
-          <ProjectImage />
-          <ProjectImage />
-          <ProjectImage />
+          {this.state.images.map(image => {
+            return (
+              <ProjectImageWrapper>
+                <Image src={image.path} />
+              </ProjectImageWrapper>
+            );
+          })}
         </ImageList>
       </ImageArea>
     );

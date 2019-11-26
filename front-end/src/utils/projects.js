@@ -20,9 +20,15 @@ const postNewProject = async project => {
   return data.project;
 };
 
+const getProjectImages = async id => {
+  const { data } = await instance.get(`/projects/${id}/images`);
+  return data;
+};
+
 export {
   getProject,
   getProjectsByUsername,
   getProjectsByTrader,
-  postNewProject
+  postNewProject,
+  getProjectImages
 };
