@@ -24,10 +24,13 @@ export default class LoginForm extends Component {
     await this.props.initialiseAccount(token, user);
     navigate('/');
   };
+  handleChange = e => {
+    this.setState({ [e.target.id]: e.target.value });
+  };
   render() {
     return (
       <Container>
-        <Form action="" onSubmit={this.handleSubmit}>
+        <Form userType={this.state.type} action="" onSubmit={this.handleSubmit}>
           <Inputs>
             <select
               id="type"

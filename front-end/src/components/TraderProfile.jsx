@@ -95,7 +95,7 @@ class TraderProfile extends Component {
   render() {
     return (
       <Container>
-        <UserInfo />
+        <UserInfo user={this.state.trader} />
         <MapWrapper></MapWrapper>
       </Container>
     );
