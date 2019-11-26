@@ -27,7 +27,7 @@ export default class ProjectPage extends Component {
   render() {
     const ProjectHeader = styled.header`
       width: 100vw;
-      height: 5vh;
+      height: 50px;
       text-align: center;
       display: flex;
       justify-content: center;
@@ -45,6 +45,9 @@ export default class ProjectPage extends Component {
     `;
     const ProjectInfo = styled.div`
       width: 70%;
+      @media (max-width: 900px) {
+        width: 100%;
+      }
     `;
     const Timeline = styled.div`
       width: 100%;
@@ -67,6 +70,7 @@ export default class ProjectPage extends Component {
       display: flex;
       @media (max-width: 900px) {
         width: 100%;
+        flex-direction: column;
       }
     `;
     const TraderListWrapper = styled.div`
@@ -76,7 +80,7 @@ export default class ProjectPage extends Component {
       width: 70%;
       height: 100%;
       @media (max-width: 900px) {
-        width: 70%;
+        width: 100%;
       }
     `;
     const MapWrapper = styled.div`
@@ -102,10 +106,10 @@ export default class ProjectPage extends Component {
         trader => trader.username === JSON.parse(sessionStorage.user).username
       ).length > 0 ? (
       <>
-        <ProjectHeader>
+        {/* <ProjectHeader>
           <LogoHead>{project.title.slice(0, 2)}</LogoHead>
           <LogoBody>{project.title.slice(2)}</LogoBody>
-        </ProjectHeader>
+        </ProjectHeader> */}
         <TraderListWrapper>
           <ProjectTraderList
             project_id={this.props.project_id}

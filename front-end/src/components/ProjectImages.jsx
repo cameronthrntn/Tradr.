@@ -16,6 +16,10 @@ const ImageArea = styled.section`
   color: white;
   font-weight: bolder;
   font-size: 1.4rem;
+  @media (max-width: 900px) {
+    width: 100%;
+    flex-direction: column;
+  }
 `;
 const ImageList = styled.ul`
   display: flex;
