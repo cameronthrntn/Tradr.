@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const Nav = styled.nav`
   background: white;
-  height: 70px;
+  height: 6vh;
   width: 100%;
   z-index: 2;
   box-shadow: 1px 0 10px 0 rgb(0, 0, 0, 0.3);

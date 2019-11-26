@@ -17,9 +17,12 @@ const Container = styled.div`
 `;
 const ProjectListHeader = styled.div`
   height: 40px;
-  background: ${props => props.theme.grey};
+  background: ${props =>
+    JSON.parse(sessionStorage.user).trade
+      ? props.theme.trader
+      : props.theme.user};
   box-shadow: 0 0px 8px 0px gray;
-  border-radius: 0 34px 34px 0;
+  /* border-radius: 0 34px 34px 0; */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -27,7 +30,6 @@ const ProjectListHeader = styled.div`
 const Projects = styled.div`
   width: auto;
   list-style: none;
-
   padding: 20px;
   margin: 0;
   display: flex;
@@ -67,6 +69,8 @@ const AddProjectButtonContainer = styled.div`
 
 const Heading = styled.h5`
   margin: 20px;
+  color: white;
+  font-size: 1.3rem;
 `;
 
 class ProjectList extends Component {
