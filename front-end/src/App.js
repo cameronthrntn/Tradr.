@@ -34,12 +34,12 @@ export default class App extends Component {
     this.setState({ user: {} });
     sessionStorage.clear();
   };
-  initialiseAccount = (token, user) => {
-    this.setState({ token, user });
+  initialiseAccount = async (token, user) => {
     sessionStorage.setItem('user', JSON.stringify(user));
+    this.setState({ token, user });
   };
   componentDidMount = async () => {
-    if (sessionStorage.token) {
+    if (sessionStorage.user) {
       this.setState({
         isLoading: false,
         user: JSON.parse(sessionStorage.user)

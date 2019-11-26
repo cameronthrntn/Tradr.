@@ -1,12 +1,13 @@
 const { instance } = require('./axios');
 
 const getUser = async (username, authorization) => {
-  console.log('...getting user...');
-
   const { data } = await instance.get(`/users/${username}`);
-  console.log(data);
-
   return data.user[0];
 };
 
-export { getUser };
+const postRequest = async body => {
+  const { data } = await instance.post(`/requests`, body);
+  return data.request;
+};
+
+export { getUser, postRequest };
