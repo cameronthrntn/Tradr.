@@ -288,14 +288,17 @@ class UserInfo extends Component {
         {user.trade && (
           <>
             {!JSON.parse(sessionStorage.user).trade &&
-            sessionStorage.project_id &&
-            !this.state.sentRequest ? (
-              <SendRequestButton onClick={this.sendRequest}>
-                Request to work on your project
-              </SendRequestButton>
-            ) : (
-              <Requests user={user.username}/>
-            )}
+              sessionStorage.project_id &&
+              !this.state.sentRequest(
+                <SendRequestButton onClick={this.sendRequest}>
+                  Request to work on your project
+                </SendRequestButton>
+              )}
+            {JSON.parse(sessionStorage.user).username === user.username &&
+              JSON.parse(sessionStorage.user).trade && (
+                <Requests user={user.username} />
+              )}
+
             {!this.state.isEditing ? (
               <TraderInfo>
                 <EditButton onClick={this.handleClick}>

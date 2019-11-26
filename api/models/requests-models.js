@@ -1,13 +1,21 @@
 const { connection } = require('../db/connection');
 
-exports.fetchRequests = ({ user_username, trader_username }) => {
-  return connection('requests')
+exports.fetchRequests = async ({ user_username, trader_username }) => {
+  const requests = await connection('requests')
     .modify(query => {
       if (user_username) query.where({ user_username });
       if (trader_username) query.where({ trader_username });
     })
-    .join('projects', 'projects.project_id', '=', 'requests.project_id')
-    .join('images', 'images.project_id', '=', 'requests.project_id');
+    .join('projects', 'projects.project_id', '=', 'requests.project_id');
+
+  for (let i = 0; i < requests.length; i++) {
+    const [{ path }] = await connection('images')
+      .select('path')
+      .where('images.project_id', requests[i].project_id)
+      .limit(1);
+    requests[i].path = path;
+  }
+  return requests;
 };
 
 exports.removeRequest = ({

@@ -86,6 +86,8 @@ export default class ProjectPage extends Component {
     `;
 
     const { project } = this.state;
+    console.log(this.state.traders);
+    
     return this.state.isLoading ? (
       <Loader />
     ) : JSON.parse(sessionStorage.user).username === project.username ||
