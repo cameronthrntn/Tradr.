@@ -32,6 +32,8 @@ const Form = styled.form`
   border-radius: 10px;
   min-width: 50%;
   margin: auto;
+  display: flex;
+  flex-direction: column;
   text-align: center;
   align-items: center;
   @media (max-width: 768px) {

@@ -37,6 +37,7 @@ const ReviewForm = styled(Form)`
   background-color: ${props => props.theme.trader};
   padding: 20px;
   position: relative;
+  display: block;
 `;
 
 const XButton = styled.button`
