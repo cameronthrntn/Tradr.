@@ -1,10 +1,13 @@
 const { connection } = require('../db/connection');
 
 exports.fetchRequests = ({ user_username, trader_username }) => {
-  return connection('requests').modify(query => {
-    if (user_username) query.where({ user_username });
-    if (trader_username) query.where({ trader_username });
-  });
+  return connection('requests')
+    .modify(query => {
+      if (user_username) query.where({ user_username });
+      if (trader_username) query.where({ trader_username });
+    })
+    .join('projects', 'projects.project_id', '=', 'requests.project_id')
+    .join('images', 'images.project_id', '=', 'requests.project_id');
 };
 
 exports.removeRequest = ({

@@ -61,8 +61,6 @@ export default function ProjectCard(props) {
   return (
     <AppConsumer>
       {user => {
-        console.log(props.project);
-
         return (
           <Card>
             <p>{props.project.title}</p>
