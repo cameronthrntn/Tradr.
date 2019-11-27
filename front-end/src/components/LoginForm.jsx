@@ -26,7 +26,7 @@ export default class LoginForm extends Component {
     const user =
       this.state.type === 'user'
         ? await getUser(this.state.username)
-        : await getTrader(this.state.username);
+        : await getTrader(this.state.username);    
     await this.props.initialiseAccount(token, user);
     navigate('/');
   };

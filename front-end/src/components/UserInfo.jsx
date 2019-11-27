@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { AppConsumer } from './AppContext';
 import { getAge } from '../utils';
+import { postRequest } from '../utils/users';
 import AvatarUpload from './AvatarUpload';
 import ReviewList from '../components/ReviewList';
 import { updateProfile } from '../utils/profile-patch';
@@ -11,15 +12,16 @@ import Requests from './Requests';
 
 const Container = styled.div`
   color: white;
-
   background: ${props =>
     props.user.trade ? props.theme.trader : props.theme.user};
   width: 30%;
   font-size: 1em;
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
-
+  padding: 20px;
   @media (max-width: 768px) {
     width: 100%;
   }
@@ -60,7 +62,7 @@ const Info = styled.div`
 const Score = styled.span`
   color: white;
   font-weight: bold;
-  font-size: 2rem;
+  font-size: 4rem;
   margin: 20px;
   border-radius: 50%;
   padding: 10px;
@@ -131,14 +133,51 @@ const HeadingContainer = styled.div`
   display: flex;
   margin: 0px;
 `;
+const ReviewContainer = styled.div`
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  h3 {
+    margin: 0;
+  }
+`;
+const AvatarSection = styled.section`
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
+const SendRequestButton = styled.button`
+  background: ${props => props.theme.user};
+  border: none;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 1.3rem;
+  border-radius: 5px;
+  color: white;
+  box-shadow: 1px 5px 5px ${props => props.theme.trader_dark};
+  &:hover {
+    background: ${props => props.theme.user_dark};
+    box-shadow: none;
+    cursor: pointer;
+  }
+`;
+const UserName = styled.p`
+  font-size: 1.4rem;
+  font-weight: bolder;
+`;
 class UserInfo extends Component {
   state = {
     newAvatarRef: '',
     isEditing: false,
     body: {},
     isTrader: true,
-    requests: []
+    requests: [],
+    sentRequest: false
   };
 
   handleChange = e => {
@@ -164,26 +203,38 @@ class UserInfo extends Component {
     this.setState({ newAvatarRef });
   };
 
+  sendRequest = async () => {
+    console.dir(sessionStorage);
+    const request = await postRequest({
+      project_id: sessionStorage.project_id,
+      trader_username: this.props.user.username,
+      user_username: JSON.parse(sessionStorage.user).username
+    });
+    this.setState({ sentRequest: true });
+  };
+
   render() {
     const user = this.props.user;
     return (
       <Container user={user}>
-        <AvatarWrapper>
-          <AvatarImg
-            src={
-              !this.state.newAvatarRef
-                ? user.avatar_ref
-                : this.state.newAvatarRef
-            }
-            alt="user avatar image"
-          />
-          <AvatarUpload
-            updateAvatar={this.updateAvatar}
-            trader={user.trade}
-            username={user.username}
-          />
-        </AvatarWrapper>
-        <p>{user.username}</p>
+        <AvatarSection>
+          <AvatarWrapper>
+            <AvatarImg
+              src={
+                !this.state.newAvatarRef
+                  ? user.avatar_ref
+                  : this.state.newAvatarRef
+              }
+              alt="user avatar image"
+            />
+            <AvatarUpload
+              updateAvatar={this.updateAvatar}
+              trader={user.trade}
+              username={user.username}
+            />
+          </AvatarWrapper>
+          <UserName>{user.username}</UserName>
+        </AvatarSection>
 
         {!user.trade && (
           <>
@@ -236,6 +287,15 @@ class UserInfo extends Component {
         )}
         {user.trade && (
           <>
+            {!JSON.parse(sessionStorage.user).trade &&
+            sessionStorage.project_id &&
+            !this.state.sentRequest ? (
+              <SendRequestButton onClick={this.sendRequest}>
+                Request to work on your project
+              </SendRequestButton>
+            ) : (
+              <Requests user={user.username}/>
+            )}
             {!this.state.isEditing ? (
               <TraderInfo>
                 <EditButton onClick={this.handleClick}>
@@ -303,12 +363,14 @@ class UserInfo extends Component {
                 </PatchUserForm>
               </TraderInfo>
             )}
-            <HeadingContainer>
-              <h3>Reviews</h3>
-            </HeadingContainer>
-            <ReviewList username={user.username} />
+            <ReviewContainer>
+              <HeadingContainer>
+                <h3>Reviews</h3>
+              </HeadingContainer>
+              <ReviewList username={user.username} />
+            </ReviewContainer>
             <ScoreContainer>
-              Trader Score:{' '}
+              Trader Score:
               <Score score={user.score}>
                 {user.score === 0 ? 'N/A' : user.score.toString().slice(0, 3)}
               </Score>
