@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { postAccount, getCoordinates, formatDate } from '../utils/makeAccount';
 import {
   Container,
-  Form,
+  SignUpFormStyle,
   LogInButton,
   Inputs,
   Input,
@@ -72,7 +72,7 @@ export default class SignUpForm extends Component {
   render() {
     return (
       <SignUpContainer>
-        <Form
+        <SignUpFormStyle
           userType={this.state.userType}
           action=""
           onSubmit={this.handleSubmit}
@@ -197,7 +197,7 @@ export default class SignUpForm extends Component {
           </Inputs>
 
           <LogInButton>Sign up</LogInButton>
-        </Form>
+        </SignUpFormStyle>
       </SignUpContainer>
     );
   }

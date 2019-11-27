@@ -10,7 +10,7 @@ import { AppConsumer } from './AppContext';
 const Container = styled.div`
   background: white;
   color: black;
-  height: 200px;
+  height: 150px;
 
   padding: 10px;
   text-align: left;

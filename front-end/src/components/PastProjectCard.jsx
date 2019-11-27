@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { navigate } from '@reach/router';
 import { AppConsumer } from './AppContext';
 import { getProjectImages } from '../utils/projects';
 
@@ -16,14 +15,15 @@ class ProjectCard extends Component {
 
   render() {
     const Card = styled.div`
-      height: 90%;
       min-width: 300px;
+      max-width: 300px;
+      height: 250px;
       margin: 20px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      cursor: pointer;
+
       background: white;
       box-shadow: 1px 0 10px 0 rgb(0, 0, 0, 0.3);
       transition: transform 0.1s;
@@ -60,24 +60,19 @@ class ProjectCard extends Component {
     `;
     const StatusBar = styled.div`
       width: 100%;
-      background: ${props =>
-        props.user.trade ? props.theme.trader : props.theme.user};
+      background: ${props => props.theme.trader};
       height: 5%;
     `;
 
     const ProjectAvatar = styled.img`
-      height: 100%;
+      height: 100px;
     `;
 
     return (
       <AppConsumer>
         {user => {
           return (
-            <Card
-              onClick={() =>
-                navigate(`/project/${this.props.project.project_id}`)
-              }
-            >
+            <Card>
               <p>{this.props.project.title}</p>
               <DateSection>
                 <div>
