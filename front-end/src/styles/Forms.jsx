@@ -83,6 +83,13 @@ const HalfInput = styled(Input)`
   }
 `;
 
+const ErrorMessage = styled.p`
+  background: ${props => props.theme.red};
+  color: white;
+  padding: 5px;
+  margin: 0;
+`;
+
 export {
   Container,
   Form,
@@ -93,5 +100,6 @@ export {
   InputWrapper,
   HalfInput,
   Select,
-  SignUpContainer
+  SignUpContainer,
+  ErrorMessage
 };

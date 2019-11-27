@@ -8,7 +8,8 @@ import {
   InputWrapper,
   HalfInput,
   Form,
-  LogInButton
+  LogInButton,
+  ErrorMessage
 } from '../styles/Forms';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -60,11 +61,28 @@ class NewProjectForm extends Component {
     house: '',
     town: '',
     city: '',
-    postCode: ''
+    postCode: '',
+    start_valid: true,
+    end_valid: true
   };
 
-  handleChange = e => {
-    this.setState({ [e.target.id]: e.target.value });
+  handleChange = async e => {
+    const { id } = e.target;
+    await this.setState({ [id]: e.target.value });
+    if (id === 'start_date') {
+      if (new Date(this.state.start_date) - new Date(Date.now()) > 0) {
+        this.setState({ start_valid: true });
+      } else {
+        this.setState({ start_valid: false });
+      }
+    }
+    if (id === 'end_date') {
+      if (new Date(this.state.end_date) - new Date(this.state.start_date) > 0) {
+        this.setState({ end_valid: true });
+      } else {
+        this.setState({ end_valid: false });
+      }
+    }
   };
   handleSubmit = async e => {
     e.preventDefault();
@@ -99,6 +117,7 @@ class NewProjectForm extends Component {
               placeholder="Title"
               type="text"
               onChange={this.handleChange}
+              required
             />
             <InputWrapper>
               <HalfInput
@@ -121,12 +140,14 @@ class NewProjectForm extends Component {
                 placeholder="City"
                 type="text"
                 onChange={this.handleChange}
+                required
               />
               <HalfInput
                 id="postCode"
-                placeholder="Post code"
+                placeholder="Post/Zip code"
                 type="text"
                 onChange={this.handleChange}
+                required
               />
             </InputWrapper>
 
@@ -145,7 +166,14 @@ class NewProjectForm extends Component {
             <label htmlFor="end_date">End date:</label>
             <Input id="end_date" type="date" onChange={this.handleChange} />
           </Inputs>
-
+          {!this.state.start_valid && (
+            <ErrorMessage>Select a start date after today's date</ErrorMessage>
+          )}
+          {!this.state.end_valid && (
+            <ErrorMessage>
+              The end date must be after the start date
+            </ErrorMessage>
+          )}
           <LogInButton>Submit</LogInButton>
         </ProjectForm>
       </Container>
