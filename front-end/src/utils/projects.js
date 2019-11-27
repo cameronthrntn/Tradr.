@@ -25,10 +25,16 @@ const getProjectImages = async id => {
   return data;
 };
 
+const updateProject = async (id, status) => {
+  const { data } = await instance.patch(`/projects/${id}`, { status });
+  return data.project[0];
+};
+
 export {
   getProject,
   getProjectsByUsername,
   getProjectsByTrader,
   postNewProject,
-  getProjectImages
+  getProjectImages,
+  updateProject
 };

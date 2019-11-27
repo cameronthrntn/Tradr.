@@ -98,7 +98,10 @@ class ProjectList extends Component {
               </ProjectListHeader>
               <Projects>
                 {this.props.projects.map(project => (
-                  <ProjectCard project={project} />
+                  <ProjectCard
+                    project={project}
+                    handleStatusChange={this.props.handleStatusChange}
+                  />
                 ))}
                 {this.props.heading === 'Planning' && !user.trade && (
                   <AddProjectButtonContainer>
