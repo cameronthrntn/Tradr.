@@ -10,6 +10,7 @@ import ChatWindow from './ChatWindow';
 import { LogoHead, LogoBody } from '../styles/Header';
 import ProjectImages from './ProjectImages';
 import { updateProject } from '../utils/projects';
+import NotFound from './404NotFound';
 
 export default class ProjectPage extends Component {
   state = {
@@ -180,7 +181,10 @@ export default class ProjectPage extends Component {
         </ProjectContent>
       </>
     ) : (
-      <h1>This is a private project</h1>
+      <NotFound
+        message={`Sorry, you don't have access to this project`}
+        code={403}
+      />
     );
   }
 }
