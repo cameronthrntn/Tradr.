@@ -51,7 +51,11 @@ export default class App extends Component {
       });
     }
   };
+
   updateUserInfo = body => {
+    let user = JSON.parse(sessionStorage.user);
+    user = { ...user, ...body };
+    sessionStorage.setItem('user', JSON.stringify(user));
     this.setState(currentState => {
       return { user: { ...currentState.user, ...body } };
     });
