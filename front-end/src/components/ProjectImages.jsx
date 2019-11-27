@@ -27,9 +27,7 @@ const ImageArea = styled.section`
 const ImageList = styled.ul`
   display: flex;
   flex-wrap: wrap;
-
-  margin: 20px;
-
+  overflow-y: scroll;
   @media (max-width: 900px) {
     width: 100vw;
     flex-wrap: nowrap;
