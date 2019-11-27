@@ -6,7 +6,8 @@ import {
   LogoHead,
   LogoBody,
   SignOutButton,
-  LoggedInUser
+  LoggedInUser,
+  Username
 } from '../styles/Header';
 import { AppConsumer } from './AppContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -36,10 +37,10 @@ class Header extends Component {
                 </Link>
                 {this.props.isLoggedIn && (
                   <LoggedInUser>
-                    <div>
+                    <Username>
                       <FontAwesomeIcon icon={faUser}></FontAwesomeIcon> &nbsp;
                       {user.username}
-                    </div>
+                    </Username>
 
                     <SignOutButton user={user} onClick={this.signOut}>
                       Sign out

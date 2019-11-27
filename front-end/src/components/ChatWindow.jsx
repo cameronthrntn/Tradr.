@@ -42,8 +42,11 @@ export default class ChatWindow extends Component {
       flex-direction: column;
       justify-content: space-between;
       overflow: hidden;
-      margin-left: 1%;
+      margin: 10px;
       height: 68vh;
+      @media (max-width: 900px) {
+        width: 90%;
+      }
     `;
     const Messages = styled.ul`
       list-style: none;

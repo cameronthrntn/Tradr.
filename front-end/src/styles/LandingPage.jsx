@@ -91,6 +91,10 @@ const LogInButton = styled.button`
   }
 `;
 
+const Logo = styled.div`
+  font-family: 'gilbert';
+`;
+
 const LogInSection = styled.div`
   width: 50%;
 `;
@@ -109,5 +113,6 @@ export {
   Header,
   UserWrapper,
   TraderWrapper,
-  Info
+  Info,
+  Logo
 };

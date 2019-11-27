@@ -5,40 +5,64 @@ import ProjectImageUpload from './ProjectImageUpload';
 
 const ImageArea = styled.section`
   width: 30%;
-  height: 100%;
+  /* height: 100%; */
   background: ${props =>
     JSON.parse(sessionStorage.user).trade
-      ? props.theme.trader
-      : props.theme.user};
+      ? props.theme.trader_dark
+      : props.theme.user_dark};
   border-radius: 5px;
-  overflow-y: scroll;
   padding: 10px;
   color: white;
   font-weight: bolder;
   font-size: 1.4rem;
+  min-width: 350px;
   @media (max-width: 900px) {
+    min-width: 0;
+    max-width: 100vw;
+    height: 400px;
     width: 100%;
-    flex-direction: column;
+    border-radius: 0;
   }
 `;
 const ImageList = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  padding-left: 10px;
+  overflow-y: scroll;
+  @media (max-width: 900px) {
+    width: 100vw;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    overflow-x: scroll;
+    border-radius: 0;
+    justify-content: space space-between;
+  }
 `;
 const ProjectImageWrapper = styled.div`
-  width: 125px;
-  height: 125px;
-  margin: 10px;
+  position: relative;
+  min-width: 100px;
+  min-height: 100px;
+  margin: 20px;
+  overflow: hidden;
 `;
 
 const Image = styled.img`
-  width: 100%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 100%;
+  width: auto;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   box-shadow: 1px 2px 10px
     ${props =>
       JSON.parse(sessionStorage.user).trade
         ? props.theme.trader_dark
         : props.theme.user_dark};
+`;
+
+const ProjectImageUploadWrapper = styled.div`
+  margin: 20px;
 `;
 
 export default class ProjectImages extends Component {
@@ -73,10 +97,12 @@ export default class ProjectImages extends Component {
               );
             })
           )}
-          <ProjectImageUpload
-            updateImages={this.updateImages}
-            project_id={this.props.project_id}
-          />
+          <ProjectImageUploadWrapper>
+            <ProjectImageUpload
+              updateImages={this.updateImages}
+              project_id={this.props.project_id}
+            />
+          </ProjectImageUploadWrapper>
         </ImageList>
       </ImageArea>
     );
