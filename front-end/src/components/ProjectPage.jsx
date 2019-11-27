@@ -37,40 +37,42 @@ export default class ProjectPage extends Component {
       height: 50px;
       text-align: center;
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
+      padding-left: 20px;
       align-items: center;
       font-size: 2rem;
       font-weight: bolder;
+      @media (max-width: 900px) {
+        font-size: 15px;
+      }
     `;
     const ProjectContent = styled.section`
-      width: 90vw;
       display: flex;
-      margin-left: 5vw;
+      margin: 20px;
       @media (max-width: 900px) {
         flex-direction: column;
+        margin: 0;
+        align-items: center;
       }
     `;
     const ProjectInfo = styled.div`
       width: 70%;
       @media (max-width: 900px) {
-        width: 100%;
+        width: 100vw;
       }
     `;
     const Timeline = styled.div`
-      width: 100%;
+      width: 70%;
       display: flex;
+      align-items: center;
+      justify-content: flex-start;
       height: 5vh;
     `;
     const Time = styled.div`
-      width: 45%;
       text-align: center;
-      font-size: 2rem;
-      font-weight: bolder;
-      color: ${props => props.theme.trader};
+      margin-right: 40px;
     `;
-    const EndTime = styled(Time)`
-      color: ${props => props.theme.user};
-    `;
+
     const ProjectDetails = styled.div`
       width: 100%;
       height: 65vh;
@@ -88,13 +90,15 @@ export default class ProjectPage extends Component {
       height: 100%;
       @media (max-width: 900px) {
         width: 100%;
+        height: 100%;
+        order: -1;
       }
     `;
     const MapWrapper = styled.div`
       height: 100%;
       width: 100%;
       @media (max-width: 900px) {
-        height: 60%;
+        height: 100%;
         width: 100%;
       }
     `;
@@ -114,8 +118,15 @@ export default class ProjectPage extends Component {
       ).length > 0 ? (
       <>
         <ProjectHeader>
-          <LogoHead>{project.title.slice(0, 2)}</LogoHead>
-          <LogoBody>{project.title.slice(2)}</LogoBody>
+          <div>
+            <LogoHead>{project.title.slice(0, 2)}</LogoHead>
+            <LogoBody>{project.title.slice(2)}</LogoBody>
+          </div>
+
+          <Time>
+            {new Date(project.start_date).toLocaleString().split(',')[0]} -{' '}
+            {new Date(project.end_date).toLocaleString().split(',')[0]}
+          </Time>
         </ProjectHeader>
         <TraderListWrapper>
           <ProjectTraderList
@@ -127,15 +138,6 @@ export default class ProjectPage extends Component {
         </TraderListWrapper>
         <ProjectContent>
           <ProjectInfo>
-            <Timeline>
-              <Time>
-                {new Date(project.start_date).toLocaleString().split(',')[0]}
-              </Time>
-              <Arrow>></Arrow>
-              <EndTime>
-                {new Date(project.end_date).toLocaleString().split(',')[0]}
-              </EndTime>
-            </Timeline>
             <ProjectDetails>
               <ProjectImages project_id={project.project_id} />
               <ProjectMap>

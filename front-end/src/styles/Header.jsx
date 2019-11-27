@@ -17,6 +17,10 @@ const NavLogo = styled.div`
   font-style: normal;
   font-weight: 700;
   font-size: 3rem;
+  @media (max-width: 321px) {
+    font-size: 1.7rem;
+    margin-top: 15px;
+  }
 `;
 
 const LogoHead = styled.p`
@@ -31,6 +35,12 @@ const LogoBody = styled.p`
   color: ${props => props.theme.user};
   float: left;
   margin: 0;
+`;
+
+const Username = styled.div`
+  /* @media (max-width: 321px) {
+    display: none;
+  } */
 `;
 
 const SignOutButton = styled.button`
@@ -59,4 +69,12 @@ const LoggedInUser = styled.div`
   width: 200px;
 `;
 
-export { Nav, NavLogo, LogoHead, LogoBody, SignOutButton, LoggedInUser };
+export {
+  Nav,
+  NavLogo,
+  LogoHead,
+  LogoBody,
+  SignOutButton,
+  LoggedInUser,
+  Username
+};

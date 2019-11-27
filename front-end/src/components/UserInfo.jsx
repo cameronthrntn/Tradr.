@@ -19,15 +19,15 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  padding: 20px;
+  padding-top: 20px;
   height: 100vh;
   box-shadow: 1px 0 3px 0 rgb(0, 0, 0, 0.3);
   z-index: 10000;
   @media (max-width: 768px) {
-    width: 100%;
+    width: 100vw;
   }
   @media (min-width: 768px) {
-    min-width: 400px;
+    /* min-width: 400px; */
   }
 `;
 

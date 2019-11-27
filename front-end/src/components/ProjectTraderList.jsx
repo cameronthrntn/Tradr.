@@ -7,19 +7,26 @@ export default class ProjectTraderList extends Component {
     this.props.handleChange(e.target.value);
   };
   render() {
-    const TraderList = styled.ul`
+    const Bar = styled.ul`
+      display: flex;
+      justify-content: space-between;
       width: 100vw;
       list-style: none;
-      padding: 10px;
+      padding: 20px;
       height: 6.5em;
-      margin-top: 0;
-      padding-left: 10px;
+      margin: 0;
+      padding-left: 40px;
       display: flex;
       background: ${props =>
         JSON.parse(sessionStorage.user).trade
           ? props.theme.trader
           : props.theme.user};
       box-shadow: 1px 5px 5px ${props => props.theme.grey};
+      @media (max-width: 768px) {
+        flex-direction: column;
+        height: 200px;
+        align-items: center;
+      }
     `;
     const TraderCard = styled.li`
       margin: 5px;
@@ -89,55 +96,64 @@ export default class ProjectTraderList extends Component {
         }
       }
     `;
+    const TraderList = styled.div`
+      display: flex;
+      justify-content: space-between;
+      padding-right: 10px;
+    `;
 
     const StatusWrapper = styled.div`
       display: flex;
-      position: absolute;
-      right: 80px;
-      top: 130px;
+      align-items: center;
+      justify-content: start;
+      margin-right: 60px;
     `;
 
     const StatusDropDown = styled.select`
-      font-size: 2rem;
+      font-size: 1.4rem;
       border-radius: 5px;
       margin-left: 10px;
       align-self: center;
     `;
 
     const StatusMessage = styled.p`
-      font-size: 2rem;
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: white;
     `;
 
     return (
-      <TraderList>
-        {this.props.traders.map(trader => (
-          <TraderCard key={trader.trader_username}>
-            <Link to={`/traders/${trader.trader_username}`}>
-              <AvatarWrapper>
-                <TraderImg src={trader.avatar_ref} />
-              </AvatarWrapper>
-              <TraderName>{trader.trader_username}</TraderName>
-              <TraderOccupation>{trader.trade}</TraderOccupation>
-            </Link>
-          </TraderCard>
-        ))}
-        <AddTrader onClick={() => navigate(`/map/${this.props.project_id}`)}>
-          <AddTraderWrapper>+</AddTraderWrapper>
-          <TraderName>Add Trader</TraderName>
-        </AddTrader>
+      <Bar>
+        <TraderList>
+          {this.props.traders.map(trader => (
+            <TraderCard key={trader.trader_username}>
+              <Link to={`/traders/${trader.trader_username}`}>
+                <AvatarWrapper>
+                  <TraderImg src={trader.avatar_ref} />
+                </AvatarWrapper>
+                <TraderName>{trader.trader_username}</TraderName>
+                <TraderOccupation>{trader.trade}</TraderOccupation>
+              </Link>
+            </TraderCard>
+          ))}
+          <AddTrader onClick={() => navigate(`/map/${this.props.project_id}`)}>
+            <AddTraderWrapper>+</AddTraderWrapper>
+            <TraderName>Add Trader</TraderName>
+          </AddTrader>
+        </TraderList>
 
         <StatusWrapper>
-          <StatusMessage>Set Project Status: </StatusMessage>
-          <StatusDropDown onChange={this.handleStatusChange}>
-            <option selected disabled>
-              {this.props.status}
-            </option>
+          <StatusMessage>Project status: </StatusMessage>
+          <StatusDropDown
+            value={this.props.status}
+            onChange={this.handleStatusChange}
+          >
             <option value="in planning">In Planning</option>
             <option value="in progress">In Progress</option>
             <option value="complete">Complete</option>
           </StatusDropDown>
         </StatusWrapper>
-      </TraderList>
+      </Bar>
     );
   }
 }
