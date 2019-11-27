@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { navigate } from '@reach/router';
 import { AppConsumer } from './AppContext';
-import { getProjectImages } from '../utils/projects';
+import { getProjectImages, updateProject } from '../utils/projects';
 
 class ProjectCard extends Component {
   state = {
@@ -12,6 +12,14 @@ class ProjectCard extends Component {
   componentDidMount = async () => {
     const { images } = await getProjectImages(this.props.project.project_id);
     this.setState({ images: images[0] });
+  };
+
+  handleChange = async e => {
+    const project = await updateProject(
+      this.props.project.project_id,
+      e.target.value
+    );
+    this.props.handleStatusChange();
   };
 
   render() {
@@ -73,13 +81,19 @@ class ProjectCard extends Component {
       <AppConsumer>
         {user => {
           return (
-            <Card
-              onClick={() =>
-                navigate(`/project/${this.props.project.project_id}`)
-              }
-            >
-              <p>{this.props.project.title}</p>
-              <DateSection>
+            <Card>
+              <p
+                onClick={() =>
+                  navigate(`/project/${this.props.project.project_id}`)
+                }
+              >
+                {this.props.project.title}
+              </p>
+              <DateSection
+                onClick={() =>
+                  navigate(`/project/${this.props.project.project_id}`)
+                }
+              >
                 <div>
                   <DateText>{startDate}</DateText>
                 </div>
@@ -90,7 +104,11 @@ class ProjectCard extends Component {
                   <DateText>{endDate}</DateText>
                 </div>
               </DateSection>
-              <ProjectImage>
+              <ProjectImage
+                onClick={() =>
+                  navigate(`/project/${this.props.project.project_id}`)
+                }
+              >
                 <ProjectAvatar
                   src={
                     this.state.images !== undefined
@@ -99,6 +117,18 @@ class ProjectCard extends Component {
                   }
                 />
               </ProjectImage>
+              {/* <p>
+                Set Project Status:{' '}
+                <select onChange={this.handleChange}>
+                  <option value="Set Project Status" selected disabled>
+                    Set Project Status
+                  </option>
+                  <option value="in planning">In Planning</option>
+                  <option value="in progress">In Progress</option>
+                  <option value="complete">Complete</option>
+                </select>{' '}
+              </p> */}
+
               <StatusBar user={user}></StatusBar>
             </Card>
           );

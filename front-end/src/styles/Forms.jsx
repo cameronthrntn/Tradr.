@@ -96,6 +96,14 @@ const HalfInput = styled(Input)`
   }
 `;
 
+
+const ErrorMessage = styled.p`
+  background: ${props => props.theme.red};
+  color: white;
+  padding: 5px;
+  margin: 0;
+`;
+
 const SignUpOverlay = styled.div`
   position: fixed;
   display: none;
@@ -121,5 +129,6 @@ export {
   HalfInput,
   Select,
   SignUpContainer,
+  ErrorMessage,
   SignUpOverlay
 };

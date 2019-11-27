@@ -25,11 +25,19 @@ const getProjectImages = async id => {
   return data;
 };
 
+
+const updateProject = async (id, status) => {
+  const { data } = await instance.patch(`/projects/${id}`, { status });
+  return data.project[0];
+};
+
 const filterProjects = projects => {
   return projects.filter(project => {
     return project.status === 'complete';
   });
 };
+
+
 
 export {
   getProject,
@@ -37,5 +45,6 @@ export {
   getProjectsByTrader,
   postNewProject,
   getProjectImages,
+  updateProject,
   filterProjects
 };

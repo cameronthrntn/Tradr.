@@ -5,7 +5,6 @@ const bcrypt = require('bcrypt');
 
 exports.loginController = async (req, res, next) => {
   const { type, username, password } = req.body;
-  console.log(type, username, password);
 
   const [passwordOk, user] =
     type === 'user'

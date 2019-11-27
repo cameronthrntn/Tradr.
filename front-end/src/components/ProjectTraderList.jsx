@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import { navigate, Link } from '@reach/router';
 
 export default class ProjectTraderList extends Component {
+  handleStatusChange = e => {
+    this.props.handleChange(e.target.value);
+  };
   render() {
     const TraderList = styled.ul`
       width: 100vw;
@@ -86,6 +89,25 @@ export default class ProjectTraderList extends Component {
         }
       }
     `;
+
+    const StatusWrapper = styled.div`
+      display: flex;
+      position: absolute;
+      right: 80px;
+      top: 130px;
+    `;
+
+    const StatusDropDown = styled.select`
+      font-size: 2rem;
+      border-radius: 5px;
+      margin-left: 10px;
+      align-self: center;
+    `;
+
+    const StatusMessage = styled.p`
+      font-size: 2rem;
+    `;
+
     return (
       <TraderList>
         {this.props.traders.map(trader => (
@@ -103,6 +125,18 @@ export default class ProjectTraderList extends Component {
           <AddTraderWrapper>+</AddTraderWrapper>
           <TraderName>Add Trader</TraderName>
         </AddTrader>
+
+        <StatusWrapper>
+          <StatusMessage>Set Project Status: </StatusMessage>
+          <StatusDropDown onChange={this.handleStatusChange}>
+            <option selected disabled>
+              {this.props.status}
+            </option>
+            <option value="in planning">In Planning</option>
+            <option value="in progress">In Progress</option>
+            <option value="complete">Complete</option>
+          </StatusDropDown>
+        </StatusWrapper>
       </TraderList>
     );
   }
