@@ -11,7 +11,6 @@ const Container = styled.div`
   background: white;
   color: black;
   height: 150px;
-
   padding: 10px;
   text-align: left;
   overflow-y: scroll;
@@ -35,7 +34,7 @@ const AddReviewButton = styled.button`
 const ButtonHolder = styled.div`
   position: relative;
   margin: 20px;
-  width: 80%;
+  width: 100%;
   border-radius: 10px;
 `;
 
@@ -77,13 +76,18 @@ class ReviewList extends Component {
               )}
               {user.username !== this.props.username && (
                 <AddReviewButton onClick={this.handleClick}>
-                <FontAwesomeIcon icon={faPlus} />
-                &nbsp; Add review
-              </AddReviewButton>
+                  <FontAwesomeIcon icon={faPlus} />
+                  &nbsp; Add review
+                </AddReviewButton>
               )}
               <Container>
                 {this.state.reviews.map(review => {
-                  return <ReviewCard review={review} key={review.review_id}></ReviewCard>;
+                  return (
+                    <ReviewCard
+                      review={review}
+                      key={review.review_id}
+                    ></ReviewCard>
+                  );
                 })}
               </Container>
             </ButtonHolder>

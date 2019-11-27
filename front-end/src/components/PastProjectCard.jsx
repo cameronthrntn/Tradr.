@@ -27,11 +27,6 @@ class ProjectCard extends Component {
       background: white;
       box-shadow: 1px 0 10px 0 rgb(0, 0, 0, 0.3);
       transition: transform 0.1s;
-      &:hover {
-        transform: scale(1.05);
-        box-shadow: 1px 0 15px 0 rgb(0, 0, 0, 0.3);
-        background: #f5f5f5;
-      }
     `;
     const DateText = styled.p`
       float: left;

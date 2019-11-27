@@ -20,7 +20,6 @@ const Container = styled.div`
   justify-content: flex-start;
   align-items: center;
   padding: 20px;
-  overflow-y: scroll;
   height: 100vh;
   box-shadow: 1px 0 3px 0 rgb(0, 0, 0, 0.3);
   z-index: 10000;
@@ -136,7 +135,7 @@ const HeadingContainer = styled.div`
   margin: 0px;
 `;
 const ReviewContainer = styled.div`
-  width: 80%;
+  width: 95%;
   display: flex;
   justify-content: center;
   align-items: center;
