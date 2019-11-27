@@ -27,10 +27,7 @@ export default class ProjectPage extends Component {
   };
 
   handleChange = async e => {
-    const project = await updateProject(
-      this.state.project.project_id,
-      e.target.value
-    );
+    const project = await updateProject(this.state.project.project_id, e);
     this.setState({ project });
   };
 
@@ -108,7 +105,7 @@ export default class ProjectPage extends Component {
       font-weight: bolder;
     `;
 
-    const { project } = this.state;    
+    const { project } = this.state;
     return this.state.isLoading ? (
       <Loader />
     ) : JSON.parse(sessionStorage.user).username === project.username ||
@@ -116,27 +113,17 @@ export default class ProjectPage extends Component {
         trader => trader.username === JSON.parse(sessionStorage.user).username
       ).length > 0 ? (
       <>
- <ProjectHeader>
+        <ProjectHeader>
           <LogoHead>{project.title.slice(0, 2)}</LogoHead>
           <LogoBody>{project.title.slice(2)}</LogoBody>
-
-          <p>
-            Set Project Status:{' '}
-            <select onChange={this.handleChange}>
-              <option selected disabled>
-                {this.state.project.status}
-              </option>
-              <option value="in planning">In Planning</option>
-              <option value="in progress">In Progress</option>
-              <option value="complete">Complete</option>
-            </select>
-          </p>
         </ProjectHeader>
 
         <TraderListWrapper>
           <ProjectTraderList
             project_id={this.props.project_id}
             traders={this.state.traders}
+            status={this.state.project.status}
+            handleChange={this.handleChange}
           />
         </TraderListWrapper>
         <ProjectContent>
