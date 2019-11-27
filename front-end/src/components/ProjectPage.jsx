@@ -9,6 +9,7 @@ import Loader from './Loader';
 import ChatWindow from './ChatWindow';
 import { LogoHead, LogoBody } from '../styles/Header';
 import ProjectImages from './ProjectImages';
+import { updateProject } from '../utils/projects';
 
 export default class ProjectPage extends Component {
   state = {
@@ -24,6 +25,12 @@ export default class ProjectPage extends Component {
     sessionStorage.setItem('project_id', project.project_id);
     this.setState({ project, traders, isLoading: false });
   };
+
+  handleChange = async e => {
+    const project = await updateProject(this.state.project.project_id, e);
+    this.setState({ project });
+  };
+
   render() {
     const ProjectHeader = styled.header`
       width: 100vw;
@@ -114,6 +121,8 @@ export default class ProjectPage extends Component {
           <ProjectTraderList
             project_id={this.props.project_id}
             traders={this.state.traders}
+            status={this.state.project.status}
+            handleChange={this.handleChange}
           />
         </TraderListWrapper>
         <ProjectContent>
