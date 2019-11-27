@@ -8,7 +8,7 @@ import {
   InputWrapper,
   HalfInput,
   Form,
-  LogInButton
+  SignUpButton
 } from '../styles/Forms';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -146,7 +146,7 @@ class NewProjectForm extends Component {
             <Input id="end_date" type="date" onChange={this.handleChange} />
           </Inputs>
 
-          <LogInButton>Submit</LogInButton>
+          <SignUpButton>Submit</SignUpButton>
         </ProjectForm>
       </Container>
     );

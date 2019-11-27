@@ -3,13 +3,17 @@ import { postAccount, getCoordinates, formatDate } from '../utils/makeAccount';
 import {
   Container,
   SignUpFormStyle,
-  LogInButton,
+  SignUpButton,
   Inputs,
   Input,
   InputWrapper,
   HalfInput,
-  SignUpContainer
+  SignUpContainer,
+  SignUpOverlay,
+  SignUpWrapper
 } from '../styles/Forms';
+
+import { Info } from '../styles/LandingPage';
 
 export default class SignUpForm extends Component {
   state = {
@@ -74,6 +78,8 @@ export default class SignUpForm extends Component {
   render() {
     return (
       <SignUpContainer>
+        <SignUpOverlay />
+        <Info>Sign up today.</Info>
         <SignUpFormStyle
           userType={this.state.userType}
           action=""
@@ -198,7 +204,7 @@ export default class SignUpForm extends Component {
             )}
           </Inputs>
 
-          <LogInButton>Sign up</LogInButton>
+          <SignUpButton>Sign up</SignUpButton>
         </SignUpFormStyle>
       </SignUpContainer>
     );

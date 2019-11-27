@@ -33,4 +33,30 @@ const LogoBody = styled.p`
   margin: 0;
 `;
 
-export { Nav, NavLogo, LogoHead, LogoBody };
+const SignOutButton = styled.button`
+  border-radius: 34px;
+  width: 80px;
+  height: 40px;
+  color: white;
+  border: none;
+  font-size: 15px;
+  font-weight: bold;
+  box-shadow: 1px 0 10px 0 rgb(0, 0, 0, 0.3);
+  cursor: pointer;
+  background: ${props =>
+    props.user.trade ? props.theme.trader : props.theme.user};
+  &:hover {
+    background: ${props =>
+      props.user.trade ? props.theme.trader_dark : props.theme.user_dark};
+  }
+`;
+
+const LoggedInUser = styled.div`
+  margin: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 200px;
+`;
+
+export { Nav, NavLogo, LogoHead, LogoBody, SignOutButton, LoggedInUser };

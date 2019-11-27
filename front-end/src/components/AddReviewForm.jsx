@@ -6,7 +6,7 @@ import {
   InputWrapper,
   HalfInput,
   Form,
-  LogInButton
+  SignUpButton
 } from '../styles/Forms';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -157,7 +157,7 @@ class AddReviewForm extends Component {
             </ScoreContainer>
           </Inputs>
 
-          <LogInButton>Submit</LogInButton>
+          <SignUpButton>Submit</SignUpButton>
         </ReviewForm>
       </Container>
     );
