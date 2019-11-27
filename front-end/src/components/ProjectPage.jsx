@@ -117,10 +117,6 @@ export default class ProjectPage extends Component {
           <LogoHead>{project.title.slice(0, 2)}</LogoHead>
           <LogoBody>{project.title.slice(2)}</LogoBody>
         </ProjectHeader>
-<<<<<<< HEAD
-=======
-
->>>>>>> staging
         <TraderListWrapper>
           <ProjectTraderList
             project_id={this.props.project_id}
