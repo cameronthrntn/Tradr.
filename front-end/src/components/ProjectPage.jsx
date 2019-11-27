@@ -9,6 +9,7 @@ import Loader from './Loader';
 import ChatWindow from './ChatWindow';
 import { LogoHead, LogoBody } from '../styles/Header';
 import ProjectImages from './ProjectImages';
+import { updateProject } from '../utils/projects';
 
 export default class ProjectPage extends Component {
   state = {
@@ -24,6 +25,15 @@ export default class ProjectPage extends Component {
     sessionStorage.setItem('project_id', project.project_id);
     this.setState({ project, traders, isLoading: false });
   };
+
+  handleChange = async e => {
+    const project = await updateProject(
+      this.state.project.project_id,
+      e.target.value
+    );
+    this.setState({ project });
+  };
+
   render() {
     const ProjectHeader = styled.header`
       width: 100vw;
@@ -106,10 +116,23 @@ export default class ProjectPage extends Component {
         trader => trader.username === JSON.parse(sessionStorage.user).username
       ).length > 0 ? (
       <>
-        {/* <ProjectHeader>
+ <ProjectHeader>
           <LogoHead>{project.title.slice(0, 2)}</LogoHead>
           <LogoBody>{project.title.slice(2)}</LogoBody>
-        </ProjectHeader> */}
+
+          <p>
+            Set Project Status:{' '}
+            <select onChange={this.handleChange}>
+              <option selected disabled>
+                {this.state.project.status}
+              </option>
+              <option value="in planning">In Planning</option>
+              <option value="in progress">In Progress</option>
+              <option value="complete">Complete</option>
+            </select>
+          </p>
+        </ProjectHeader>
+
         <TraderListWrapper>
           <ProjectTraderList
             project_id={this.props.project_id}
