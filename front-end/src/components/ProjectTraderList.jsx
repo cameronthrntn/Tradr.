@@ -7,7 +7,7 @@ export default class ProjectTraderList extends Component {
     const TraderList = styled.ul`
       width: 100vw;
       list-style: none;
-      padding: 10px 0px;
+      padding: 10px;
       height: 6.5em;
       margin-top: 0;
       padding-left: 10px;

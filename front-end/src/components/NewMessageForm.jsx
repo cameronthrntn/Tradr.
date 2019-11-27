@@ -30,6 +30,11 @@ const MessageBox = styled.input`
   font-size: 1.2rem;
 `;
 const SubmitButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 20px;
   width: 10%;
   height: 70%;
   margin-left: 5px;

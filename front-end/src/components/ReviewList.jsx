@@ -21,12 +21,12 @@ const Container = styled.div`
 
 const AddReviewButton = styled.button`
   position: absolute;
-  border-radius: 50%;
+  border-radius: 34px;
   top: -10px;
   color: ${props => props.theme.greytext};
   right: -10px;
   height: 30px;
-  width: 30px;
+  width: 100px;
   box-shadow: 1px 0 3px 0 rgb(0, 0, 0, 0.3);
   border: none;
   background: ${props => props.theme.grey};
@@ -77,9 +77,9 @@ class ReviewList extends Component {
               )}
               {user.username !== this.props.username && (
                 <AddReviewButton onClick={this.handleClick}>
-                  <FontAwesomeIcon icon={faPlus} />
-                  Add review
-                </AddReviewButton>
+                <FontAwesomeIcon icon={faPlus} />
+                &nbsp; Add review
+              </AddReviewButton>
               )}
               <Container>
                 {this.state.reviews.map(review => {

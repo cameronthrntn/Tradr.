@@ -97,3 +97,9 @@ exports.fetchImagesByProjectId = id => {
     .from('images')
     .where('images.project_id', '=', id);
 };
+
+exports.insertImageToProject = image => {
+  return connection('images')
+    .insert(image)
+    .returning('*');
+};

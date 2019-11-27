@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { getProjectImages } from '../utils/projects';
+import ProjectImageUpload from './ProjectImageUpload';
 
 const ImageArea = styled.section`
   width: 30%;
@@ -15,6 +16,10 @@ const ImageArea = styled.section`
   color: white;
   font-weight: bolder;
   font-size: 1.4rem;
+  @media (max-width: 900px) {
+    width: 100%;
+    flex-direction: column;
+  }
 `;
 const ImageList = styled.ul`
   display: flex;
@@ -45,6 +50,13 @@ export default class ProjectImages extends Component {
     this.setState({ images });
   };
 
+  updateImages = path => {
+    console.log({ path }, '<----updating');
+
+    this.setState(currentState => {
+      return { images: [...currentState.images, { path }] };
+    });
+  };
   render() {
     return (
       <ImageArea>
@@ -61,6 +73,10 @@ export default class ProjectImages extends Component {
               );
             })
           )}
+          <ProjectImageUpload
+            updateImages={this.updateImages}
+            project_id={this.props.project_id}
+          />
         </ImageList>
       </ImageArea>
     );
