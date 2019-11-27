@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { navigate } from '@reach/router';
 import { AppConsumer } from './AppContext';
-import { getProjectImages, updateProject } from '../utils/projects';
+import { getProjectImages } from '../utils/projects';
 
 class ProjectCard extends Component {
   state = {
@@ -14,24 +13,17 @@ class ProjectCard extends Component {
     this.setState({ images: images[0] });
   };
 
-  handleChange = async e => {
-    const project = await updateProject(
-      this.props.project.project_id,
-      e.target.value
-    );
-    this.props.handleStatusChange();
-  };
-
   render() {
     const Card = styled.div`
-      height: 90%;
       min-width: 300px;
+      max-width: 300px;
+      height: 250px;
       margin: 20px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      cursor: pointer;
+
       background: white;
       box-shadow: 1px 0 10px 0 rgb(0, 0, 0, 0.3);
       transition: transform 0.1s;
@@ -68,13 +60,12 @@ class ProjectCard extends Component {
     `;
     const StatusBar = styled.div`
       width: 100%;
-      background: ${props =>
-        props.user.trade ? props.theme.trader : props.theme.user};
+      background: ${props => props.theme.trader};
       height: 5%;
     `;
 
     const ProjectAvatar = styled.img`
-      height: 100%;
+      height: 100px;
     `;
 
     return (
@@ -82,18 +73,8 @@ class ProjectCard extends Component {
         {user => {
           return (
             <Card>
-              <p
-                onClick={() =>
-                  navigate(`/project/${this.props.project.project_id}`)
-                }
-              >
-                {this.props.project.title}
-              </p>
-              <DateSection
-                onClick={() =>
-                  navigate(`/project/${this.props.project.project_id}`)
-                }
-              >
+              <p>{this.props.project.title}</p>
+              <DateSection>
                 <div>
                   <DateText>{startDate}</DateText>
                 </div>
@@ -104,11 +85,7 @@ class ProjectCard extends Component {
                   <DateText>{endDate}</DateText>
                 </div>
               </DateSection>
-              <ProjectImage
-                onClick={() =>
-                  navigate(`/project/${this.props.project.project_id}`)
-                }
-              >
+              <ProjectImage>
                 <ProjectAvatar
                   src={
                     this.state.images !== undefined
@@ -117,18 +94,6 @@ class ProjectCard extends Component {
                   }
                 />
               </ProjectImage>
-              {/* <p>
-                Set Project Status:{' '}
-                <select onChange={this.handleChange}>
-                  <option value="Set Project Status" selected disabled>
-                    Set Project Status
-                  </option>
-                  <option value="in planning">In Planning</option>
-                  <option value="in progress">In Progress</option>
-                  <option value="complete">Complete</option>
-                </select>{' '}
-              </p> */}
-
               <StatusBar user={user}></StatusBar>
             </Card>
           );

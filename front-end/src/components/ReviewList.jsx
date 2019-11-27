@@ -10,7 +10,7 @@ import { AppConsumer } from './AppContext';
 const Container = styled.div`
   background: white;
   color: black;
-  height: 200px;
+  height: 150px;
 
   padding: 10px;
   text-align: left;
@@ -21,12 +21,12 @@ const Container = styled.div`
 
 const AddReviewButton = styled.button`
   position: absolute;
-  border-radius: 50%;
+  border-radius: 34px;
   top: -10px;
   color: ${props => props.theme.greytext};
   right: -10px;
   height: 30px;
-  width: 30px;
+  width: 100px;
   box-shadow: 1px 0 3px 0 rgb(0, 0, 0, 0.3);
   border: none;
   background: ${props => props.theme.grey};
@@ -75,13 +75,15 @@ class ReviewList extends Component {
                   updateReviews={this.updateReviews}
                 />
               )}
-              <AddReviewButton onClick={this.handleClick}>
+              {user.username !== this.props.username && (
+                <AddReviewButton onClick={this.handleClick}>
                 <FontAwesomeIcon icon={faPlus} />
-                Add review
+                &nbsp; Add review
               </AddReviewButton>
+              )}
               <Container>
                 {this.state.reviews.map(review => {
-                  return <ReviewCard review={review}></ReviewCard>;
+                  return <ReviewCard review={review} key={review.review_id}></ReviewCard>;
                 })}
               </Container>
             </ButtonHolder>

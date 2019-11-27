@@ -27,8 +27,13 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-const BodyInput = styled(Input)`
+const BodyInput = styled.textarea`
   height: 100px;
+  border-radius: 5px;
+  border: none;
+  margin: 5px;
+  padding: 10px;
+  resize: none;
 `;
 
 const ReviewForm = styled(Form)`
@@ -37,6 +42,7 @@ const ReviewForm = styled(Form)`
   background-color: ${props => props.theme.trader};
   padding: 20px;
   position: relative;
+  display: block;
 `;
 
 const XButton = styled.button`

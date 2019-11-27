@@ -22,7 +22,6 @@ const ProjectListHeader = styled.div`
       ? props.theme.trader
       : props.theme.user};
   box-shadow: 0 0px 8px 0px gray;
-  /* border-radius: 0 34px 34px 0; */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -33,7 +32,7 @@ const Projects = styled.div`
   padding: 20px;
   margin: 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   overflow-y: hidden;
   overflow-x: scroll;
   align-items: center;
@@ -105,7 +104,10 @@ class ProjectList extends Component {
                   <ProjectCard
                     project={project}
                     handleStatusChange={this.props.handleStatusChange}
+                    key={project.project_id}
                   />
+
+
                 ))}
                 {this.props.heading === 'Planning' && !user.trade && (
                   <AddProjectButtonContainer>

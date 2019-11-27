@@ -9,7 +9,8 @@ import {
   LogInSection,
   SignUpSection,
   LoginSide,
-  Header
+  Header,
+  Info
 } from '../styles/LandingPage';
 import { LogoHead, LogoBody } from '../styles/Header';
 import LoginForm from './LoginForm';
@@ -26,15 +27,12 @@ export default class LandingPage extends Component {
       <Page>
         {this.state.style === 'user' ? (
           <UserWrapper>
-            <p>See who's</p>
-            <p>around to</p>
-            <p>help.</p>
+            <Info>See who's around to help.</Info>
           </UserWrapper>
         ) : (
           <TraderWrapper>
-            <p>See who</p>
-            <p>needs a</p>
-            <p>hand.</p>
+            {' '}
+            <Info>See who needs a hand.</Info>
           </TraderWrapper>
         )}
 

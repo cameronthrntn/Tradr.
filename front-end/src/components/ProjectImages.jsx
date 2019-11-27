@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { getProjectImages } from '../utils/projects';
-import { loadavg } from 'os';
 import ProjectImageUpload from './ProjectImageUpload';
 
 const ImageArea = styled.section`
@@ -17,6 +16,10 @@ const ImageArea = styled.section`
   color: white;
   font-weight: bolder;
   font-size: 1.4rem;
+  @media (max-width: 900px) {
+    width: 100%;
+    flex-direction: column;
+  }
 `;
 const ImageList = styled.ul`
   display: flex;
@@ -64,7 +67,7 @@ export default class ProjectImages extends Component {
           ) : (
             this.state.images.map(image => {
               return (
-                <ProjectImageWrapper>
+                <ProjectImageWrapper key={image.image_id}>
                   <Image src={image.path} />
                 </ProjectImageWrapper>
               );

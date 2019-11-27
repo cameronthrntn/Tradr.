@@ -1,37 +1,72 @@
 import styled from 'styled-components';
+import LandingPageUser from '../img/landing-page-user.png';
+import LandingPageTrader from '../img/landing-page-trader.png';
 
 const Page = styled.div`
   color: ${props => props.theme.trader};
   display: flex;
+  justify-content: space-between;
+  height: 100%;
+  overflow-y: scroll;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
+
+const Info = styled.div`
+  background: white;
+  margin: 30px;
+  border: solid black 4px;
+  padding: 20px;
+  box-shadow: -10px 10px 0px -2px rgba(0, 0, 0, 1);
+`;
+
 const ExampleWrapper = styled.div`
   height: 100vh;
-  width: 60%;
+  width: 100%;
   color: white;
   font-weight: bolder;
-  font-size: 10rem;
+  font-size: 3rem;
   p {
     margin: 0;
   }
+  @media (max-width: 768px) {
+    width: 100%;
+    font-size: 2rem;
+  }
 `;
 const UserWrapper = styled(ExampleWrapper)`
-  background: ${props => props.theme.user};
-`
+  background: url(${LandingPageUser});
+  background-size: cover;
+  background-position: center;
+  color: ${props => props.theme.user};
+`;
 const TraderWrapper = styled(ExampleWrapper)`
-  background: ${props => props.theme.trader};
-`
+  color: ${props => props.theme.trader};
+  background: url(${LandingPageTrader});
+  background-size: cover;
+  background-position: center;
+`;
 
 const LoginSide = styled.aside`
-  width: 40%;
+  min-width: 500px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  box-shadow: 1px 0 10px 0 rgb(0, 0, 0, 0.3);
+  @media (max-width: 768px) {
+    width: 100%;
+    min-width: 0px;
+  }
 `;
 
 const Header = styled.header`
   font-size: 10rem;
   font-weight: bolder;
+  @media (max-width: 768px) {
+    font-size: 8rem;
+  }
 `;
 const LogInWrapper = styled.div`
   color: white;
@@ -69,5 +104,6 @@ export {
   LoginSide,
   Header,
   UserWrapper,
-  TraderWrapper
+  TraderWrapper,
+  Info
 };

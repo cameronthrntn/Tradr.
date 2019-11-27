@@ -6,8 +6,8 @@ import styled from 'styled-components';
 import { getDistances } from '../utils';
 import { getTraders } from '../utils/traders';
 import { getProject } from '../utils/projects';
-// import { AppConsumer } from './AppContext';
 import FilterBar from './FilterBar';
+import Loader from './Loader';
 
 export default class TraderMap extends Component {
   state = {
@@ -76,7 +76,7 @@ export default class TraderMap extends Component {
     return (
       <>
         {this.state.isLoading ? (
-          <h1>Loading...</h1>
+          <Loader />
         ) : (
           <>
             <Button onClick={this.toggleForm}>Show Filters</Button>

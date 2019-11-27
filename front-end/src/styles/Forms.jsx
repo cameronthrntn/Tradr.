@@ -19,7 +19,7 @@ const Container = styled.div`
   /* margin-top: 8em; */
 `;
 const SignUpContainer = styled(Container)`
-  background: ${props => props.theme.user};
+  background: white;
   height: 100vh;
 `;
 
@@ -32,11 +32,18 @@ const Form = styled.form`
   border-radius: 10px;
   min-width: 50%;
   margin: auto;
+  display: flex;
+  flex-direction: column;
   text-align: center;
   align-items: center;
   @media (max-width: 768px) {
     width: 80%;
   }
+`;
+
+const SignUpFormStyle = styled(Form)`
+  background-color: ${props =>
+    props.userType === 'trader' ? props.theme.trader : props.theme.user};
 `;
 
 const LogInButton = styled.button`
@@ -79,6 +86,7 @@ const HalfInput = styled(Input)`
 export {
   Container,
   Form,
+  SignUpFormStyle,
   LogInButton,
   Inputs,
   Input,

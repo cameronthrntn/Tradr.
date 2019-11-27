@@ -40,6 +40,8 @@ export default function TraderPin(
     align-items: center;
     justify-content: flex-end;
     padding: 10px;
+    width: 46px;
+    height: 46px;
     border-radius: 34px;
     background: white;
   `;
@@ -59,7 +61,6 @@ export default function TraderPin(
           <ProjectName>Your Project</ProjectName>
         ) : (
           <>
-
             {projectPage ? (
               <Rate>{username}</Rate>
             ) : (
@@ -68,7 +69,6 @@ export default function TraderPin(
                 <Rate>£{rate}/d</Rate>
               </>
             )}
-
           </>
         )}
       </PinContent>

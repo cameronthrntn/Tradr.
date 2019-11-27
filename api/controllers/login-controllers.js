@@ -5,15 +5,17 @@ const bcrypt = require('bcrypt');
 
 exports.loginController = async (req, res, next) => {
   const { type, username, password } = req.body;
+  console.log(type, username, password);
+
   const [passwordOk, user] =
     type === 'user'
       ? await connection('users')
           .select('*')
           .where({ username })
-          .then(([user]) => {
-            if (user)
+          .then(user => {
+            if (user[0])
               return Promise.all([
-                bcrypt.compare(password, user.password),
+                bcrypt.compare(password, user[0].password),
                 user
               ]);
             else next({ code: 'invalidCredentials' });
