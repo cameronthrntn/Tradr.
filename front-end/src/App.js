@@ -78,6 +78,7 @@ export default class App extends Component {
                     updateUserInfo={this.updateUserInfo}
                     path="/"
                     username={this.state.user.username}
+                    type={this.state.user.trade ? 'trader' : 'user'}
                   />
                 ) : (
                   <LandingPage

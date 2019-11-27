@@ -13,7 +13,8 @@ module.exports = [
     username: 'BenRut',
     title: `Ben's leeds cabin`,
     start_date: new Date('03/08/2016'),
-    end_date: new Date('09/01/2018')
+    end_date: new Date('09/01/2018'),
+    status: 'complete'
   },
   {
     lat: 48.781533,

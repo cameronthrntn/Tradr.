@@ -32,7 +32,10 @@ export default class DashBoard extends Component {
     complete: []
   };
   componentDidMount = async () => {
-    const projects = await getProjectsByUsername(this.props.username);
+    const projects =
+      this.props.type === 'user'
+        ? await getProjectsByUsername(this.props.username)
+        : await getProjectsByTrader(this.props.username);
     this.setState({
       inPlanning: projects.filter(project => project.status === 'in planning'),
       inProgress: projects.filter(project => project.status === 'in progress'),
