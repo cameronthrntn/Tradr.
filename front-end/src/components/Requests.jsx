@@ -18,6 +18,9 @@ const Modal = styled.div`
   border-radius: 5px;
   color: ${props => props.theme.greytext};
   width: 50%;
+  @media (max-width: 768px) {
+    width: 98vw;
+  }
   height: 50%;
   top: 0;
   left: 0;
@@ -76,6 +79,9 @@ const RequestList = styled.ul`
 const Request = styled.li`
   width: 100%;
   padding: 20px;
+  @media (max-width: 768px) {
+    padding: 2%;
+  }
   display: flex;
   justify-content: center;
   align-items: center;

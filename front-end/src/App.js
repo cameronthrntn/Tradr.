@@ -78,6 +78,7 @@ export default class App extends Component {
                     updateUserInfo={this.updateUserInfo}
                     path="/"
                     username={this.state.user.username}
+                    type={this.state.user.trade ? 'trader' : 'user'}
                   />
                 ) : (
                   <LandingPage
@@ -89,7 +90,11 @@ export default class App extends Component {
                 <SignUpForm path="/signup" />
                 <TraderProfile path="/traders/:username" />
                 <TraderMap path="/map/:project_id" />
-                <NotFound default />
+                <NotFound
+                  message={`Sorry, we couldn't find the page you were looking for`}
+                  code={404}
+                  default
+                />
               </Router>
             )}
           </AppProvider>
