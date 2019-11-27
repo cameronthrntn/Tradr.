@@ -4,7 +4,8 @@ import {
   FilterItem,
   FilterInput,
   FilterSelect,
-  FilterButton
+  FilterButton,
+  FilterLabel
 } from '../styles/Filters';
 
 export default class FilterBar extends Component {
@@ -27,9 +28,8 @@ export default class FilterBar extends Component {
     const { trade, distance, score, upper_rate } = this.state;
     return (
       <Filters onSubmit={this.submitForm}>
-        {/* <form action=""> */}
         <FilterItem>
-          <label htmlFor="trade">
+          <FilterLabel htmlFor="trade">
             <FilterInput
               value={trade}
               id="trade"
@@ -37,19 +37,19 @@ export default class FilterBar extends Component {
               placeholder="Trade"
               onChange={this.handleChange}
             />
-          </label>
+          </FilterLabel>
         </FilterItem>
         <FilterItem>
-          <label htmlFor="distance">
+          <FilterLabel htmlFor="distance">
             <FilterInput
               value={distance}
               id="distance"
               type="number"
-              placeholder="20"
+              placeholder="Distance"
               onChange={this.handleChange}
               step={0.1}
             />
-          </label>
+          </FilterLabel>
         </FilterItem>
         <FilterItem>
           <FilterSelect value={score} id="score" onChange={this.handleChange}>
@@ -63,17 +63,16 @@ export default class FilterBar extends Component {
           </FilterSelect>
         </FilterItem>
         <FilterItem>
-          <label htmlFor="upper_rate">
+          <FilterLabel htmlFor="upper_rate">
             <FilterInput
               value={upper_rate}
               id="upper_rate"
               type="number"
-              placeholder="200"
+              placeholder="Day rate limit"
               onChange={this.handleChange}
             />
-          </label>
+          </FilterLabel>
         </FilterItem>
-        {/* </form> */}
         <FilterButton>Filter Results</FilterButton>
       </Filters>
     );

@@ -60,6 +60,7 @@ const SignUpButton = styled.button`
   width: 7em;
   border: none;
   border-radius: 34px;
+  cursor: pointer;
   padding: 10px;
   &:hover {
     background: ${props => props.theme.deeperLayer};

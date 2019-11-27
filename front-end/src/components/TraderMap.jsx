@@ -8,6 +8,8 @@ import { getTraders } from '../utils/traders';
 import { getProject } from '../utils/projects';
 import FilterBar from './FilterBar';
 import Loader from './Loader';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFilter, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 export default class TraderMap extends Component {
   state = {
@@ -16,8 +18,8 @@ export default class TraderMap extends Component {
     showFilters: false,
     isLoading: true
   };
-  updateTraders = async filters => {
-    const traders = await getTraders(this.state.project, filters);
+  updateTraders = async filters => {    
+    const traders = await getTraders(this.state.project.project_id, filters);
     this.setState({ traders });
   };
   toggleForm = () => {
@@ -42,6 +44,9 @@ export default class TraderMap extends Component {
     });
   };
   render() {
+    const MapScreen = styled.div`
+      margin-top: 80px;
+    `;
     const MapWrapper = styled.div`
       height: 100%;
       width: 60%;
@@ -65,25 +70,38 @@ export default class TraderMap extends Component {
       justify-content: center;
       flex-wrap: wrap;
       overflow-y: scroll;
-      margin-top: 2vh;
       @media (max-width: 900px) {
         flex-direction: column;
       }
     `;
     const Button = styled.button`
       background: white;
+      width: 50px;
+      height: 50px;
+      border: none;
+      background: ${props => props.theme.trader};
+      cursor: pointer;
+      &:hover {
+        background: ${props => props.theme.trader_dark};
+      }
     `;
     return (
-      <>
+      <MapScreen>
         {this.state.isLoading ? (
           <Loader />
         ) : (
           <>
-            <Button onClick={this.toggleForm}>Show Filters</Button>
             {this.state.showFilters && (
               <FilterBar updateTraders={this.updateTraders} />
             )}
             <MapAndList>
+              <Button onClick={this.toggleForm}>
+                {!this.state.showFilters ? (
+                  <FontAwesomeIcon icon={faFilter} />
+                ) : (
+                  <FontAwesomeIcon icon={faTimes} />
+                )}
+              </Button>
               <MapWrapper>
                 <GoogleMapReact
                   bootstrapURLKeys={{
@@ -121,7 +139,7 @@ export default class TraderMap extends Component {
             </MapAndList>
           </>
         )}
-      </>
+      </MapScreen>
     );
   }
 }

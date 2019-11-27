@@ -1,20 +1,23 @@
 import styled from 'styled-components';
+import { SignUpButton } from './Forms';
 
 const Filters = styled.form`
+  margin-left: 1vw;
+  margin-bottom: 10px;
   width: 98vw;
   list-style: none;
   padding: 0;
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
 `;
 const FilterItem = styled.div`
-  width: 25%;
+  width: 22%;
+  border-bottom: 2px solid ${props => props.theme.trader};
 `;
 const FilterInput = styled.input`
   width: 100%;
-  border-bottom: 1px solid ${props => props.theme.trader};
-  font-size: 1.5rem;
+  height: 100%;
+  font-size: 1.2rem;
   background: none;
   border: none;
 `;
@@ -22,13 +25,25 @@ const FilterInput = styled.input`
 const FilterSelect = styled.select`
   width: 100%;
   background: none;
+  font-size: 1.2rem;
   border: none;
+  height: 100%;
 `;
 
-const FilterButton = styled.button`
-  margin-left: 40vw;
-  width: 20vw;
-  height: 20px;
+const FilterLabel = styled.label`
+  height: 100%;
 `;
 
-export { Filters, FilterItem, FilterInput, FilterSelect, FilterButton };
+const FilterButton = styled(SignUpButton)`
+  width: 10%;
+  background: ${props => props.theme.trader};
+  color: white;
+  font-weight: bold;
+  margin: 0;
+  font-size: 1.2rem;
+  &:hover {
+    background: ${props => props.theme.trader_dark};
+  }
+`;
+
+export { Filters, FilterLabel, FilterItem, FilterInput, FilterSelect, FilterButton };
