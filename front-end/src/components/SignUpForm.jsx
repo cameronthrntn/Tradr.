@@ -18,8 +18,8 @@ export default class SignUpForm extends Component {
     last_name: '',
     username: '',
     country: '',
-    // password: '',
-    // confirmedPassword: '',
+    password: '',
+    confirmedPassword: '',
     dob: '',
     house: '',
     town: '',
@@ -44,12 +44,14 @@ export default class SignUpForm extends Component {
       trade,
       dob,
       personal_site,
-      rate
+      rate,
+      password
     } = this.state;
     const { lat, lng } = await getCoordinates(
       `${house},${town},${city},${postcode}`
     );
     const standardValues = {
+      password,
       username,
       first_name,
       last_name,
@@ -110,7 +112,7 @@ export default class SignUpForm extends Component {
               onChange={this.handleChange}
               // required
             />
-            {/* <Input
+            <Input
               id="password"
               type="text"
               placeholder="Choose a password"
@@ -123,7 +125,7 @@ export default class SignUpForm extends Component {
               placeholder="Confirm password"
               onChange={this.handleChange}
               // required
-            /> */}
+            />
             <label htmlFor="dob">Date of birth</label>
             <Input id="dob" type="date" onChange={this.handleChange} />
             {this.state.userType === 'trader' && (

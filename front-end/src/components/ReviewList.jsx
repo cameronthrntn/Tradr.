@@ -75,13 +75,15 @@ class ReviewList extends Component {
                   updateReviews={this.updateReviews}
                 />
               )}
-              <AddReviewButton onClick={this.handleClick}>
+              {user.username !== this.props.username && (
+                <AddReviewButton onClick={this.handleClick}>
                 <FontAwesomeIcon icon={faPlus} />
                 &nbsp; Add review
               </AddReviewButton>
+              )}
               <Container>
                 {this.state.reviews.map(review => {
-                  return <ReviewCard review={review}></ReviewCard>;
+                  return <ReviewCard review={review} key={review.review_id}></ReviewCard>;
                 })}
               </Container>
             </ButtonHolder>

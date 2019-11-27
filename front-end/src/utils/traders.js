@@ -16,7 +16,6 @@ const getTrader = async username => {
 
 const getTradersOnProject = async project_id => {
   const { data } = await instance.get(`/projects/${project_id}/traders`);
-
   return data.traders;
 };
 
@@ -24,7 +23,6 @@ const getTraderRequests = async trader_username => {
   const { data } = await instance.get(`/requests`, {
     params: { trader_username }
   });
-
   data.requests.map(async request => {
     request.city = await getCity(request.lat, request.lng);
     return request;
@@ -33,4 +31,14 @@ const getTraderRequests = async trader_username => {
   return data.requests;
 };
 
-export { getTraders, getTrader, getTraderRequests, getTradersOnProject };
+const replyRequest = async body => {
+  await instance.delete('/requests', { data: body });
+};
+
+export {
+  getTraders,
+  getTrader,
+  getTraderRequests,
+  getTradersOnProject,
+  replyRequest
+};

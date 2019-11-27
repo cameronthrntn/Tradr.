@@ -98,7 +98,7 @@ export default class ProjectPage extends Component {
       font-weight: bolder;
     `;
 
-    const { project } = this.state;
+    const { project } = this.state;    
     return this.state.isLoading ? (
       <Loader />
     ) : JSON.parse(sessionStorage.user).username === project.username ||

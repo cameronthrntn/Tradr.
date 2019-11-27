@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { navigate } from '@reach/router';
+import { navigate, Link } from '@reach/router';
 
 export default class ProjectTraderList extends Component {
   render() {
@@ -23,10 +23,13 @@ export default class ProjectTraderList extends Component {
       width: 5%;
       margin-right: 10px;
       padding: 0px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      a {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+      }
     `;
     const AvatarWrapper = styled.aside`
       width: 3em;
@@ -87,11 +90,13 @@ export default class ProjectTraderList extends Component {
       <TraderList>
         {this.props.traders.map(trader => (
           <TraderCard key={trader.trader_username}>
-            <AvatarWrapper>
-              <TraderImg src={trader.avatar_ref} />
-            </AvatarWrapper>
-            <TraderName>{trader.trader_username}</TraderName>
-            <TraderOccupation>{trader.trade}</TraderOccupation>
+            <Link to={`/traders/${trader.trader_username}`}>
+              <AvatarWrapper>
+                <TraderImg src={trader.avatar_ref} />
+              </AvatarWrapper>
+              <TraderName>{trader.trader_username}</TraderName>
+              <TraderOccupation>{trader.trade}</TraderOccupation>
+            </Link>
           </TraderCard>
         ))}
         <AddTrader onClick={() => navigate(`/map/${this.props.project_id}`)}>

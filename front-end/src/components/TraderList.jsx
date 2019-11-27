@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import TraderCard from './TraderCard';
-// import { getDistance } from '../utils';
 
 export default class TraderList extends Component {
   render() {
