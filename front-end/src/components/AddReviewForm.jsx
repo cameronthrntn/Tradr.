@@ -38,6 +38,7 @@ const BodyInput = styled.textarea`
 
 const ReviewForm = styled(Form)`
   width: 30%;
+
   color: white;
   background-color: ${props => props.theme.trader};
   padding: 20px;
@@ -108,9 +109,9 @@ class AddReviewForm extends Component {
               type="text"
               onChange={this.handleChange}
             />
-            <p>Score</p>
+
             <ScoreContainer>
-              {' '}
+              <p>Score</p>{' '}
               <ScoreInput
                 type="radio"
                 name="score"

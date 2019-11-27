@@ -98,7 +98,7 @@ export default class ProjectPage extends Component {
       font-weight: bolder;
     `;
 
-    const { project } = this.state;    
+    const { project } = this.state;
     return this.state.isLoading ? (
       <Loader />
     ) : JSON.parse(sessionStorage.user).username === project.username ||
@@ -106,10 +106,10 @@ export default class ProjectPage extends Component {
         trader => trader.username === JSON.parse(sessionStorage.user).username
       ).length > 0 ? (
       <>
-        {/* <ProjectHeader>
+        <ProjectHeader>
           <LogoHead>{project.title.slice(0, 2)}</LogoHead>
           <LogoBody>{project.title.slice(2)}</LogoBody>
-        </ProjectHeader> */}
+        </ProjectHeader>
         <TraderListWrapper>
           <ProjectTraderList
             project_id={this.props.project_id}
