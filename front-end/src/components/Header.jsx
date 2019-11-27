@@ -1,6 +1,16 @@
 import React, { Component } from 'react';
 import { Link, navigate } from '@reach/router';
-import { Nav, NavLogo, LogoHead, LogoBody } from '../styles/Header';
+import {
+  Nav,
+  NavLogo,
+  LogoHead,
+  LogoBody,
+  SignOutButton,
+  LoggedInUser
+} from '../styles/Header';
+import { AppConsumer } from './AppContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 class Header extends Component {
   state = {
@@ -13,19 +23,34 @@ class Header extends Component {
   };
   render() {
     return (
-      <>
-        <Nav className={this.state.show ? 'active' : 'hidden'}>
-          <Link to="/">
-            <NavLogo>
-              <LogoHead>Tr</LogoHead>
-              <LogoBody>adr.</LogoBody>
-            </NavLogo>
-          </Link>
-          {this.props.isLoggedIn && (
-            <button onClick={this.signOut}>Sign out</button>
-          )}
-        </Nav>
-      </>
+      <AppConsumer>
+        {user => {
+          return (
+            <>
+              <Nav className={this.state.show ? 'active' : 'hidden'}>
+                <Link to="/">
+                  <NavLogo>
+                    <LogoHead>Tr</LogoHead>
+                    <LogoBody>adr.</LogoBody>
+                  </NavLogo>
+                </Link>
+                {this.props.isLoggedIn && (
+                  <LoggedInUser>
+                    <div>
+                      <FontAwesomeIcon icon={faUser}></FontAwesomeIcon> &nbsp;
+                      {user.username}
+                    </div>
+
+                    <SignOutButton user={user} onClick={this.signOut}>
+                      Sign out
+                    </SignOutButton>
+                  </LoggedInUser>
+                )}
+              </Nav>
+            </>
+          );
+        }}
+      </AppConsumer>
     );
   }
 }

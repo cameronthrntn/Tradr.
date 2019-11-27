@@ -6,14 +6,18 @@ import { postAccount, getCoordinates, formatDate } from '../utils/makeAccount';
 import {
   Container,
   SignUpFormStyle,
-  LogInButton,
+  SignUpButton,
   Inputs,
   Input,
   InputWrapper,
   HalfInput,
   SignUpContainer,
-  ErrorMessage
+  ErrorMessage,
+  SignUpOverlay,
+  SignUpWrapper
 } from '../styles/Forms';
+
+import { Info } from '../styles/LandingPage';
 
 export default class SignUpForm extends Component {
   state = {
@@ -104,6 +108,8 @@ export default class SignUpForm extends Component {
   render() {
     return (
       <SignUpContainer>
+        <SignUpOverlay />
+        <Info>Sign up today.</Info>
         <SignUpFormStyle
           userType={this.state.userType}
           action=""
@@ -240,6 +246,7 @@ export default class SignUpForm extends Component {
               </>
             )}
           </Inputs>
+
           {!this.state.over18 && (
             <ErrorMessage>You must be over 18 to sign up</ErrorMessage>
           )}
@@ -248,11 +255,13 @@ export default class SignUpForm extends Component {
           this.state.over18 &&
           this.state.rate ? (
             <Link to="/">
-              <LogInButton>Sign up</LogInButton>
+                  <SignUpButton>Sign up</SignUpButton>
             </Link>
           ) : (
-            <LogInButton>Sign up</LogInButton>
+               <SignUpButton>Sign up</SignUpButton>
           )}
+
+
         </SignUpFormStyle>
       </SignUpContainer>
     );

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import SignUpPageBg from '../img/sign-up-page-bg.png';
 
 const InputWrapper = styled.div`
   display: flex;
@@ -19,7 +20,13 @@ const Container = styled.div`
   /* margin-top: 8em; */
 `;
 const SignUpContainer = styled(Container)`
-  background: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background: url(${SignUpPageBg});
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   height: 100vh;
 `;
 
@@ -27,11 +34,10 @@ const Form = styled.form`
   /* background-color: ${props =>
     props.userType === 'trader' ? props.theme.trader : props.theme.user}; */
   align-self: center;
-  margin: 3em 20px 20px 20px;
-  /* margin: 0; */
+ 
+  margin: auto;
   border-radius: 10px;
   min-width: 50%;
-  margin: auto;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -42,15 +48,22 @@ const Form = styled.form`
 `;
 
 const SignUpFormStyle = styled(Form)`
+  margin: 3em 20px 20px 20px;
   background-color: ${props =>
     props.userType === 'trader' ? props.theme.trader : props.theme.user};
+  margin-bottom: 20px;
 `;
 
-const LogInButton = styled.button`
-  margin: 5px;
+const SignUpButton = styled.button`
+  margin: 20px;
+  background: white;
   width: 7em;
+  border: none;
   border-radius: 34px;
   padding: 10px;
+  &:hover {
+    background: ${props => props.theme.deeperLayer};
+  }
 `;
 
 const Inputs = styled.div`
@@ -83,6 +96,7 @@ const HalfInput = styled(Input)`
   }
 `;
 
+
 const ErrorMessage = styled.p`
   background: ${props => props.theme.red};
   color: white;
@@ -90,16 +104,31 @@ const ErrorMessage = styled.p`
   margin: 0;
 `;
 
+const SignUpOverlay = styled.div`
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  cursor: pointer;
+`;
+
 export {
   Container,
   Form,
   SignUpFormStyle,
-  LogInButton,
+  SignUpButton,
   Inputs,
   Input,
   InputWrapper,
   HalfInput,
   Select,
   SignUpContainer,
-  ErrorMessage
+  ErrorMessage,
+  SignUpOverlay
 };

@@ -14,11 +14,16 @@ const Page = styled.div`
 `;
 
 const Info = styled.div`
+  font-size: 3rem;
+  font-weight: bold;
   background: white;
   margin: 30px;
   border: solid black 4px;
   padding: 20px;
   box-shadow: -10px 10px 0px -2px rgba(0, 0, 0, 1);
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
 `;
 
 const ExampleWrapper = styled.div`
@@ -26,13 +31,12 @@ const ExampleWrapper = styled.div`
   width: 100%;
   color: white;
   font-weight: bolder;
-  font-size: 3rem;
+
   p {
     margin: 0;
   }
   @media (max-width: 768px) {
     width: 100%;
-    font-size: 2rem;
   }
 `;
 const UserWrapper = styled(ExampleWrapper)`
@@ -82,8 +86,8 @@ const LogInButton = styled.button`
   border-radius: 34px;
   cursor: pointer;
   &:hover {
-    background: white;
-    color: ${props => props.theme.trader};
+    border: solid 3px ${props => props.theme.trader_dark};
+    background: ${props => props.theme.trader_dark};
   }
 `;
 

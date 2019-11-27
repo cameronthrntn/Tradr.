@@ -9,7 +9,8 @@ import {
   HalfInput,
   Form,
   LogInButton,
-  ErrorMessage
+  ErrorMessage,
+  SignUpButton
 } from '../styles/Forms';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -166,6 +167,7 @@ class NewProjectForm extends Component {
             <label htmlFor="end_date">End date:</label>
             <Input id="end_date" type="date" onChange={this.handleChange} />
           </Inputs>
+
           {!this.state.start_valid && (
             <ErrorMessage>Select a start date after today's date</ErrorMessage>
           )}
@@ -174,7 +176,8 @@ class NewProjectForm extends Component {
               The end date must be after the start date
             </ErrorMessage>
           )}
-          <LogInButton>Submit</LogInButton>
+          <SignUpButton>Submit</SignUpButton>
+
         </ProjectForm>
       </Container>
     );
