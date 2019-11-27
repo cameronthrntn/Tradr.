@@ -26,7 +26,8 @@ export default class App extends Component {
       user_dark: '#713f99',
       grey: '#ececec',
       greytext: '#898989',
-      deeperLayer: '#dcdcdc'
+      deeperLayer: '#dcdcdc',
+      red: '#e8463a'
     },
     token: ''
   };

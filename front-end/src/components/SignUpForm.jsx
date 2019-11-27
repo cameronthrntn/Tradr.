@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { Link } from '@reach/router';
+import styled from 'styled-components';
+import { getAge } from '../utils';
 import { postAccount, getCoordinates, formatDate } from '../utils/makeAccount';
 import {
   Container,
@@ -9,6 +12,7 @@ import {
   InputWrapper,
   HalfInput,
   SignUpContainer,
+  ErrorMessage,
   SignUpOverlay,
   SignUpWrapper
 } from '../styles/Forms';
@@ -29,11 +33,31 @@ export default class SignUpForm extends Component {
     town: '',
     city: '',
     postCode: '',
-    personal_site: ''
+    personal_site: '',
+    passwordsMatch: true,
+    strongPassword: true,
+    over18: true,
+    valid_rate: true
   };
 
-  handleChange = e => {
-    this.setState({ [e.target.id]: e.target.value });
+  handleChange = async e => {
+    const { id } = e.target;
+    await this.setState({ [id]: e.target.value });
+    if (id === 'confirmedPassword' || id === 'password') {
+      this.state.confirmedPassword !== this.state.password
+        ? this.setState({ passwordsMatch: false })
+        : this.setState({ passwordsMatch: true });
+    }
+    if (id === 'rate') {
+      if (Number(this.state.rate) < 0) {
+        this.setState({ valid_rate: false });
+      } else {
+        this.setState({ valid_rate: true });
+      }
+    }
+    getAge(new Date(this.state.dob)) < 18
+      ? this.setState({ over18: false })
+      : this.setState({ over18: true });
   };
   handleSubmit = async e => {
     e.preventDefault();
@@ -61,8 +85,11 @@ export default class SignUpForm extends Component {
       last_name,
       dob: formatDate(dob)
     };
-
-    const account =
+    if (
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/.test(
+        this.state.password
+      )
+    ) {
       this.state.userType === 'user'
         ? await postAccount('user', standardValues)
         : await postAccount('trader', {
@@ -73,6 +100,9 @@ export default class SignUpForm extends Component {
             lat,
             lng
           });
+    } else {
+      this.setState({ strongPassword: false });
+    }
   };
 
   render() {
@@ -100,14 +130,14 @@ export default class SignUpForm extends Component {
                 type="text"
                 placeholder="First name"
                 onChange={this.handleChange}
-                // required
+                required
               />
               <HalfInput
                 id="last_name"
                 type="text"
                 placeholder="Last name"
                 onChange={this.handleChange}
-                // required
+                required
               />
             </InputWrapper>
 
@@ -116,22 +146,32 @@ export default class SignUpForm extends Component {
               type="text"
               placeholder="Choose a username"
               onChange={this.handleChange}
-              // required
+              required
             />
             <Input
               id="password"
-              type="text"
+              type="password"
               placeholder="Choose a password"
               onChange={this.handleChange}
-              // required
+              required
             />
             <Input
               id="confirmedPassword"
-              type="text"
+              type="password"
               placeholder="Confirm password"
               onChange={this.handleChange}
-              // required
+              required
             />
+            {!this.state.passwordsMatch && (
+              <ErrorMessage>Your passwords do not match!</ErrorMessage>
+            )}
+            {!this.state.strongPassword && (
+              <ErrorMessage>
+                Your password must contain a capital letter, number, and special
+                character!
+              </ErrorMessage>
+            )}
+
             <label htmlFor="dob">Date of birth</label>
             <Input id="dob" type="date" onChange={this.handleChange} />
             {this.state.userType === 'trader' && (
@@ -168,14 +208,14 @@ export default class SignUpForm extends Component {
                         type="text"
                         placeholder="city"
                         onChange={this.handleChange}
-                        // required
+                        required
                       />
                       <HalfInput
                         id="postCode"
                         type="text"
                         placeholder="Postcode"
                         onChange={this.handleChange}
-                        // required
+                        required
                       />
                     </>
                   )}
@@ -185,14 +225,17 @@ export default class SignUpForm extends Component {
                   type="number"
                   placeholder="rate"
                   onChange={this.handleChange}
-                  // required
+                  required
                 ></Input>
+                {!this.state.valid_rate && (
+                  <ErrorMessage>Your rate must be at least 0!</ErrorMessage>
+                )}
                 <Input
                   id="trade"
                   type="text"
                   placeholder="Trade"
                   onChange={this.handleChange}
-                  // required
+                  required
                 ></Input>
                 <Input
                   id="personal_site"
@@ -204,7 +247,21 @@ export default class SignUpForm extends Component {
             )}
           </Inputs>
 
-          <SignUpButton>Sign up</SignUpButton>
+          {!this.state.over18 && (
+            <ErrorMessage>You must be over 18 to sign up</ErrorMessage>
+          )}
+          {this.state.passwordsMatch &&
+          this.state.strongPassword &&
+          this.state.over18 &&
+          this.state.rate ? (
+            <Link to="/">
+                  <SignUpButton>Sign up</SignUpButton>
+            </Link>
+          ) : (
+               <SignUpButton>Sign up</SignUpButton>
+          )}
+
+
         </SignUpFormStyle>
       </SignUpContainer>
     );
