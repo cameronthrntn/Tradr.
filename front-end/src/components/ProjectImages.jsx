@@ -13,6 +13,7 @@ const ImageArea = styled.section`
   border-radius: 5px;
   padding: 10px;
   color: white;
+  overflow: hidden;
   font-weight: bolder;
   font-size: 1.4rem;
   min-width: 350px;
@@ -38,22 +39,18 @@ const ImageList = styled.ul`
   }
 `;
 const ProjectImageWrapper = styled.div`
-  position: relative;
-  min-width: 100px;
-  min-height: 100px;
+  /* position: relative;
+  width: 100px;
+  height: 100px;
   margin: 20px;
-  overflow: hidden;
+  overflow: hidden; */
 `;
 
 const Image = styled.img`
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  height: 100%;
-  width: auto;
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+  height: 100px;
+  width: 100px;
+  margin: 20px;
+  object-fit: cover;
   box-shadow: 1px 2px 10px
     ${props =>
       JSON.parse(sessionStorage.user).trade

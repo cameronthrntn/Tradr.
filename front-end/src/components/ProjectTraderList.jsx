@@ -10,6 +10,7 @@ export default class ProjectTraderList extends Component {
     const Bar = styled.ul`
       display: flex;
       justify-content: space-between;
+      align-items: center;
       width: 100vw;
       list-style: none;
       padding: 20px;
@@ -28,9 +29,8 @@ export default class ProjectTraderList extends Component {
         align-items: center;
       }
     `;
-    const TraderCard = styled.li`
+    const TraderCard = styled.div`
       margin: 5px;
-      width: 5%;
       margin-right: 10px;
       padding: 0px;
       a {
@@ -84,6 +84,7 @@ export default class ProjectTraderList extends Component {
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      margin-bottom: 15px;
       cursor: pointer;
       &:hover {
         > ${AddTraderWrapper} {
@@ -98,8 +99,12 @@ export default class ProjectTraderList extends Component {
     `;
     const TraderList = styled.div`
       display: flex;
-      justify-content: space-between;
-      padding-right: 10px;
+      flex-wrap: wrap;
+      width: 100vw;
+      height: 200px;
+      justify-content: flex-start;
+      align-items: center;
+      padding-right: 40px;
     `;
 
     const StatusWrapper = styled.div`
