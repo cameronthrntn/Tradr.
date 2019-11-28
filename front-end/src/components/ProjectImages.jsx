@@ -72,8 +72,6 @@ export default class ProjectImages extends Component {
   };
 
   updateImages = path => {
-    console.log({ path }, '<----updating');
-
     this.setState(currentState => {
       return { images: [...currentState.images, { path }] };
     });

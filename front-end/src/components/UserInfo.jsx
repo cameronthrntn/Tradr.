@@ -25,6 +25,7 @@ const Container = styled.div`
   z-index: 10000;
   @media (max-width: 768px) {
     width: 100vw;
+    height: auto;
   }
   @media (min-width: 768px) {
     /* min-width: 400px; */
