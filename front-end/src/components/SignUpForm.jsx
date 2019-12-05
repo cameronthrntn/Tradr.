@@ -16,8 +16,17 @@ import {
   SignUpOverlay,
   SignUpWrapper
 } from '../styles/Forms';
+import { FilterSelect } from '../styles/Filters';
 
 import { Info } from '../styles/LandingPage';
+
+const SignUpFormSelect = styled.select`
+  width: 70%;
+  background: white;
+  font-size: 1.2rem;
+  border: none;
+  height: 100%;
+`;
 
 export default class SignUpForm extends Component {
   state = {
@@ -118,10 +127,14 @@ export default class SignUpForm extends Component {
           <Inputs>
             <InputWrapper>
               <label htmlFor="user">I am a:</label>
-              <select name="user" id="userType" onChange={this.handleChange}>
+              <SignUpFormSelect
+                name="user"
+                id="userType"
+                onChange={this.handleChange}
+              >
                 <option value="user">User</option>
                 <option value="trader">Trader</option>
-              </select>
+              </SignUpFormSelect>
             </InputWrapper>
 
             <InputWrapper>
@@ -255,13 +268,11 @@ export default class SignUpForm extends Component {
           this.state.over18 &&
           this.state.rate ? (
             <Link to="/">
-                  <SignUpButton>Sign up</SignUpButton>
+              <SignUpButton>Sign up</SignUpButton>
             </Link>
           ) : (
-               <SignUpButton>Sign up</SignUpButton>
+            <SignUpButton>Sign up</SignUpButton>
           )}
-
-
         </SignUpFormStyle>
       </SignUpContainer>
     );

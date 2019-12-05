@@ -72,30 +72,34 @@ export default class App extends Component {
             {this.state.isLoading ? (
               <Loader theme={this.state.theme} />
             ) : (
-              <Router className="router">
-                {this.state.user.username ? (
-                  <DashBoard
-                    updateUserInfo={this.updateUserInfo}
-                    path="/"
-                    username={this.state.user.username}
-                    type={this.state.user.trade ? 'trader' : 'user'}
-                  />
-                ) : (
-                  <LandingPage
-                    path="/"
-                    initialiseAccount={this.initialiseAccount}
-                  />
-                )}
-                <ProjectPage path="/project/:project_id" />
-                <SignUpForm path="/signup" />
-                <TraderProfile path="/traders/:username" />
-                <TraderMap path="/map/:project_id" />
-                <NotFound
-                  message={`Sorry, we couldn't find the page you were looking for`}
-                  code={404}
-                  default
-                />
-              </Router>
+              <>
+                <div className="main">
+                  <Router primary={false} className="router">
+                    {this.state.user.username ? (
+                      <DashBoard
+                        updateUserInfo={this.updateUserInfo}
+                        path="/"
+                        username={this.state.user.username}
+                        type={this.state.user.trade ? 'trader' : 'user'}
+                      />
+                    ) : (
+                      <LandingPage
+                        path="/"
+                        initialiseAccount={this.initialiseAccount}
+                      />
+                    )}
+                    <ProjectPage path="/project/:project_id" />
+                    <SignUpForm path="/signup" />
+                    <TraderProfile path="/traders/:username" />
+                    <TraderMap path="/map/:project_id" />
+                    <NotFound
+                      message={`Sorry, we couldn't find the page you were looking for`}
+                      code={404}
+                      default
+                    />
+                  </Router>
+                </div>
+              </>
             )}
           </AppProvider>
         </ThemeProvider>

@@ -11,15 +11,15 @@ const ImageArea = styled.section`
       ? props.theme.trader_dark
       : props.theme.user_dark};
   border-radius: 5px;
-  padding: 10px;
+  /* padding: 10px; */
   color: white;
-  overflow: hidden;
+  /* overflow-x: scroll; */
   font-weight: bolder;
   font-size: 1.4rem;
-  min-width: 350px;
+  /* min-width: 350px; */
   @media (max-width: 900px) {
-    min-width: 0;
-    max-width: 100vw;
+    /* min-width: 0; */
+    /* max-width: 100vw; */
     height: 400px;
     width: 100%;
     border-radius: 0;
@@ -27,10 +27,11 @@ const ImageArea = styled.section`
 `;
 const ImageList = styled.ul`
   display: flex;
-  flex-wrap: wrap;
-  overflow-y: scroll;
+  /* flex-wrap: wrap; */
+  /* margin: 10px; */
+  /* width: 100vw; */
+  /* overflow-y: scroll; */
   @media (max-width: 900px) {
-    width: 100vw;
     flex-wrap: nowrap;
     flex-direction: row;
     overflow-x: scroll;
@@ -47,10 +48,10 @@ const ProjectImageWrapper = styled.div`
 `;
 
 const Image = styled.img`
-  height: 100px;
+  /* height: 100px; */
   width: 100px;
-  margin: 20px;
-  object-fit: cover;
+  /* margin: 20px; */
+  /* object-fit: cover; */
   box-shadow: 1px 2px 10px
     ${props =>
       JSON.parse(sessionStorage.user).trade
@@ -59,7 +60,7 @@ const Image = styled.img`
 `;
 
 const ProjectImageUploadWrapper = styled.div`
-  margin: 20px;
+  /* margin: 20px; */
 `;
 
 export default class ProjectImages extends Component {
