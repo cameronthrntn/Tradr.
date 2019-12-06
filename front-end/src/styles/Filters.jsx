@@ -9,10 +9,23 @@ const Filters = styled.form`
   padding: 0;
   display: flex;
   justify-content: space-between;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 const FilterItem = styled.div`
   width: 22%;
   border-bottom: 2px solid ${props => props.theme.trader};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  @media (max-width: 768px) {
+    width: 100%;
+    justify-content: flex-start;
+    align-items: start;
+  }
 `;
 const FilterInput = styled.input`
   width: 100%;
@@ -35,7 +48,7 @@ const FilterLabel = styled.label`
 `;
 
 const FilterButton = styled(SignUpButton)`
-  width: 10%;
+  width: 180px;
   background: ${props => props.theme.trader};
   color: white;
   font-weight: bold;
@@ -44,6 +57,16 @@ const FilterButton = styled(SignUpButton)`
   &:hover {
     background: ${props => props.theme.trader_dark};
   }
+  @media (max-width: 768px) {
+    margin: 10px;
+  }
 `;
 
-export { Filters, FilterLabel, FilterItem, FilterInput, FilterSelect, FilterButton };
+export {
+  Filters,
+  FilterLabel,
+  FilterItem,
+  FilterInput,
+  FilterSelect,
+  FilterButton
+};

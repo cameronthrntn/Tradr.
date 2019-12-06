@@ -5,33 +5,32 @@ import ProjectImageUpload from './ProjectImageUpload';
 
 const ImageArea = styled.section`
   width: 30%;
-  /* height: 100%; */
+  height: 100%;
   background: ${props =>
     JSON.parse(sessionStorage.user).trade
       ? props.theme.trader_dark
       : props.theme.user_dark};
   border-radius: 5px;
-  /* padding: 10px; */
+  padding: 10px;
   color: white;
-  /* overflow-x: scroll; */
+  overflow-y: scroll;
   font-weight: bolder;
   font-size: 1.4rem;
-  /* min-width: 350px; */
+  min-width: 350px;
   @media (max-width: 900px) {
-    /* min-width: 0; */
-    /* max-width: 100vw; */
-    height: 400px;
+    min-width: 0;
+    max-width: 100vw;
+    height: 300px;
     width: 100%;
     border-radius: 0;
   }
 `;
 const ImageList = styled.ul`
-  display: flex;
-  /* flex-wrap: wrap; */
-  /* margin: 10px; */
-  /* width: 100vw; */
-  /* overflow-y: scroll; */
+  margin: 10px;
+  width: 100vw;
+  overflow-y: scroll;
   @media (max-width: 900px) {
+    display: inline-block;
     flex-wrap: nowrap;
     flex-direction: row;
     overflow-x: scroll;
