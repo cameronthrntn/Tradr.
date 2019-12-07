@@ -99,7 +99,6 @@ export default class ProjectPage extends Component {
       height: 100%;
       width: 100%;
       @media (max-width: 900px) {
-        height: 100%;
         width: 100%;
       }
     `;
@@ -119,10 +118,7 @@ export default class ProjectPage extends Component {
       ).length > 0 ? (
       <>
         <ProjectHeader>
-          <div>
-            <LogoHead>{project.title.slice(0, 2)}</LogoHead>
-            <LogoBody>{project.title.slice(2)}</LogoBody>
-          </div>
+          <div>{project.title}</div>
 
           <Time>
             {new Date(project.start_date).toLocaleString().split(',')[0]} -{' '}

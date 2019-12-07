@@ -18,7 +18,7 @@ export default class TraderMap extends Component {
     showFilters: false,
     isLoading: true
   };
-  updateTraders = async filters => {    
+  updateTraders = async filters => {
     const traders = await getTraders(this.state.project.project_id, filters);
     this.setState({ traders });
   };
@@ -51,7 +51,7 @@ export default class TraderMap extends Component {
       height: 100%;
       width: 60%;
       @media (max-width: 900px) {
-        height: 60%;
+        height: 40%;
         width: 100%;
       }
     `;

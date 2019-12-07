@@ -50,10 +50,12 @@ export default class FilterBar extends Component {
               step={0.1}
             />
           </FilterLabel>
+          (km)
         </FilterItem>
         <FilterItem>
+          Score:
           <FilterSelect value={score} id="score" onChange={this.handleChange}>
-            <option value="1" selected>
+            <option value="1+" selected>
               1+
             </option>
             <option value="2">2+</option>
@@ -68,11 +70,13 @@ export default class FilterBar extends Component {
               value={upper_rate}
               id="upper_rate"
               type="number"
-              placeholder="Day rate limit"
+              placeholder="Max rate"
               onChange={this.handleChange}
             />
+            /d
           </FilterLabel>
         </FilterItem>
+
         <FilterButton>Filter Results</FilterButton>
       </Filters>
     );

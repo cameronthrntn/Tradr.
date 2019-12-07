@@ -16,6 +16,7 @@ export default class ProjectTraderList extends Component {
       padding: 20px;
       height: 6.5em;
       margin: 0;
+      overflow-y: hidden;
       padding-left: 40px;
       display: flex;
       background: ${props =>
