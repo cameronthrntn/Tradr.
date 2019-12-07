@@ -2,7 +2,6 @@ const { instance } = require('./axios');
 const { getCity } = require('./makeAccount');
 
 const getTraders = async (project_id, filters) => {
-  console.log(filters);
   const { data } = await instance.get(`/traders`, {
     params: { project_id, ...filters }
   });

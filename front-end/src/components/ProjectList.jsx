@@ -106,8 +106,6 @@ class ProjectList extends Component {
                     handleStatusChange={this.props.handleStatusChange}
                     key={project.project_id}
                   />
-
-
                 ))}
                 {this.props.heading === 'Planning' && !user.trade && (
                   <AddProjectButtonContainer>

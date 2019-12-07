@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from '@reach/router';
+import { navigate } from '@reach/router';
 import styled from 'styled-components';
 import { getAge } from '../utils';
 import { postAccount, getCoordinates, formatDate } from '../utils/makeAccount';
@@ -92,7 +92,7 @@ export default class SignUpForm extends Component {
       username,
       first_name,
       last_name,
-      dob: formatDate(dob)
+      dob
     };
     if (
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/.test(
@@ -109,6 +109,15 @@ export default class SignUpForm extends Component {
             lat,
             lng
           });
+
+      if (
+        this.state.passwordsMatch &&
+        this.state.strongPassword &&
+        this.state.over18 &&
+        this.state.valid_rate
+      ) {
+        navigate('/');
+      }
     } else {
       this.setState({ strongPassword: false });
     }
@@ -263,6 +272,7 @@ export default class SignUpForm extends Component {
           {!this.state.over18 && (
             <ErrorMessage>You must be over 18 to sign up</ErrorMessage>
           )}
+
           {this.state.passwordsMatch &&
           this.state.strongPassword &&
           this.state.over18 &&
@@ -273,6 +283,8 @@ export default class SignUpForm extends Component {
           ) : (
             <SignUpButton>Sign up</SignUpButton>
           )}
+
+
         </SignUpFormStyle>
       </SignUpContainer>
     );

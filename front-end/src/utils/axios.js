@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 const instance = axios.create({
-  baseURL: 'http://localhost:9090/api',
+  baseURL: 'https://nc-tradr.herokuapp.com/api',
   headers: {
     authorization: {
       toString() {
