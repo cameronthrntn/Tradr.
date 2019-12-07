@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { navigate } from '@reach/router';
+import { navigate, Link } from '@reach/router';
 import styled from 'styled-components';
 import { getAge } from '../utils';
 import { postAccount, getCoordinates, formatDate } from '../utils/makeAccount';
@@ -283,8 +283,6 @@ export default class SignUpForm extends Component {
           ) : (
             <SignUpButton>Sign up</SignUpButton>
           )}
-
-
         </SignUpFormStyle>
       </SignUpContainer>
     );
